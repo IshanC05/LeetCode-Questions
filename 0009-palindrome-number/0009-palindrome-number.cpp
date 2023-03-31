@@ -4,12 +4,12 @@ public:
         if(x < 0){
             return false;
         }
-        string s = to_string(x);
-        for(int i=0; i<s.size()/2; i++){
-            if(s[i] != s[s.size() - i - 1]){
-                return false;
-            }
+        long long num=0, temp_x=x;
+        while(temp_x){
+            int rem = temp_x%10;
+            num = num*10 + rem;
+            temp_x = temp_x/10;
         }
-        return true;
+        return (x == num);
     }
 };
