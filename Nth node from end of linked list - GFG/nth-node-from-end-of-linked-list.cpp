@@ -48,35 +48,30 @@ int main()
     return 0;
 }
 // } Driver Code Ends
-//Function to find the data of nth node from the end of a linked list.
-int getLength(Node* head){
-    if(!head){
-        return 0;
-    }
-    int length = 0;
-    Node* temp = head;
-    while(temp){
-        ++length;
-        temp = temp->next;
-    }
-    return length;
-}
 
+
+//Function to find the data of nth node from the end of a linked list.
 int getNthFromLast(Node *head, int n)
 {
        // Your code here
-       int l = getLength(head);
-       if(!head || n > l){
+        if(!head){
            return -1;
        }
-       int node = l - n + 1;
-       int i = 1;
-       Node* temp = head;
-       while(i != node){
-           ++i;
-           temp = temp->next;
-       }
-       return temp->data;
+       Node* main_ptr = head;
+       Node* ref_ptr = head;
        
+       int i=1;
+       while(i != n){
+           ref_ptr = ref_ptr->next;
+           if(!ref_ptr){
+               return -1;
+           }
+           ++i;
+       }
+       while(ref_ptr->next != NULL){
+           main_ptr = main_ptr->next;
+           ref_ptr = ref_ptr->next;
+       }
+       return main_ptr->data;
 }
 
