@@ -14,14 +14,18 @@ public:
         if(st.size() == 1){
             return;
         }
-        vector<int>temp;
+        int x = st.top();
+        st.pop();
+        Reverse(st);
+        stack<int>temp;
         while(!st.empty()){
-            temp.push_back(st.top());
+            temp.push(st.top());
             st.pop();
         }
-        int i = 0;
-        while(i < temp.size()){
-            st.push(temp[i++]);
+        st.push(x);
+        while(!temp.empty()){
+            st.push(temp.top());
+            temp.pop();
         }
         return;
     }
