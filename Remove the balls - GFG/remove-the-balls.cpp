@@ -16,8 +16,6 @@ class Solution {
                 pair<int,int>p1(color[i],radius[i]);
                 st.push(p1);
             }else{
-                // pair<int,int>t;
-                // t.first = st
                 if(st.top().first == color[i] and st.top().second == radius[i]){
                     st.pop();
                 }else{
