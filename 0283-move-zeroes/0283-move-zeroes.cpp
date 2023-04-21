@@ -3,14 +3,18 @@ class Solution
     public:
         void moveZeroes(vector<int> &nums)
         {
-            int j = 0;
-            for (int i = 0; i < nums.size(); i++)
+            int i = 0, j = 0, n = nums.size();
+            while (j < n)
             {
-                if (nums[i] != 0)
+                if (nums[j] != 0)
                 {
-                    swap(nums[i], nums[j]);
-                    ++j;
+                    nums[i++] = nums[j];
                 }
+                ++j;
+            }
+            while (i < n)
+            {
+                nums[i++] = 0;
             }
             return;
         }
