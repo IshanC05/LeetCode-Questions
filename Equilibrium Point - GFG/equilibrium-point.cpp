@@ -15,19 +15,16 @@ class Solution{
         if(n == 1){
             return n;
         }
-        long long left[n] = {0};
-        long long right[n] = {0};
-        left[0] = 0, right[n-1] = 0;
-        for(int i=1;i<n;i++){
-            left[i] = left[i - 1] + a[i - 1];
-        }
-        for(int i=n-2;i>=0;--i){
-            right[i] = right[i + 1] + a[i + 1];
+        long long lsum = 0, rsum = 0;
+        for(int i = n-1; i>0;i--){
+            rsum = rsum + a[i];
         }
         int idx = -1;
-        for(int i=0;i<n;i++){
-            if(left[i] == right[i]){
-                idx = i + 1;
+        for(int i=0;i<n-1;i++){
+            lsum = lsum + a[i];
+            rsum = rsum - a[i + 1];
+            if(lsum == rsum){
+                idx = i + 2;
                 break;
             }
         }
