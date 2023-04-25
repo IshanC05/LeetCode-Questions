@@ -3,30 +3,21 @@ class Solution
     public:
         void sortColors(vector<int> &nums)
         {
-            int z = 0, t = 0;
-            for (int x: nums)
+            int n = nums.size(), l = 0, mid = 0, h = n - 1;
+            while (mid <= h)
             {
-                if (x == 0)
+                if (nums[mid] == 0)
                 {
-                    ++z;
+                    swap(nums[mid++], nums[l++]);
                 }
-                if (x == 2)
+                else if (nums[mid] == 1)
                 {
-                    ++t;
+                    mid++;
                 }
-            }
-            for (int i = 0; i < nums.size(); i++)
-            {
-                nums[i] = 1;
-            }
-            int i = 0, j = nums.size() - 1;
-            while (z--)
-            {
-                nums[i++] = 0;
-            }
-            while (t--)
-            {
-                nums[j--] = 2;
+                else
+                {
+                    swap(nums[mid], nums[h--]);
+                }
             }
         }
 };
