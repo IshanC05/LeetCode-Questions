@@ -9,18 +9,21 @@
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
-        if(!head || !head->next){
-            return NULL;
+        if(head == NULL){
+            return head;
         }
-        unordered_set<ListNode*>m;
-        ListNode* temp = head;
-        while(temp){
-            if(m.count(temp)){
-                return temp;
-            }else{
-                m.insert(temp);
+        //    Floyd Cycle detection algorithm
+        ListNode* slow = head, *fast = head, *entry = head;
+        while(fast and fast->next){
+            slow = slow->next;
+            fast = fast->next->next;
+            if(slow == fast){
+                while(slow != entry){
+                    slow = slow->next;
+                    entry = entry->next;
+                }
+                return entry;
             }
-            temp = temp->next;
         }
         return NULL;
     }
