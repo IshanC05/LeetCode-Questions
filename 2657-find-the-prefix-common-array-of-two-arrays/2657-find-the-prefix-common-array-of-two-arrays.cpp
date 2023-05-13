@@ -10,14 +10,12 @@ public:
             }else{
                 if(mp.find(A[i]) != mp.end()){
                     ++count;
-                }else{
-                    mp[A[i]] = true;
                 }
                 if(mp.find(B[i]) != mp.end()){
                     ++count;
-                }else{
-                    mp[B[i]] = true;
                 }
+                mp[A[i]] = true;
+                mp[B[i]] = true;
             }
             ans.push_back(count);
         }
