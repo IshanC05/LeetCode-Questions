@@ -14,12 +14,9 @@ public:
         if(!head || !head->next){
             return head;
         }
-        ListNode* prev = head;
-        ListNode* cur = head->next;
-        ListNode* smallAns = swapPairs(head->next->next);
-        head = head->next;
-        cur->next = prev;
-        prev->next = smallAns;
-        return head;
+        ListNode* node1 = head, *node2 = head->next, *node3 = node2->next;
+        node1->next = swapPairs(node3);
+        node2->next = node1;
+        return node2;
     }
 };
