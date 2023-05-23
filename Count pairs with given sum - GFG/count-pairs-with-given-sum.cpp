@@ -15,7 +15,9 @@ public:
         int ans = 0;
         for(int i = 0; i < n; i++){
             int target = k - arr[i];
-            ans = ans + mp[target];
+            if(mp.find(target) != mp.end()){
+                ans = ans + mp[target];
+            }
             ++mp[arr[i]];
         }
         return ans;
