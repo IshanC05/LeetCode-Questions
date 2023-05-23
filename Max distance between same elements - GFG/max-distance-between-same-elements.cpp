@@ -9,13 +9,13 @@ class Solution{
     int maxDistance(int arr[], int n)
     {
     //Code here
-        unordered_map<int,int>m;
         int ans = 0;
+        unordered_map<int,int>mp;
         for(int i = 0; i < n; i++){
-            if(m.find(arr[i]) == m.end()){
-                m[arr[i]] = i;
+            if(mp.find(arr[i]) != mp.end()){
+                ans = max(ans, i - mp[arr[i]]); 
             }else{
-                ans = max(ans, i - m[arr[i]]);
+                mp[arr[i]] = i;
             }
         }
         return ans;
