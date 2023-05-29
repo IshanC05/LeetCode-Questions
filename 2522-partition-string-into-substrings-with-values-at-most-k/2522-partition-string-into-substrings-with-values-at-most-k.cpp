@@ -7,11 +7,11 @@ public:
             temp.push_back(s[i]);
             long long val = stoll(temp);
             if(val <= k){
-//                 do nothing
+                //  do nothing
             }else{
                 ++count;
                 temp = s[i];
-                if((int)(s[i] - '0') > k){
+                if(s[i] - '0' > k){
                     return -1;
                 }
             }
