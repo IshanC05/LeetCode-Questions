@@ -11,7 +11,7 @@ public:
         vector<int>ans(n, 0);
         
         while(i <= j){
-            if(nums[i] <= nums[j]){
+            if(nums[i] < nums[j]){
                 ans[k] = nums[j--];
             }else{
                 ans[k] = nums[i++];
