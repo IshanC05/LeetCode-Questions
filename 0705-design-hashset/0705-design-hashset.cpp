@@ -1,38 +1,20 @@
 class MyHashSet {
 public:
-    vector<int>container;
+    vector<bool>vec;
     MyHashSet() {
-        vector<int>temp;
-        container = temp;
+        vec.resize(1e6 + 2, false);
     }
     
     void add(int key) {
-        if(contains(key)){
-            return;
-        }
-        container.push_back(key);
+        vec[key] = true;
     }
     
     void remove(int key) {
-        if(!contains(key)){
-            return;
-        }
-        for(auto it = container.begin(); it != container.end(); it++){
-            if(*it == key){
-                container.erase(it);
-                break;
-            }
-        }
-        return;
+        vec[key] = false;
     }
     
     bool contains(int key) {
-        for(int i : container){
-            if(i == key){
-                return true;
-            }
-        }
-        return false;
+        return vec[key];
     }
 };
 
