@@ -7,17 +7,19 @@ class Solution{
 public:
     long maximumSumSubarray(int K, vector<int> &Arr , int N){
         // code here 
-        long ans = 0, curAns = 0;
+        long sum = 0, curr = 0;
         int i = 0, j = 0;
         while(j < N){
             if(j - i + 1 <= K){
-                curAns = curAns + Arr[j++];
+                curr = curr + Arr[j];
+                sum = max(curr, sum);
+                ++j;
             }else{
-                curAns = curAns - Arr[i++];
+                curr = curr - Arr[i];
+                ++i;
             }
-            ans = max(ans, curAns);
         }
-        return ans;
+        return sum;
     }
 };
 
