@@ -6,10 +6,10 @@ public:
         int i = 0, n = nums.size();
         for(int j = 0; j < n; j++){
             ++mp[nums[j]];
-            oddCount = (nums[j] % 2 != 0) ? ++oddCount : oddCount;
+            oddCount = (nums[j] & 1) ? ++oddCount : oddCount;
             while(oddCount > k){
                 --mp[nums[i]];
-                oddCount = (nums[i] % 2 != 0) ? --oddCount : oddCount;
+                oddCount = (nums[i] & 1) ? --oddCount : oddCount;
                 if(mp[nums[i]] == 0){
                     mp.erase(nums[i]);
                 }
