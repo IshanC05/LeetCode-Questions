@@ -1,22 +1,27 @@
 class Solution {
 public:
-    int numberOfSubarrays(vector<int>& nums, int k) {
+    int solve(vector<int>&nums, int k){
         unordered_map<int,int>mp;
-        // Replace odd with 1 and even with 0
-        for(auto &num:nums)
-            if(num%2)
-                num=1;
-            else 
-                num=0;
-        mp[0]=1;
-        int sum=0;
-        int count=0;
-        for(auto num:nums)
-        {
-            sum+=num;
-            count+=mp[sum-k];
-            mp[sum]++;
+        int ans = 0, oddCount = 0;
+        int i = 0, n = nums.size();
+        for(int j = 0; j < n; j++){
+            ++mp[nums[j]];
+            oddCount = (nums[j] % 2 != 0) ? ++oddCount : oddCount;
+            while(oddCount > k){
+                --mp[nums[i]];
+                oddCount = (nums[i] % 2 != 0) ? --oddCount : oddCount;
+                if(mp[nums[i]] == 0){
+                    mp.erase(nums[i]);
+                }
+                ++i;
+            }
+            ans = ans + (j - i + 1);
         }
-        return count;
+        return ans;
+    }
+    int numberOfSubarrays(vector<int>& nums, int k) {
+        int countTillK = solve(nums, k);
+        int countTillK_1 = solve(nums, k - 1);
+        return countTillK - countTillK_1;
     }
 };
