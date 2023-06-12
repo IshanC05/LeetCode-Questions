@@ -14,14 +14,10 @@ public:
         
         sort(temp.rbegin(), temp.rend());
         
-        for(int j = 0; j < n; j++){
-            if(k == 0){
-                break;
-            }
+        for(int j = 0; j < k; j++){
             int idx = temp[j][1];
             ans -= reward2[idx];
             ans += reward1[idx];
-            --k;
         }
         
         return ans;
