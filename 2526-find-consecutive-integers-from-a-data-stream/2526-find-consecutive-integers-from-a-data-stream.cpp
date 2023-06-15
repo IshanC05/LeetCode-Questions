@@ -1,6 +1,6 @@
 class DataStream {
 public:
-    int val, count, k;
+    int val, k, count = 0;
     DataStream(int value, int k) {
         this->val = value;
         this->k = k;
@@ -13,6 +13,7 @@ public:
         }else{
             count = 0;
         }
+        
         return count >= k;
     }
 };
