@@ -19,8 +19,14 @@ public:
         if(root->val >= low and root->val <= high){
             sum += root->val;
         }
-        sum += rangeSumBST(root->left, low, high);
-        sum += rangeSumBST(root->right, low, high);
+        if(root->val >= low and root->val >= high){
+            sum += rangeSumBST(root->left, low, high);
+        }else if(root->val <= low and root->val <= high){
+            sum += rangeSumBST(root->right, low, high);
+        }else{
+            sum += rangeSumBST(root->left, low, high);
+            sum += rangeSumBST(root->right, low, high);
+        }
         return sum;
     }
 };
