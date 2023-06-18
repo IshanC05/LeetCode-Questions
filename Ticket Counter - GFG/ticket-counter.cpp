@@ -8,22 +8,19 @@ using namespace std;
 class Solution {
   public:
     int distributeTicket(int N, int K) {
-        // code here
-        int i = 1, j = N, temp = K;
-        bool turn = 0;
-        while(i != j){
-            while(i != j and !turn and temp){
-                ++i;
-                --temp;
-            }
-            turn  = !turn;
-            temp = K;
-            while(i != j and turn and temp){
-                --j;
-                --temp;
+        int i = 1, j = N;
+        bool turn = false;
+        while (i != j) {
+            if (!turn) {
+                i += K;
+                if (i >= j)
+                    return j;
+            } else {
+                j -= K;
+                if (j <= i)
+                    return i;
             }
             turn = !turn;
-            temp = K;
         }
         return i;
     }
