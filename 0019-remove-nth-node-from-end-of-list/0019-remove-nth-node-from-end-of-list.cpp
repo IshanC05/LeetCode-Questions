@@ -23,7 +23,7 @@ public:
         if(fast == nullptr){
             return head->next;
         }
-        while(fast->next){
+        while(fast->next != NULL){
             fast = fast->next;
             slow = slow->next;
         }
