@@ -17,7 +17,7 @@ class Solution{
             }
             ++j;
         }
-        return (i == m and j <= n);
+        return i == m;
     }
 };
 
