@@ -7,7 +7,7 @@ public:
         while(j < n){
             currCost += abs(s[j] - t[j]);
             
-            while(i <= j and currCost > maxCost){
+            while(currCost > maxCost){
                 currCost -= abs(s[i] - t[i]);
                 ++i;
             }
