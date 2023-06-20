@@ -1,14 +1,10 @@
 class Solution {
 public:
     vector<int> getAverages(vector<int>& nums, int k) {
-        if(k == 0){
-            return nums;
-        }
+
         int windowLen = 2*k + 1, n = nums.size();
         vector<int>ans(n, -1);
-        if(windowLen > n){
-            return ans;
-        }
+
         long long i = 0, j = 0, mid = 0, sum = 0;
         while(j < n){
             sum += nums[j];
