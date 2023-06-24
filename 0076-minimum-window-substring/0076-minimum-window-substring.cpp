@@ -1,43 +1,46 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-        vector<int> freq(256, 0);
-        int minLength = INT_MAX;
-        int start = 0, end = 0;
-        int count = t.size();
-
-        for (char c : t) {
-            freq[c]++;
-        }
-
-        int i = 0, j = 0, n = s.size();
-        while (j < n) {
-            if (freq[s[j]] > 0) {
-                count--;
-            }
-            freq[s[j]]--;
-            j++;
-
-            while (count == 0) {
-                if (j - i < minLength) {
-                    minLength = j - i;
-                    start = i;
-                    end = j;
-                }
-
-                freq[s[i]]++;
-                if (freq[s[i]] > 0) {
-                    count++;
-                }
-                i++;
-            }
-        }
-
-        if (minLength == INT_MAX) {
+        if (s.size() < t.size()) {
             return "";
         }
 
-        return s.substr(start, end - start);
+        unordered_map<char, int> targetFreq;
+        for (char ch : t) {
+            ++targetFreq[ch];
+        }
+
+        int requiredChars = t.size();
+        int minLen = INT_MAX;
+        int startIndex = 0;
+        int left = 0;
+
+        for (int right = 0; right < s.size(); ++right) {
+            if (targetFreq[s[right]] > 0) {
+                --requiredChars;
+            }
+            --targetFreq[s[right]];
+
+            while (requiredChars == 0) {
+                int currentLen = right - left + 1;
+                if (currentLen < minLen) {
+                    minLen = currentLen;
+                    startIndex = left;
+                }
+
+                ++targetFreq[s[left]];
+                if (targetFreq[s[left]] > 0) {
+                    ++requiredChars;
+                }
+                ++left;
+            }
+        }
+
+        if (minLen == INT_MAX) {
+            return "";
+        }
+
+        return s.substr(startIndex, minLen);
     }
 
 };
