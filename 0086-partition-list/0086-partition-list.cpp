@@ -15,34 +15,22 @@ public:
         if(!head || !head->next)
             return head;
         
-        ListNode* temp = head;
-        vector<int>arr;
+        ListNode less(0), more(0); 
+        ListNode *i = &less, *j = &more, *temp = head;
         
         while(temp){
             if(temp->val < x){
-                arr.push_back(temp->val);
+                i->next = temp;
+                i = i->next;
+            }else{
+                j->next = temp;
+                j = j->next;
             }
             temp = temp->next;
         }
         
-        temp = head;
-        
-        while(temp){
-            if(temp->val >= x){
-                arr.push_back(temp->val);
-            }
-            temp = temp->next;
-        }
-        
-        temp = head;
-        
-        int i = 0, n = arr.size();
-        
-        while(i < n){
-            temp->val = arr[i++];
-            temp = temp->next;
-        }
-        
-        return head;
+        j->next = nullptr;
+        i->next = more.next;
+        return less.next;
     }
 };
