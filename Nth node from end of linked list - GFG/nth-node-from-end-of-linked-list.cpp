@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include<iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
 /* Link list Node */
@@ -41,24 +42,21 @@ public:
     int getNthFromLast(Node *head, int n)
     {
            // Your code here
-           if(!head){
-               return -1;
-           }
-           Node* fast = head;
-           int k = n;
-           while(k and fast){
-               fast = fast->next;
-               --k;
-           }
-           if(k){
-               return -1;
-           }
-           Node* slow = head;
-           while(fast){
-               fast = fast->next;
-               slow = slow->next;
-           }
-           return slow->data;
+        Node* slow = head, *fast = head;
+        
+        while(n && fast){
+            --n;
+            fast = fast->next;
+        }
+        
+        if(n)   return -1;
+        
+        while(fast){
+            fast = fast->next;
+            slow = slow->next;
+        }
+        
+        return slow->data;
     }
 };
 
