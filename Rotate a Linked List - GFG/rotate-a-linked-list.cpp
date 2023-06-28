@@ -34,30 +34,27 @@ class Solution
     Node* rotate(Node* head, int k)
     {
         // Your code here
-        if(!head || !head->next){
-            return head;
+        if(!head || !head->next)    return head;
+        
+        Node* slow = head, *fast = head, *prev = nullptr;
+        
+        while(k and fast){
+            --k;
+            prev = fast;
+            fast = fast->next;
         }
         
-        Node* newHead = head, *prev = nullptr;
-        int i = 0;
+        if(!fast)   return head;
         
-        while(i < k){
-            prev = newHead;
-            newHead = newHead->next;
-            ++i;
-        }
-        if(newHead == nullptr){
-            return head;
-        }
         prev->next = nullptr;
-        Node* temp = newHead;
         
-        while(temp->next){
-            temp = temp->next;
-        }
-
-        temp->next = head;
-        return newHead;
+        slow = fast;
+        
+        while(fast->next)   fast = fast->next;
+        
+        fast->next = head;
+        
+        return slow;
     }
 };
     
