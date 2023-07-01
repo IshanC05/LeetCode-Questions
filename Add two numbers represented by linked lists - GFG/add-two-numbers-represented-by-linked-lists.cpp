@@ -72,39 +72,56 @@ class Solution
         
         return smallAns;
     }
-    struct Node* addTwoLists(struct Node* l1, struct Node* l2)
+    struct Node* addTwoLists(struct Node* first, struct Node* second)
     {
-        // code here
+        first = reverseLL(first);
+        second = reverseLL(second);
+        
+        Node* head = nullptr, *tail = nullptr;
+        
         int carry = 0;
-        Node* ans = NULL;
-        Node* tail = NULL;
-        l1 = reverseLL(l1); 
-        l2 = reverseLL(l2);
-        while(l1 || l2 || carry){
+        
+        while(first || second || carry){
+            
             int sum = 0;
-            if(l1){
-                sum = sum + l1->data;
-                l1 = l1->next;
+            
+            if(first){
+                sum += first->data;
+                first = first->next;
             }
-            if(l2){
-                sum = sum + l2->data;
-                l2 = l2->next;
+            
+            if(second){
+                sum += second->data;
+                second = second->next;
             }
-            sum = sum + carry;
+            
+            sum += carry;
             carry = sum / 10;
             sum = sum % 10;
+            
             Node* temp = new Node(sum);
-            if(!tail){
-                ans = temp;
+            
+            if(head == nullptr){
+                head = temp;
                 tail = temp;
             }else{
                 tail->next = temp;
                 tail = temp;
             }
         }
-        return reverseLL(ans);
+        
+        return reverseLL(head);
     }
 };
+
+
+
+
+
+
+
+
+
 
 
 //{ Driver Code Starts.
