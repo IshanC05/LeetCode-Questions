@@ -43,34 +43,41 @@ class Solution{
 public:
     Node* divide(int N, Node *head){
         // code here
-        if(!head || !head->next)    return head;
+        if(N == 1)  return head;
         
-        vector<int>arr(N, 0);
-        
-        int i = 0;
+        Node* odd = nullptr, *oddT = nullptr, *even = nullptr, *evenT = nullptr;
         
         Node* temp = head;
+        
         while(temp){
             if(temp->data % 2 == 0){
-                arr[i++] = temp->data;
+                if(even == nullptr){
+                    even = temp;
+                    evenT = temp;
+                }else{
+                    evenT->next = temp;
+                    evenT = temp;
+                }
+            }else{
+                if(odd == nullptr){
+                    odd = temp;
+                    oddT = temp;
+                }else{
+                    oddT->next = temp;
+                    oddT = temp;
+                }
             }
             temp = temp->next;
         }
         
-        temp = head;
-        while(temp){
-            if(temp->data % 2 != 0){
-                arr[i++] = temp->data;
-            }
-            temp = temp->next;
+        if(even != nullptr){
+            head = even;
+            evenT->next = odd;
+        }else{
+            head = odd;
         }
         
-        temp = head;
-        i = 0;
-        while(temp){
-            temp->data = arr[i++];
-            temp = temp->next;
-        }
+        if(oddT)    oddT->next = nullptr;
         
         return head;
     }
