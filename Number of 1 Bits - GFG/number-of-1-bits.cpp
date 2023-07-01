@@ -5,17 +5,19 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    inline int rem(int N){
-        return N % 2;
-    }
     int setBits(int N) {
         // Write Your Code here
-        int ans = 0;
+        int count = 0;
+        int mask = 1;
+        
         while(N){
-           ans += rem(N);
-           N = (N >> 1);
+            if((mask & N) == 1){
+                ++count;
+            }
+            N = (N >> 1);
         }
-        return ans;
+        
+        return count;
     }
 };
 
