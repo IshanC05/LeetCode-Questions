@@ -9,7 +9,7 @@ public:
         
             sum += nums[j];
             
-            while(sum >= target){
+            while(i <= j && sum >= target){
                 ans = min(ans, j - i + 1);
                 sum -= nums[i++];
             }
