@@ -13,16 +13,33 @@ public:
             }
             else{
                 
-                while(!st.empty() && st.top() > 0 && st.top() < abs(asteroids[i])){
+                bool flag = false;
+                
+                while(!st.empty() && st.top() > 0 && st.top() <= abs(asteroids[i])){
+                    
+                    int top = st.top();
+                    
                     st.pop();
+                    
+                    if(top == abs(asteroids[i])){
+                        
+                        ++i;
+                        
+                        flag = true;
+                        
+                        break;
+                    }
+                    
+                }
+                
+                if(flag){
+                    
+                    continue;
+                    
                 }
                 
                 if(st.empty() || st.top() < 0){
                     st.push(asteroids[i]);
-                }
-                
-                else if(!st.empty() && st.top() > 0 && st.top() == abs(asteroids[i])){
-                    st.pop();
                 }
                 
             }
