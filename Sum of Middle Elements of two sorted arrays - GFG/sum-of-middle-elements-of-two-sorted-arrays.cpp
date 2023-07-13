@@ -12,28 +12,23 @@ class Solution {
 public:
     int findMidSum(int ar1[], int ar2[], int n) {
             // code here 
-        vector<int>ans(2*n, 0);
-        
-        int k = 0;
-        int i = 0, j = 0;
-        
-        while(i < n and j < n){
-            if(ar1[i] < ar2[j]){
-                ans[k++] = ar1[i++];
-            }else{
-                ans[k++] = ar2[j++];
+            
+            int i = 0, j = 0, last = n - 1;
+            
+            while(i < n && j < n){
+                
+                if(ar1[i] > ar2[j]){
+                    swap(ar1[last--], ar2[j++]);
+                }else{
+                    ++i;
+                }
+                
             }
-        }
-        
-        while(i < n){
-            ans[k++] = ar1[i++];
-        }
-        
-        while(j < n){
-            ans[k++] = ar2[j++];
-        }
-        
-        return (ans[n] + ans[n - 1]); 
+            
+            sort(ar1, ar1 + n);
+            sort(ar2, ar2 + n);
+            
+            return ar1[n - 1] + ar2[0];
     }
 };
 
