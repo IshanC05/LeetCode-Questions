@@ -32,17 +32,6 @@ class Solution
     
     void deleteMid(stack<int>&s, int sizeOfStack)
     {
-        // code here.. 
-        
-        if(s.empty())   return;
-        
-        else if(sizeOfStack == 1){
-            
-            s.pop();
-            
-            return;
-        }
-        
         int mid = sizeOfStack % 2 == 0 ? sizeOfStack / 2 : (sizeOfStack + 1) / 2;
         
         deleteVal(s, mid, sizeOfStack);
