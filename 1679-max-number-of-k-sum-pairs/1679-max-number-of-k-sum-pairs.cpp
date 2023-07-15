@@ -2,23 +2,34 @@ class Solution {
 public:
     int maxOperations(vector<int>& nums, int k) {
         
-        unordered_map<int,int>mp;
+        unordered_map<int,int>freq, used;
         
         int ans = 0;
         
+        for(int i : nums)   ++freq[i];
+        
         for(int i = 0; i < nums.size(); i++){
             
-            int target = k - nums[i];
+            int a = nums[i];
             
-            if(mp.find(target) != mp.end()){
+            int b = k - nums[i];
+            
+            if(used[a] == 0 && used[b] == 0){
                 
-                ++ans;
+                if(a == b){
+                    
+                    ans += freq[nums[i]] / 2;
+                    
+                }else{
+                    
+                    ans += min(freq[a], freq[b]);
+                }
                 
-                --mp[target];
-                
-                if(mp[target] == 0) mp.erase(target);
-                
-            }else   ++mp[nums[i]];
+            }
+            
+            used[a] = 1;
+            
+            used[b] = 1;
             
         }
         
