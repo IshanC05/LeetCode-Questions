@@ -1,22 +1,32 @@
 class Solution {
 public:
     int balancedString(string s) {
+        
         unordered_map<char,int>mp;
-        for(char x : s){
-            ++mp[x];
-        }
-        int ans = INT_MAX;
-        int i = 0, j = 0, n = s.size();
-        int k = n / 4;
+        
+        int n = s.size(), k = n / 4, j = 0, i = 0, ans = n;
+        
+        for(char i : s)     ++mp[i];
+        
         while(j < n){
+            
             --mp[s[j]];
-            while(i < n and mp['Q'] <=k and mp['R'] <=k and mp['E'] <=k and mp['W'] <= k){
+            
+            while(i < n && mp['Q'] <= k && mp['W'] <= k && mp['E'] <= k && mp['R'] <= k){
+                
                 ++mp[s[i]];
+                
                 ans = min(ans, j - i + 1);
+                
                 ++i;
+                
             }
+            
             ++j;
+            
         }
+        
         return ans;
+        
     }
 };
