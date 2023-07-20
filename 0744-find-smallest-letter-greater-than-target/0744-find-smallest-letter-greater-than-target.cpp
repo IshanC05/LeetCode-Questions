@@ -10,16 +10,15 @@ public:
             
             int mid = l + (h - l) / 2;
             
-            if(letters[mid] > target){
-                
-                candidate = letters[mid];
-                
-                h = mid - 1;
-                
-            }else{
+            if(letters[mid] <= target){
                 
                 l = mid + 1;
                 
+            }else{
+                
+                candidate = letters[mid];
+                
+                 h = mid - 1;
             }
         }
         
