@@ -1,7 +1,7 @@
 class Solution {
 public:
     
-    bool isValid(vector<int>&arr, int h, int speed){
+    bool isValid(vector<int>&arr, int h, double speed){
         
         long long curr = 0;
         
@@ -9,16 +9,9 @@ public:
             
             if(arr[i] <= speed) ++curr;
             
-            else{
-                
-                curr += (arr[i] / speed);
-                
-                if(arr[i] % speed != 0)     ++curr;
-                
-            }
+            else    curr += ceil(arr[i] / speed);
             
         }
-        
         
         return curr <= h;
         
@@ -26,11 +19,9 @@ public:
     
     int minEatingSpeed(vector<int>& piles, int h) {
         
-        sort(piles.begin(), piles.end());
-        
         int n = piles.size(), l = 1, r = piles[0];
         
-        for(int i : piles)  r = max(h, i);
+        for(int i : piles)  r = max(r, i);
         
         int candidate = r;
         
