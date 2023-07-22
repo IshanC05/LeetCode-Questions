@@ -31,7 +31,7 @@ public:
             
             if(isValid(piles, h, mid)){
                 
-                candidate = mid;
+                candidate = min(mid, candidate);
                 
                 r = mid - 1;
                 
