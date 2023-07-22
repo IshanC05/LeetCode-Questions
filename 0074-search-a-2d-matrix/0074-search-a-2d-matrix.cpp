@@ -1,41 +1,26 @@
 class Solution {
 public:
-    
-    bool helper(vector<int>&arr, int k){
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
         
-        int l = 0, h = arr.size() - 1;
+        int rows = matrix.size(), col = matrix[0].size();
+        
+        int l = 0, h = (rows * col) - 1;
         
         while(l <= h){
             
             int mid = l + (h - l) / 2;
             
-            if(arr[mid] == k)   return true;
+            int elem = matrix[mid / col][mid % col];
             
-            else if(arr[mid] < k)   l = mid + 1;
+            if(elem == target)  return true;
             
-            else h = mid - 1;
+            else if(elem > target)  h = mid - 1;
+            
+            else l = mid + 1;
             
         }
         
         return false;
-        
-    }
-    
-    bool searchMatrix(vector<vector<int>>& matrix, int target) {
-        
-        int rows = matrix.size(), cols = matrix[0].size();
-        
-        bool found = false;
-        
-        for(int i = 0; i < rows; i++){
-            
-            found = helper(matrix[i], target);
-            
-            if(found)   break;
-            
-        }
-        
-        return found;
         
     }
 };
