@@ -16,11 +16,17 @@ public:
                 
                 h = mid - 1;
                 
-            }else   l = mid + 1;
+            }else{
+                
+                idx = mid + 1;
+                
+                l = mid + 1;
+                
+            }
             
         }
         
-        return (idx == -1) ? ((target < nums[0]) ? 0 : nums.size()) : idx;
+        return idx;
         
     }
 };
