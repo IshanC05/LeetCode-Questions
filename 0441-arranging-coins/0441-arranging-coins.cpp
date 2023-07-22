@@ -1,27 +1,26 @@
-class Solution
-{
-    public:
-        int arrangeCoins(int n)
-        {
-
-            long left = 0, right = n;
-            long k, curr;
-            while (left <= right)
-            {
-                k = left + (right - left) / 2;
-                curr = k *(k + 1) / 2;
-
-                if (curr == n) return (int) k;
-
-                if (n < curr)
-                {
-                    right = k - 1;
-                }
-                else
-                {
-                    left = k + 1;
-                }
-            }
-            return (int) right;
+class Solution {
+public:
+    int arrangeCoins(int n) {
+        
+        long l = 1, h = n;
+        
+        long rows, coinsReq;
+        
+        while(l <= h){
+            
+            rows = l + (h - l) / 2;
+            
+            coinsReq = rows * (rows + 1) / 2;
+            
+            if(coinsReq == n)   return rows;
+            
+            else if(coinsReq > n)   h = rows - 1;
+            
+            else    l = rows + 1;
+            
         }
+        
+        return h;
+        
+    }
 };
