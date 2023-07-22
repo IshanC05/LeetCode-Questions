@@ -5,22 +5,47 @@ using namespace std;
 // } Driver Code Ends
 class Solution{
 	public:
+	
+// 	return 0 --> if pow < m
+//  return 1 --> if pow == m
+//  return 2 --> if pow > m
+	
+	int helper(int a, int b, int target){
+	    
+	    long long ans = 1;
+	    
+	    for(int i = 1; i <= b; i++){
+	        
+	        ans = ans * a;
+	        
+	        if(ans > target)    return 2;
+	        
+	    }
+	    
+	    if(ans == target)   return 1;
+	    
+	    return 0;
+	    
+	}
+	
 	int NthRoot(int n, int m)
 	{
 	    // Code here.
-	    long long start = 1;
-	    
-	    while(true){
-    
-            long long val = pow(start, n);
+	    int start = 1, end = m;
+
+	    while(start <= end){
+	        
+	        int mid = start + (end - start)/2;
             
-            if(val == m)    return start;
+            int calc = helper(mid, n, m);
             
-            if(val > m)     break;
-            
-            ++start;
+	        if(calc == 1) return mid;
+
+	        if(calc == 0) start = mid + 1;
+	        
+	        else end = mid - 1;
 	    }
-	    
+
 	    return -1;
 	}  
 };
