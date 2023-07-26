@@ -4,13 +4,12 @@ public:
         
         double currHours = 0.0;
         
-        for(int i = 0; i < arr.size(); i++){
+        for(int i = 0; i < arr.size() - 1; i++){
             
-            double timeTaken = ((double) arr[i]) / ((double) speed);
-            
-            currHours += (i == arr.size() - 1) ? timeTaken : ceil(timeTaken);
-            
+            currHours += ceil(((double) arr[i]) / ((double) speed));            
         }
+        
+        currHours += arr[arr.size() - 1] / (double) speed;
         
         return currHours <= hour;
         
