@@ -2,38 +2,22 @@ class Solution {
 public:
     int findKthPositive(vector<int>& arr, int k) {
         
-        int curr = 1;
+        vector<int>freq(1001, false);
         
-        while(k){
+        for(int i : arr)    freq[i] = true;
+        
+        for(int i = 1; i < 1001; i++){
             
-            int l = 0, h = arr.size() - 1;
+            if(!freq[i])    --k;
             
-            bool flag = false;
-            
-            while(l <= h){
-                
-                int mid = l + (h - l) / 2;
-                
-                if(arr[mid] == curr){
-                    
-                    flag = true;
-                    
-                    break;
-                }
-                
-                else if(arr[mid] > curr)   h = mid - 1;
-                
-                else    l = mid + 1;
-                
-            }
-            
-            if(!flag)   --k;
-            
-            ++curr;
+            if(!k)  return i;
             
         }
         
-        return curr - 1;
+        int i = 1000;
         
+        while(k)  --k, i++;
+        
+        return i;
     }
 };
