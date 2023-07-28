@@ -2,7 +2,7 @@ class Solution {
 public:
     int findPeakElement(vector<int>& nums) {
         
-        int ans = INT_MIN, n = nums.size();
+        int n = nums.size();
         
         if(n == 1)  return 0;
         
@@ -23,7 +23,7 @@ public:
             
         }
         
-        return ans;
+        return -1;
         
     }
 };
