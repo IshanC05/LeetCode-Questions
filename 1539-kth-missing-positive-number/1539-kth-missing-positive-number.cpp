@@ -2,22 +2,15 @@ class Solution {
 public:
     int findKthPositive(vector<int>& arr, int k) {
         
-        vector<int>freq(1001, false);
-        
-        for(int i : arr)    freq[i] = true;
-        
-        for(int i = 1; i < 1001; i++){
+        for(int i : arr){
             
-            if(!freq[i])    --k;
+            if(i <= k)  ++k;
             
-            if(!k)  return i;
+            else    break;
             
         }
         
-        int i = 1000;
+        return k;
         
-        while(k)  --k, i++;
-        
-        return i;
     }
 };
