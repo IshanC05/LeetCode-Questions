@@ -8,34 +8,21 @@ class Solution{
 public:
     vector<int> findTwoElement(vector<int> arr, int n) {
         // code here
-        unordered_map<int,int>mp;
-        
-        int missing = -1, twice = -1; 
-        
-        for(int i : arr){
-            
-            if(mp.find(i) != mp.end())     twice = i;
-            
-            else    ++mp[i];
-            
-        }
-        
-        int i = 1;
-        
-        while(i <= n){
-            
-            if(mp.find(i) == mp.end()){  
-                
-                missing = i;
-                
-                break;
+        vector<int> result(2);
+        int orignalSum = 0;
+        int currSum = 0;
+        for (int i = 0; i < n; i++) {
+            int orignalElement = abs(arr[i]);
+            int index = orignalElement - 1;
+            if (arr[index] < 0) {
+                result[0] = orignalElement;
             }
-            
-            else    ++i;
-            
+            arr[index] = -arr[index];
+            orignalSum += (i + 1);
+            currSum += orignalElement;
         }
-        
-        return {twice, missing};
+        result[1] = orignalSum - (currSum - result[0]);
+        return result;
     }
 };
 
