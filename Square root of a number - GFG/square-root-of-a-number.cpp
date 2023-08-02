@@ -9,14 +9,36 @@ using namespace std;
 // x: element to find square root
 class Solution{
   public:
-    long long int floorSqrt(long long int x) 
+    long long int floorSqrt(long long int n) 
     {
-        // Your code goes here
-        long long int i = 1;
-        while((i * i) <= x){
-            ++i;
+        // Your code goes here   
+        
+        if(n <= 1)  return n;
+
+        int l = 1, h = 1e9, ans = 1e9;
+    
+        while(l <= h){
+    
+            long long mid = l + (h - l) / 2;
+            
+            long long square = mid * mid;
+    
+            if(square == n) return mid;
+    
+            else if(square > n) h = mid - 1;
+    
+            else{
+    
+                ans = mid;
+    
+                l = mid + 1;
+    
+            }
+    
         }
-        return i - 1;
+    
+        return ans;
+        
     }
 };
 
