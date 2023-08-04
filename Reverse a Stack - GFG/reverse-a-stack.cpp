@@ -10,24 +10,28 @@ using namespace std;
 
 class Solution{
 public:
-    void Reverse(stack<int> &st){
-        if(st.size() == 1){
-            return;
+    
+    queue<int>q;
+    void Reverse(stack<int> &St){
+        
+        if(St.empty())  return;
+        
+        q.push(St.top());
+        
+        St.pop();
+        
+        Reverse(St);
+        
+        if(!q.empty()){
+            
+            St.push(q.front());
+            
+            q.pop();
+            
         }
-        int x = st.top();
-        st.pop();
-        Reverse(st);
-        stack<int>temp;
-        while(!st.empty()){
-            temp.push(st.top());
-            st.pop();
-        }
-        st.push(x);
-        while(!temp.empty()){
-            st.push(temp.top());
-            temp.pop();
-        }
+        
         return;
+        
     }
 };
 
