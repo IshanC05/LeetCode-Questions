@@ -7,24 +7,65 @@ class Solution{
     public:
     //Complete this function
     
-    void find_permutations_helper(string& S, int start, vector<string>& result) {
-        if (start == S.length()) {
-            result.push_back(S);
-            return;
+        void solve(string& s){
+        
+        int i, j, n = s.size();
+        
+        if(n <= 1)  return;
+        
+        for(i = n - 2; i >= 0; --i){
+            
+            if(s[i] < s[i + 1])   break;
+            
         }
-    
-        for (int i = start; i < S.length(); ++i) {
-            swap(S[start], S[i]);
-            find_permutations_helper(S, start + 1, result);
-            swap(S[start], S[i]); // Backtrack to restore the original string for the next iteration
+        
+        if(i < 0)   reverse(s.begin(), s.end());
+        
+        else{
+            
+            for(j = n - 1; j >= 0; --j){
+                
+                if(s[j] > s[i]){
+                    
+                    swap(s[j], s[i]);
+                    
+                    break;
+                    
+                }
+                
+            }
+            
+            reverse(s.begin() + i + 1, s.end());
+            
         }
+        
+        
     }
     
-    vector<string> permutation(string& S) {
-        vector<string> result;
-        find_permutations_helper(S, 0, result);
-        sort(result.begin(), result.end());
-        return result;
+    vector<string> permutation(string S)
+    {
+        //Your code here
+        // sort(S.begin(), S.end());
+        
+        int num = 1;
+        
+        for(int i = S.size(); i > 0; i--)   num = num * i;
+        
+        vector<string>ans;
+        
+        ans.push_back(S);
+        
+        while(ans.size() != num){
+            
+            solve(S);
+            
+            ans.push_back(S);
+            
+        }
+        
+        sort(ans.begin(), ans.end());
+        
+        return ans;
     }
 };
 
