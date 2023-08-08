@@ -10,20 +10,22 @@ public:
             
             if(nums[mid] == target) return mid;
             
-            if(nums[mid] >= nums[l]){
+            else if(nums[mid] >= nums[l]){
                 
-                if(target >= nums[l] && target < nums[mid]) h = mid - 1;
+                if(target >= nums[l] and  target < nums[mid])   h = mid - 1;
                 
                 else    l = mid + 1;
                 
-            }else{
+            }
+            
+            else{
                 
-                if(target <= nums[h] && target > nums[mid]) l = mid + 1;
+                if(target <= nums[h] && target > nums[mid])     l = mid + 1;
                 
                 else    h = mid - 1;
                 
             }
-            
+                        
         }
         
         return -1;
