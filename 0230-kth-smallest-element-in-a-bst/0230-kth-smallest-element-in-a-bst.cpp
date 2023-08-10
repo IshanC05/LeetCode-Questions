@@ -12,35 +12,25 @@
 class Solution {
 public:
     
-    priority_queue<int, vector<int>, greater<int>>pq;
-    
-    void getAllNodes(TreeNode* root){
+    void inOrder(TreeNode* root, vector<int>&temp){
         
         if(!root)   return;
         
-        pq.push(root->val);
+        inOrder(root->left, temp);
         
-        getAllNodes(root->left);
+        temp.push_back(root->val);
         
-        getAllNodes(root->right);
+        inOrder(root->right, temp);
         
     }
     
     int kthSmallest(TreeNode* root, int k) {
         
-        getAllNodes(root);
+        vector<int>temp;
         
-        int ans;
+        inOrder(root, temp);
         
-        while(k--){
-            
-            ans = pq.top();
-            
-            pq.pop();
-            
-        }
-        
-        return ans;
+        return temp[k - 1];    
         
     }
 };
