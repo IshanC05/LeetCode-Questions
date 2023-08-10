@@ -9,23 +9,25 @@ public:
 	int rowWithMax1s(vector<vector<int> > arr, int n, int m) {
 	    // code here
 	    
-	    int i = 0, j = m - 1, count = 0, ans = -1;
+	    int j = m - 1, maxRow = -1, count = 0;
 	    
 	    for(int i = 0; i < n; i++){
 	        
-	        int initial = count;
+	        int start = count;
 	        
 	        while(j >= 0 && arr[i][j] == 1){
-	            ++count;
+	            
 	            --j;
+	            
+	            ++count;
 	        }
 	        
-	        if(count > initial){
-	            ans = i;
-	        }
+	        if(count > start)   maxRow = i;
+	        
 	    }
 	    
-	    return ans;
+	    return maxRow;
+	    
 	}
 
 };
