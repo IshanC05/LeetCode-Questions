@@ -14,7 +14,7 @@ class Solution {
         
         int mod = 1e9+7;
         
-        long long a = 1, b = 1, c;
+        int a = 1, b = 1, c;
         
         for(int i = 3; i <= n; i++){
             
