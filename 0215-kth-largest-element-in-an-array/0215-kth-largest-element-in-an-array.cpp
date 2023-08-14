@@ -1,6 +1,5 @@
 class Solution {
 public:
-    
     int partition(vector<int>&arr, int l, int r, int pivot){
         
         int i = l, j = l;
