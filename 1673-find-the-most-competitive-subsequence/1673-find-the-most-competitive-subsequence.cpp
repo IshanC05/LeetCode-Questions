@@ -6,7 +6,7 @@ public:
         
         for(int i = 0; i < nums.size(); i++){
             
-            while(ans.size() && ans.back() > nums[i] && (ans.size() + nums.size() - i) > k){
+            while(!ans.empty() && ans.back() > nums[i] && (ans.size() + nums.size() - i) > k){
                 
                 ans.pop_back();
                 
