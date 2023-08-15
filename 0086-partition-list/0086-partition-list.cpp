@@ -12,25 +12,62 @@ class Solution {
 public:
     ListNode* partition(ListNode* head, int x) {
         
-        if(!head || !head->next)
-            return head;
+        if(!head || !head->next)    return head;
         
-        ListNode less(0), more(0); 
-        ListNode *i = &less, *j = &more, *temp = head;
+        ListNode* lessHead = nullptr, *lessTail, *moreHead = nullptr, * moreTail = nullptr;
+        
+        ListNode* temp = head;
         
         while(temp){
+            
             if(temp->val < x){
-                i->next = temp;
-                i = i->next;
-            }else{
-                j->next = temp;
-                j = j->next;
+                
+                if(!lessHead){
+                    
+                    lessHead = temp;
+                    
+                    lessTail = temp;
+                    
+                }else{
+                    
+                    lessTail->next = temp;
+                    
+                    lessTail = temp;
+                    
+                }
+                
             }
-            temp = temp->next;
+            
+            else{
+                
+                if(!moreHead){
+                    
+                    moreHead = temp;
+                    
+                    moreTail = temp;
+                    
+                }else{
+                    
+                    moreTail->next = temp;
+                    
+                    moreTail = temp;
+                    
+                }
+                
+                
+            }
+            
+            temp = temp->next;           
+            
         }
         
-        j->next = nullptr;
-        i->next = more.next;
-        return less.next;
+        if(moreTail)    moreTail->next = nullptr;
+        
+        if(!lessHead)   return moreHead;
+        
+        lessTail->next = moreHead;
+        
+        return lessHead;
+        
     }
 };
