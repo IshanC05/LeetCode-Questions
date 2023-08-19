@@ -1,25 +1,32 @@
 class Solution {
 public:
     int miceAndCheese(vector<int>& reward1, vector<int>& reward2, int k) {
+        
         int n = reward1.size();
-        vector<vector<int>>temp;
-        int ans = 0;
-        for(int i : reward2){
-            ans += i;
-        }
+        
+        vector<pair<int,int>>diff(n);
         
         for(int i = 0; i < n; i++){
-            temp.push_back({reward1[i] - reward2[i], i});
+            
+            diff[i] = make_pair(reward1[i] - reward2[i], i);
+            
         }
         
-        sort(temp.rbegin(), temp.rend());
+        sort(diff.rbegin(), diff.rend());
         
-        for(int j = 0; j < k; j++){
-            int idx = temp[j][1];
-            ans -= reward2[idx];
-            ans += reward1[idx];
+        int ans = 0;
+        
+        for(int i = 0; i < k; i++){
+            
+            ans += reward1[diff[i].second];
+            
+            reward2[diff[i].second] = 0;
+            
         }
+        
+        for(int i : reward2)    ans += i;
         
         return ans;
+        
     }
 };
