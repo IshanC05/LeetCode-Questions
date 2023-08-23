@@ -12,20 +12,25 @@ public:
             
             if(checked.find(nums[i]) == checked.end()){
                 
-                int curLen = 0, start = nums[i];
-                
-                while(mp.find(start - 1) != mp.end()){
-    
-                    --start;
-                }
+                int curLen = 0, start = nums[i], end = nums[i];
                 
                 while(mp.find(start) != mp.end()){
                     
                     ++curLen;
                     
-                    ++start;
+                    --start;
                     
                     ++checked[start];
+                }
+                
+                
+                while(mp.find(end + 1) != mp.end()){
+                    
+                    ++curLen;
+                    
+                    ++end;
+                    
+                    ++checked[end];
                 }
                 
                 maxLen = max(maxLen, curLen);
