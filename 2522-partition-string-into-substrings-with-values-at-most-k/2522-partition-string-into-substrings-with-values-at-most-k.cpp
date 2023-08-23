@@ -2,31 +2,26 @@ class Solution {
 public:
     int minimumPartition(string s, int k) {
         
-        string sub = "";
-        
-        int ans = 1;
+        long long num = 0, ans = 1;
         
         for(int i = 0; i < s.size(); i++){
             
-            sub.push_back(s[i]);
+            num = (num * 10) + s[i] - '0';
             
-            long long num = stoll(sub);
-            
-            if(num <= k){
+            if(num > k){
                 
-//                 do nothing
-                
-            }else{
-                
-                sub = "";
-                
-                sub.push_back(s[i]);
+                num = s[i] - '0';
                 
                 ++ans;
                 
-                if(sub.size() == 1 && (sub[0] - '0' > k))   return -1;
             }
-               
+            
+            if(num > k){
+                
+                return -1;
+                
+            }
+            
         }
         
         return ans;
