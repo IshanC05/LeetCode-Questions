@@ -1,42 +1,58 @@
 class Solution {
 public:
     string reorganizeString(string s) {
-        vector<int> charCounts(26, 0);
-        for (char c : s) {
-            charCounts[c - 'a']++;
-        }
-        int maxCount = 0, letter = 0;
-        for (int i = 0; i < charCounts.size(); i++) {
-            if (charCounts[i] > maxCount) {
-                maxCount = charCounts[i];
-                letter = i;
+        
+        int n = s.size(), k = 0;
+        
+        vector<int>freq(26, 0);
+        
+        int maxFreq = 0, maxChar = 0;
+        
+        for(char i : s) {
+            
+            ++freq[i - 'a'];
+            
+            if(freq[i - 'a'] > maxFreq){
+                
+                maxFreq = freq[i - 'a'];
+                
+                maxChar = i - 'a';
+                
             }
+            
         }
-        if (maxCount > (s.length() + 1) / 2) {
-            return "";
+        
+        if(maxFreq > (n + 1) / 2)   return "";
+        
+        freq[maxChar] = 0;
+        
+        while(maxFreq){
+            
+            if(k >= n)  k = 1;
+            
+            s[k] = (char)(maxChar + 'a');
+            
+            k += 2;
+            
+            --maxFreq;
         }
-        string ans = s;
-        int index = 0;
-
-        // Place the most frequent letter
-        while (charCounts[letter] != 0) {
-            ans[index] = char(letter + 'a');
-            index += 2;
-            charCounts[letter]--;
-        }
-
-        // Place rest of the letters in any order
-        for (int i = 0; i < charCounts.size(); i++) {
-            while (charCounts[i] > 0) {
-                if (index >= s.length()) {
-                    index = 1;
-                }
-                ans[index] = char(i + 'a');
-                index += 2;
-                charCounts[i]--;
+        
+        for(int i = 0; i < 26; i++){
+            
+            while(freq[i]){
+                
+                if(k >= n)  k = 1;
+                
+                s[k] = (char)(i + 'a');
+                
+                k += 2;
+                
+                --freq[i];
             }
+            
         }
-
-        return ans;
+        
+        return s;
+        
     }
 };
