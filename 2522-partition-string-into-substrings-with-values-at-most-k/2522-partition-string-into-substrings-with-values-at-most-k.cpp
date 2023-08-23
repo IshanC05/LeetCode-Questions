@@ -1,21 +1,35 @@
 class Solution {
 public:
     int minimumPartition(string s, int k) {
-        int count = 1;
-        string temp = "";
+        
+        string sub = "";
+        
+        int ans = 1;
+        
         for(int i = 0; i < s.size(); i++){
-            temp.push_back(s[i]);
-            long long val = stoll(temp);
-            if(val <= k){
-                //  do nothing
+            
+            sub.push_back(s[i]);
+            
+            long long num = stoll(sub);
+            
+            if(num <= k){
+                
+//                 do nothing
+                
             }else{
-                ++count;
-                temp = s[i];
-                if(s[i] - '0' > k){
-                    return -1;
-                }
+                
+                sub = "";
+                
+                sub.push_back(s[i]);
+                
+                ++ans;
+                
+                if(sub.size() == 1 && (sub[0] - '0' > k))   return -1;
             }
+               
         }
-        return count;
+        
+        return ans;
+        
     }
 };
