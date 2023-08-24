@@ -4,21 +4,21 @@ public:
         
         int n = s.size(), count = 1;
         
-        unordered_set<char>charSet;
+        vector<bool>freq(26, false);
         
         for(int i = 0; i < n; i++){
             
-            if(charSet.find(s[i]) == charSet.end()){
-                
-                charSet.insert(s[i]);
-                
-            }else{
+            int ascii = s[i] - 'a';
+            
+            if(!freq[ascii])    freq[ascii] = true;
+            
+            else{
                 
                 ++count;
                 
-                charSet.clear();
+                for(int i = 0; i < 26; i++)     freq[i] = false;
                 
-                charSet.insert(s[i]);
+                freq[ascii] = true;
                 
             }
             
