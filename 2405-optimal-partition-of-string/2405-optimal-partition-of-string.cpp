@@ -1,27 +1,30 @@
 class Solution {
 public:
     int partitionString(string s) {
-        vector<int>freq(26, 0);
-        int count = 0;
-        for(int i = 0; i < s.size(); i++){
-            int asc = s[i] - 'a';
-            if(freq[asc] == 1){
+        
+        int n = s.size(), count = 1;
+        
+        unordered_set<char>charSet;
+        
+        for(int i = 0; i < n; i++){
+            
+            if(charSet.find(s[i]) == charSet.end()){
+                
+                charSet.insert(s[i]);
+                
+            }else{
+                
                 ++count;
-                for(int i = 0; i < 26; i++){
-                    freq[i] = 0;
-                }
+                
+                charSet.clear();
+                
+                charSet.insert(s[i]);
+                
             }
-            freq[asc] = 1;
+            
         }
-        bool flag = 0;
-        for(int i = 0; i < 26; i++){
-            if(freq[i] != 0){
-                flag = 1;
-            }
-        }
-        if(flag){
-            ++count;
-        }
+        
         return count;
+        
     }
 };
