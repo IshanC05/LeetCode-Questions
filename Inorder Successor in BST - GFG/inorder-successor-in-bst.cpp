@@ -93,42 +93,57 @@ Node* search(Node* root, int key)
 
 
 // } Driver Code Ends
+/*The structure of Node
+
+struct Node {
+    int data;
+    Node *left;
+    Node *right;
+
+    Node(int val) {
+        data = val;
+        left = right = NULL;
+    }
+};
+*/
 
 class Solution{
   public:
     // returns the inorder successor of the Node x in BST (rooted at 'root')
-    vector<Node*>temp;
-    
-    void inorder(Node* root){
+    void inOrder(Node* root, vector<Node*>&nodesArray){
         
         if(!root)   return;
         
-        inorder(root->left);
+        inOrder(root->left, nodesArray);
         
-        temp.push_back(root);
+        nodesArray.push_back(root);
         
-        inorder(root->right);
+        inOrder(root->right, nodesArray);
         
     }
     
     Node * inOrderSuccessor(Node *root, Node *x)
     {
         //Your code here
-        temp.clear();
         
-        inorder(root);
+        vector<Node*>getNodes;
         
-        int i = 0, n = temp.size();
+        inOrder(root, getNodes);
         
-        for(; i < n; i++){
+        Node* ans = nullptr;
+        
+        for(int i = 0; i < getNodes.size(); i++){
             
-            Node* curr = temp[i];
-            
-            if(curr == x)   break;
+            if(getNodes[i]->data == x->data){
+                
+                if(i != getNodes.size() - 1)    ans = getNodes[i + 1];
+                
+            }
             
         }
         
-        return (i + 1 == n) ? nullptr : temp[i + 1];
+        return ans;
+        
     }
 };
 
