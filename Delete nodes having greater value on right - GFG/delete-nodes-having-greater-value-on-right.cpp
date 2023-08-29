@@ -28,56 +28,57 @@ void print(Node *root)
 
 
 // } Driver Code Ends
-/*
 
-The structure of linked list is the following
-
-struct Node
-{
-    int data;
-    Node* next;
-    
-    Node(int x){
-        data = x;
-        next = NULL;
-    }
-};
-*/
 class Solution
 {
     public:
-    Node* reverseList(struct Node *head){
-        // code here
-        // return head of reversed list
+    
+    Node* reverseLL(Node* head){
+        
         if(!head || !head->next)    return head;
         
-        Node* smallAns = reverseList(head->next);
-        Node* prevNode = head->next;
-        prevNode->next = head;
-        head->next = nullptr;
+        Node* curNode = head;
         
-        return smallAns;
+        Node* smallAnsHead = reverseLL(head->next);
+        
+        Node* newTail = curNode->next;
+        
+        newTail->next = curNode;
+        
+        curNode->next = nullptr;
+        
+        return smallAnsHead;
     }
+    
     Node *compute(Node *head)
     {
         // your code goes here
+        
         if(!head || !head->next)    return head;
         
-        head = reverseList(head);
+        head = reverseLL(head);
         
         Node* slow = head, *fast = head->next;
         
         while(fast){
-            if(fast->data >= slow->data){
+            
+            if(slow->data <= fast->data){
+                
                 slow->next = fast;
+                
                 slow = fast;
+                
             }
+            
             fast = fast->next;
+            
         }
         
         slow->next = nullptr;
         
-        return reverseList(head);
+        head = reverseLL(head);
+        
+        return head;
     }
     
 };
