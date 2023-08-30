@@ -86,25 +86,25 @@ struct Node
 /*You are required to complete below method*/
 Node* deleteNode(Node *head,int x)
 {
-    //Your code here
-    if (!head)
-    {
-        return head;
-    }
-    if (x == 1)
-    {
-        head = head->next;
-        return head;
-    }
-    Node *temp = head;
-    Node *prev = NULL;
-    int i = 1;
-    while (i < x and temp != NULL)
-    {
+    Node* dummy = new Node(0);
+    
+    dummy->next = head;
+    
+    Node* curr = dummy, *prev = nullptr;
+    
+    int i = 0;
+    
+    while(i < x){
+        
+        prev = curr;
+        
+        curr = curr->next;
+        
         ++i;
-        prev = temp;
-        temp = temp->next;
+        
     }
-    prev->next = temp->next;
-    return head;
+    
+    prev->next = curr->next;
+    
+    return dummy->next;
 }
