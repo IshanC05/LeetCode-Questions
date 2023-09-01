@@ -1,24 +1,29 @@
 class Solution {
 public:
+    int getBits(int n){
+        
+        int count = 0;
+        
+        while(n){
+            
+            if(n & 1)   ++count;
+            
+            n = (n >> 1); 
+            
+        }
+        
+        return count;
+        
+    }
+    
     vector<int> countBits(int n) {
         
         vector<int>ans(n + 1, 0);
         
-        for(int i = 1; i < n + 1; i++){
+        for(int i = 0; i <= n; i++){
             
-            int num = i;
+            ans[i] = getBits(i);
             
-            int smallAns = 0, mask = 1;
-            
-            while(num){
-                
-                smallAns = (mask & num) ? ++smallAns : smallAns;
-                
-                num = (num >> 1);
-                
-            }
-            
-            ans[i] = smallAns;
         }
         
         return ans;
