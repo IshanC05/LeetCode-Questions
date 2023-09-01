@@ -131,39 +131,39 @@ struct Node
 };
 */
 void printCorner(Node* root) {
-    if (!root)
-        return;
 
     queue<Node*> pendingNodes;
+    
     pendingNodes.push(root);
 
     Node* levelEnd = new Node{INT_MIN, nullptr, nullptr};
+    
     pendingNodes.push(levelEnd);
 
     bool levelChange = false;
 
     while (pendingNodes.size() > 1) {
+        
         Node* front = pendingNodes.front();
+        
         pendingNodes.pop();
 
         if (front->data == INT_MIN) {
+            
             levelEnd = new Node{INT_MIN, nullptr, nullptr};
+            
             pendingNodes.push(levelEnd);
+            
             levelChange = true;
+            
             continue;
         }
 
-        if (front->left) {
-            pendingNodes.push(front->left);
-        }
+        if (front->left) pendingNodes.push(front->left);
 
-        if (front->right) {
-            pendingNodes.push(front->right);
-        }
+        if (front->right) pendingNodes.push(front->right);
 
-        if (levelChange || pendingNodes.front()->data == INT_MIN) {
-            cout << front->data << " ";
-        }
+        if (levelChange || pendingNodes.front()->data == INT_MIN) cout << front->data << " ";
         
         levelChange = false;
     }
