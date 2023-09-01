@@ -136,35 +136,23 @@ void printCorner(Node* root) {
     
     pendingNodes.push(root);
 
-    Node* levelEnd = new Node{INT_MIN, nullptr, nullptr};
-    
-    pendingNodes.push(levelEnd);
-
-    bool levelChange = false;
-
-    while (pendingNodes.size() > 1) {
+    while (!pendingNodes.empty()) {
         
-        Node* front = pendingNodes.front();
+        int qSize = pendingNodes.size();
         
-        pendingNodes.pop();
-
-        if (front->data == INT_MIN) {
+        for(int i = 0; i < qSize; i++){
             
-            levelEnd = new Node{INT_MIN, nullptr, nullptr};
+            Node* front = pendingNodes.front();
             
-            pendingNodes.push(levelEnd);
+            pendingNodes.pop();
             
-            levelChange = true;
+            if(i == 0 || i == qSize - 1)    cout << front->data << " ";
             
-            continue;
+            if(front->left)     pendingNodes.push(front->left);
+            
+            if(front->right)     pendingNodes.push(front->right);
+            
         }
-
-        if (front->left) pendingNodes.push(front->left);
-
-        if (front->right) pendingNodes.push(front->right);
-
-        if (levelChange || pendingNodes.front()->data == INT_MIN) cout << front->data << " ";
         
-        levelChange = false;
     }
 }
