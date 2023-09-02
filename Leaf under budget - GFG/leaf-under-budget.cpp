@@ -114,29 +114,45 @@ struct Node
 class Solution
 {
 public:
-    
-    void helper(Node* root, map<int,int>&mp, int level){
-        
-        if(!root)   return;
-        
-        if(!root->left && !root->right){
-            
-            ++mp[level];
-            
-        }
-        
-        helper(root->left, mp, level + 1);
-        
-        helper(root->right, mp, level + 1);
-        
-    }
-    
     int getCount(Node *root, int k)
     {
         //code here
+        
         map<int,int>mp;
         
-        helper(root, mp, 1);
+        queue<Node*>pendingNodes;
+        
+        pendingNodes.push(root);
+        
+        int level = 1;
+        
+        while(!pendingNodes.empty()){
+            
+            int levelSize = pendingNodes.size();
+            
+            for(int i = 0; i < levelSize; i++){
+                
+                Node* front = pendingNodes.front();
+                
+                pendingNodes.pop();
+                
+                if(!front->left && !front->right){
+                    
+                    ++mp[level];
+                    
+                    continue;
+                    
+                }
+                
+                if(front->left)     pendingNodes.push(front->left);
+                
+                if(front->right)    pendingNodes.push(front->right);
+                
+            }
+            
+            ++level;
+            
+        }
         
         int ans = 0;
         
