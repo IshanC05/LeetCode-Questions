@@ -1,19 +1,33 @@
 class Solution {
 public:
     
-    bool dfs(unordered_map<int, vector<int>>&mp, int st, int e, vector<bool>&visited){
+    bool BFS(unordered_map<int, vector<int>>&mp, int st, int e, vector<bool>&visited){
         
-        // reached destination ? return true          
-        if(st == e)     return true;
+        queue<int>pendingNodes;
         
-        //  source already visited ? return false         
-        if(visited[st]) return false;
+        pendingNodes.push(st);
         
         visited[st] = true;
         
-        for(int node : mp[st]){
+        while(!pendingNodes.empty()){
             
-            if(dfs(mp, node, e, visited))   return true;
+            int front = pendingNodes.front();
+            
+            pendingNodes.pop();
+            
+            if(front == e)     return true;
+            
+            for(int i : mp[front]){
+                
+                if(!visited[i]){
+                    
+                    pendingNodes.push(i);
+                    
+                    visited[i] = true;
+                    
+                }
+                
+            }
             
         }
         
@@ -22,8 +36,8 @@ public:
     }
     
     bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
-        // create a graph
         
+        // create graph         
         unordered_map<int, vector<int>>mp;
         
         for(auto &edge : edges){
@@ -39,6 +53,6 @@ public:
         //  create a visited array
         vector<bool>visited(n, false);
         
-        return dfs(mp, source, destination, visited);
+        return BFS(mp, source, destination, visited);
     }
 };
