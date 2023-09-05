@@ -17,9 +17,9 @@ public:
         
         if(!root)   return ans;
         
-        deque<TreeNode*>pendingNodes;
+        queue<TreeNode*>pendingNodes;
         
-        pendingNodes.push_back(root);
+        pendingNodes.push(root);
         
         // 1 : L -> R || 0 : R -> L         
         bool leftToRight = true;
@@ -34,11 +34,11 @@ public:
 
                 TreeNode* front = pendingNodes.front();
 
-                pendingNodes.pop_front();
+                pendingNodes.pop();
 
-                if(front->left)     pendingNodes.push_back(front->left);
+                if(front->left)     pendingNodes.push(front->left);
 
-                if(front->right)    pendingNodes.push_back(front->right);
+                if(front->right)    pendingNodes.push(front->right);
 
                 int idx = leftToRight ? i : qSize - i - 1;
                 
