@@ -2,31 +2,19 @@ class Solution {
 public:
     vector<vector<int>> generate(int numRows) {
      
-        vector<vector<int>>ans;
+        vector<vector<int>>ans(numRows);
         
-        ans.push_back({1});
-        
-        if(numRows == 1)  return ans;
-        
-        ans.push_back({1,1});
-        
-        if(numRows == 2)  return ans;
-        
-        for(int i = 3; i <= numRows; i++){
+        for(int i = 0; i < numRows; i++){
             
-            vector<int>temp(i, 1);
+            ans[i].resize(i + 1);
             
-            int k = 0;
+            ans[i][0] = ans[i][i] = 1;
             
-            for(int j = 1; j < i - 1; j++){
+            for(int j = 1; j < i; j++){
                 
-                temp[j] =  ans[i - 2][k] + ans[i - 2][k + 1];
-                
-                ++k;
+                ans[i][j] = ans[i - 1][j - 1] + ans[i - 1][j];
                 
             }
-            
-            ans.push_back(temp);
             
         }
         
