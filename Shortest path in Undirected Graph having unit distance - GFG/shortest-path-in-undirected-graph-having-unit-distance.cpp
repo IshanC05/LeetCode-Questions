@@ -8,18 +8,7 @@ using namespace std;
 // User function Template for C++
 class Solution {
   public:
-    vector<int> shortestPath(vector<vector<int>>& edges, int N,int M, int src){
-        // code here
-        vector<int>adj[N];
-        
-        for(int i = 0; i < M; i++){
-            
-            int u = edges[i][0];
-            int v = edges[i][1];
-            
-            adj[u].push_back(v);
-            adj[v].push_back(u);
-        }
+    vector<int>helper(vector<int>adj[], int N, int src){
         
         vector<int>dist(N, -1);
         
@@ -48,14 +37,27 @@ class Solution {
                     q.push(i);
                     
                     dist[i] = dist[node] + 1;
-                    
                 }
-                
             }
-            
         }
         
         return dist;
+    }
+  
+    vector<int> shortestPath(vector<vector<int>>& edges, int N,int M, int src){
+        // code here
+        vector<int>adj[N];
+        
+        for(int i = 0; i < M; i++){
+            
+            int u = edges[i][0];
+            int v = edges[i][1];
+            
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        
+        return helper(adj, N, src);
     }
 };
 
