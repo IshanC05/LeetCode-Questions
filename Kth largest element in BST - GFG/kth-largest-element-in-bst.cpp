@@ -119,9 +119,7 @@ class Solution
         
         inorder(root, temp);
         
-        reverse(temp.begin(), temp.end());
-        
-        return temp[K - 1];
+        return temp[temp.size() - K];
     }
 };
 
