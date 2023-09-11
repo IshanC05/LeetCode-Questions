@@ -4,19 +4,18 @@ public:
         
         int len = nums.size();
         
-        while(len != 1){
+        while(len){
             
             for(int i = 0; i < len - 1; i++){
                 
                 nums[i] = (nums[i] + nums[i + 1]) % 10;
                 
             }
-            
+
             --len;         
-            
         }
         
-        return nums[len - 1];
+        return nums[len];
         
     }
 };
