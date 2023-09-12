@@ -1,7 +1,7 @@
 class Solution {
 public:
     int n;
-    vector<int>t;
+    int* t;
     unordered_set<string>st;
     
     int solve(int idx, string s){
@@ -36,9 +36,9 @@ public:
         
         n = s.size();
         
-        vector<int>temp(51, -1);
+        t = new int[51];
         
-        t = temp;
+        for(int i = 0; i < 51; i++)     t[i] = -1;
         
         for(string &word : dictionary){
             st.insert(word);
