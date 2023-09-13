@@ -2,27 +2,37 @@ class Solution {
 public:
     int candy(vector<int>& ratings) {
         
-        int n = ratings.size();
+        int n = ratings.size(), i = 1;
         
-        vector<int>count(n, 1);
+        int ans = n;
         
-        for(int i = 1; i < n; i++){
-            if(ratings[i] > ratings[i - 1]){
-                count[i] = max(count[i], count[i - 1] + 1);
+        while(i < n){
+            
+            if(ratings[i] == ratings[i - 1]){
+                ++i;
+                continue;
             }
-        }
-        
-        for(int i = n - 2; i >= 0; i--){
-            if(ratings[i] > ratings[i + 1]){
-                count[i] = max(count[i], count[i + 1] + 1);   
+            
+            int peak = 0;
+            
+            while(ratings[i] > ratings[i - 1]){
+                ++peak;
+                ans += peak;
+                ++i;
+                if(i == n)  return ans;              
             }
+            
+            int dip = 0;
+            
+            while(i < n && ratings[i] < ratings[i - 1]){
+                ++dip;
+                ans += dip;
+                ++i;                
+            }
+            
+            ans -= min(peak, dip);
+            
         }
-        
-        int ans = 0;
-        
-        for(int i = 0; i < n; i++){
-            ans += count[i];
-        }      
         
         return ans;
         
