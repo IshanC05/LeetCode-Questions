@@ -7,17 +7,52 @@ class Solution {
   public:
     // Function to detect cycle in an undirected graph.
     
-    bool dfs(vector<int> adj[], int u, vector<bool>&visited, int parent){
+    // bool dfs(vector<int> adj[], int u, vector<bool>&visited, int parent){
         
-        visited[u] = true;
+    //     visited[u] = true;
         
-        for(int &v : adj[u]){
+    //     for(int &v : adj[u]){
             
-            if(!visited[v]){
+    //         if(!visited[v]){
                 
-                if(dfs(adj, v, visited, u) == true)     return true;
+    //             if(dfs(adj, v, visited, u) == true)     return true;
+    //         }
+    //         else if(v != parent)    return true;
+    //     }
+        
+    //     return false;
+    // }
+    
+    bool bfs(vector<int> adj[], int U, vector<bool>&visited, int parent){
+        
+        visited[U] = true;
+        
+        queue<pair<int,int>>q;
+        
+        q.push({U, parent});
+        
+        while(!q.empty()){
+            
+            pair<int,int>p1 = q.front();
+            
+            q.pop();
+            
+            int u = p1.first;
+            
+            int p = p1.second;
+            
+            for(int &v : adj[u]){
+                
+                if(!visited[v]){
+                    
+                    visited[v] = true;
+                    
+                    q.push({v, u});
+                }
+                
+                else if(v != p)     return true;
             }
-            else if(v != parent)    return true;
+            
         }
         
         return false;
@@ -31,7 +66,9 @@ class Solution {
             
             if(!visited[i]){
                 
-                if(dfs(adj, i, visited, -1))    return true;
+                // if(dfs(adj, i, visited, -1))    return true;
+                
+                if(bfs(adj, i, visited, -1))    return true;
             }
             
         }
