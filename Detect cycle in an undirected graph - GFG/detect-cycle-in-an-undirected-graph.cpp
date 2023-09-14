@@ -7,27 +7,37 @@ class Solution {
   public:
     // Function to detect cycle in an undirected graph.
     
-    bool dfs(vector<int> adj[], int src, vector<bool>&visited, int parent){
+    bool dfs(vector<int> adj[], int u, vector<bool>&visited, int parent){
         
-        visited[src] = true;
-        for(int i : adj[src]){
-            if(!visited[i]){
-                if(dfs(adj, i, visited, src))   return true;
-            }else if(i != parent)   return true;
+        visited[u] = true;
+        
+        for(int &v : adj[u]){
+            
+            if(!visited[v]){
+                
+                if(dfs(adj, v, visited, u) == true)     return true;
+            }
+            else if(v != parent)    return true;
         }
+        
         return false;
     }
     
     bool isCycle(int V, vector<int> adj[]) {
-        vector<bool> visited(V, false);
-        for (int i = 0; i < V; i++) {
-            if (!visited[i]) {
-                if (dfs(adj, i, visited, -1)) return true;
+        // Code here
+        vector<bool>visited(V, false);
+        
+        for(int i = 0; i < V; i++){
+            
+            if(!visited[i]){
+                
+                if(dfs(adj, i, visited, -1))    return true;
             }
+            
         }
-        return false;
+        
+        return false;    
     }
-
 };
 
 //{ Driver Code Starts.
