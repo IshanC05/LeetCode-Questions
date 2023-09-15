@@ -1,10 +1,71 @@
 class Solution {
 public:
+    
+    void dfs(unordered_map<int,vector<int>>&adj, int u, vector<bool>&visited, stack<int>&st){
+        visited[u] = true;
+        
+        for(int &v : adj[u]){
+            if(!visited[v]){
+                dfs(adj, v, visited, st);
+            }
+        }
+        
+        st.push(u);
+    }
+    
+    vector<int>topologicalSortDFS(unordered_map<int,vector<int>>&adj, int n){
+        vector<bool>visited(n, false);
+        vector<int>ans;
+        stack<int>st;
+        
+        for(int i = 0; i < n; i++){
+            if(!visited[i]){
+                dfs(adj, i, visited, st);
+            }
+        }
+        
+        while(!st.empty()){
+            ans.push_back(st.top());
+            st.pop();
+        }
+        
+        return ans;
+    }
+    
+    bool dfsCycle(unordered_map<int,vector<int>>&adj, int u, vector<bool>&visited, vector<bool>&inRec){
+        
+        visited[u] = true;
+        inRec[u] = true;
+        
+        for(int &v : adj[u]){
+            if(!visited[v]){
+                if(dfsCycle(adj, v, visited, inRec))    return true;
+            }
+            else if(inRec[v])   return true;
+        }
+        
+        inRec[u] = false;
+        return false;
+    }
+    
+    bool checkCycle(unordered_map<int,vector<int>>&adj, int n){
+        
+        vector<bool>visited(n, false);
+        vector<bool>inRec(n, false);
+        
+        for(int i = 0; i < n; i++){
+            if(!visited[i]){
+                if(dfsCycle(adj, i, visited, inRec))    return true;
+            }
+        }
+        
+        return false;        
+    }
+    
     vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
         
         int n = numCourses;
         // form graph
-        vector<int>inDeg(n, 0);
         unordered_map<int,vector<int>>adj;
         for(vector<int>&c : prerequisites){
             
@@ -12,42 +73,10 @@ public:
             int v = c[0];
             
             adj[u].push_back(v);
-            ++inDeg[v];
-        }
+        }  
         
-        // add inDegree = 0 to queue
-        int count = 0;
-        vector<int>ans;
-        queue<int>q;
+        if(checkCycle(adj, n))  return {};
         
-        for(int i = 0; i < n; i++){
-            if(inDeg[i] == 0){
-                ++count;
-                q.push(i);
-            }
-        }
-        
-        // Simple BFS for Kahn's
-        while(!q.empty()){
-            int u = q.front();
-            q.pop();
-            
-            for(int &v : adj[u]){
-                --inDeg[v];
-                
-                if(inDeg[v] == 0){
-                    ++count;
-                    q.push(v);
-                }
-            }
-            
-            ans.push_back(u);
-        }
-        
-        if(count == n){
-            return ans;
-        }
-        
-        return {};
+        return topologicalSortDFS(adj, n);
     }
 };
