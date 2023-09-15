@@ -1,11 +1,24 @@
 class Solution {
 public:
-    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+    
+    bool dfs(unordered_map<int,vector<int>>&adj, int u, vector<bool>&visited, vector<bool>&inRec){
         
+        visited[u] = true;
+        inRec[u] = true;
+        
+        for(int &v : adj[u]){
+            if(!visited[v]){
+                if(dfs(adj, v, visited, inRec) == true)     return true;
+            }else if(inRec[v] == true)    return true;
+        }
+        
+        inRec[u] = false;
+        return false;        
+    }
+    
+    bool detectCycleDFS(int numCourses, vector<vector<int>>& prerequisites){
         int n = numCourses;
-        
-        // form graph + find degree         
-        vector<int>inDeg(n, 0);
+//          form graph
         unordered_map<int,vector<int>>adj;
         for(vector<int> &course : prerequisites){
             
@@ -13,34 +26,22 @@ public:
             int v = course[0];
             
             adj[u].push_back(v);
-            ++inDeg[v];
         }
         
-        // Add nodes with inDeg = 0 to q
-        int count = 0;
-        queue<int>q;
+        vector<bool>visited(n, false);
+        vector<bool>inRec(n, false);
+        
         for(int i = 0; i < n; i++){
-            if(inDeg[i] == 0){
-                ++count;
-                q.push(i);
+            if(!visited[i]){
+                if(dfs(adj, i, visited, inRec) == true)     return true;
             }
         }
         
-        // BFS using Kahn's
-        while(!q.empty()){
-            int u = q.front();
-            q.pop();
-            
-            for(int &v : adj[u]){
-                --inDeg[v];
-                
-                if(inDeg[v] == 0){
-                    ++count;
-                    q.push(v);
-                }
-            }
-        }
-        
-        return (count == n);       
+        return false;    
+    }
+    
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        bool cycle = detectCycleDFS(numCourses, prerequisites);
+        return !cycle;
     }
 };
