@@ -6,33 +6,41 @@ using namespace std;
 class Solution {
   public:
     // Function to detect cycle in a directed graph.
-    
-    bool dfs(vector<int> adj[], int u, vector<bool>&visited, vector<bool>&inRec){
-        
-        visited[u] = true;
-        inRec[u] = true;
-        
-        for(int &v : adj[u]){
-            if(!visited[v]){
-                if(dfs(adj, v, visited, inRec)) return true;
-            }else if(inRec[v]) return true;
-        }
-        inRec[u] = false;
-        return false;
-    }
-    
     bool isCyclic(int V, vector<int> adj[]) {
-        // code here
-        vector<bool>visited(V, false);
-        vector<bool>inRec(V, false);
-        
+        // find Indegree
+        vector<int>inDeg(V, 0);
         for(int i = 0; i < V; i++){
-            if(!visited[i]){
-                if(dfs(adj, i, visited, inRec)) return true;
+            for(int &v : adj[i]){
+                ++inDeg[v];
             }
         }
         
-        return false;
+        // push inDegree = 0 to q
+        queue<int>q;
+        int count = 0;
+        for(int i = 0; i < V; i++){
+            if(inDeg[i] == 0){
+                ++count;
+                q.push(i);
+            }
+        }
+        
+        // Simple BFS
+        while(!q.empty()){
+            int u = q.front();
+            q.pop();
+            
+            for(int &v : adj[u]){
+                --inDeg[v];
+                
+                if(inDeg[v] == 0){
+                    ++count;
+                    q.push(v);
+                }
+            }
+        }
+        
+        return !(count == V);
     }
 };
 
