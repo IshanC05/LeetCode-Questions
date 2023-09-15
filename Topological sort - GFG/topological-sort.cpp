@@ -7,37 +7,38 @@ class Solution
 {
 	public:
 	//Function to return list containing vertices in Topological order. 
-    void dfs(vector<int> adj[], int u, vector<bool>& visited, stack<int>& st) {
-        
-        visited[u] = true;
-        
-        for(int &v : adj[u]) {
-            if(!visited[v]) {
-                dfs(adj, v, visited, st);
-            }
-        }
-        st.push(u);
-    }
-    
-    vector<int> topoSort(int V, vector<int> adj[]) {
-        vector<int> ans;
-        stack<int>st;
-        vector<bool> visited(V, false); 
-        
-        for (int i = 0; i < V; ++i) {
-            if (!visited[i]) {
-                dfs(adj, i, visited, st);
-            }
-        }
-        
-        while(!st.empty()){
-            ans.push_back(st.top());
-            st.pop();
-        }
-
-        return ans;
-    }
-
+	vector<int> topoSort(int V, vector<int> adj[]) 
+	{
+	   // find inDegree
+	   vector<int>inDeg(V, 0);
+	   for(int u = 0; u < V; u++){
+	       for(int &v : adj[u]){
+	           ++inDeg[v];
+	       }
+	   }
+	   
+	   // Push to queue;
+	   queue<int>q;
+	   for(int i = 0; i < V; i++){
+            if(inDeg[i] == 0)   q.push(i);	   
+	   }
+	   
+	   // Simple BFS
+	   vector<int>ans;
+	   while(!q.empty()){
+	       int u = q.front();
+	       q.pop();
+	       
+	       for(int &v : adj[u]){
+	           --inDeg[v];
+	           if(inDeg[v] == 0)    q.push(v);
+	       }
+	       
+	       ans.push_back(u);
+	   }
+	   
+	   return ans;
+	}
 };
 
 //{ Driver Code Starts.
