@@ -30,12 +30,14 @@ public:
         for(int i = 0; i < 26; i++)
             parent[i] = i;
         
+        // first handle  == cases         
         for(string &s : equations){            
             if(s[1] == '='){
                 Union(s[0] - 'a', s[3] - 'a');
             }
         }
         
+        // Now handle != cases         
         for(string &s : equations){
             if(s[1] == '!'){
                 
