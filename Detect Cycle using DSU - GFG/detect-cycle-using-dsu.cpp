@@ -18,31 +18,25 @@ class Solution
     void Union(int x, int y){
         int x_parent = find(x);
         int y_parent = find(y);
-        
-        if(x_parent == y_parent){
-            
+
+        if(rank[x_parent] > rank[y_parent]){
+            parent[y_parent] = x_parent;
+        }else if(rank[x_parent] > rank[y_parent]){
+            parent[x_parent] = y_parent;
         }else{
-            if(rank[x_parent] > rank[y_parent]){
-                parent[y_parent] = x_parent;
-            }else if(rank[x_parent] > rank[y_parent]){
-                parent[x_parent] = y_parent;
-            }else{
-                parent[x_parent] = y_parent;
-                ++rank[y_parent];
-            }
+            parent[x_parent] = y_parent;
+            ++rank[y_parent];
         }
     }
     
 	int detectCycle(int V, vector<int>adj[])
 	{
 	    // Code here
-	    vector<int>tempP(V);
-	    vector<int>tempR(V, 0);
-	    for(int i = 0; i < V; i++){
-	        tempP[i] = i;
-	    }
-	    parent = tempP;
-	    rank = tempR;
+	    parent.resize(V);
+	    rank.resize(V, 0);
+	    
+	    for(int i = 0; i < V; i++)
+	        parent[i] = i;
 	    
 	    for(int u = 0; u < V; u++){
 	        for(int &v : adj[u]){
