@@ -47,16 +47,18 @@ public:
             }
         }
         
+        // Count disconnected components         
         for(int i = 0; i < n; i++){
             if(parent[i] == i){
                 count++;
             }
         }
-
-        // If all computers are connected, return 0
-        if(extraWires >= count - 1){
-            return count - 1;
-        }
+        
+        // To connect n nodes we need atleast n - 1 edges 
+        int minWiresRequired = count - 1; 
+        
+        if(extraWires >= minWiresRequired)
+            return minWiresRequired;
         
         return -1;
 
