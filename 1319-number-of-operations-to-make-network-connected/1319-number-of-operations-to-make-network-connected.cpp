@@ -17,8 +17,8 @@ public:
         }else if(rank[parent_x] < rank[parent_y]){
             parent[parent_x] = parent_y;
         }else{
-            parent[parent_y] = parent_x;
-            ++rank[parent_x];
+            parent[parent_x] = parent_y;
+            ++rank[parent_y];
         }
     }
     
@@ -26,41 +26,22 @@ public:
         
         parent.resize(n);
         rank.resize(n, 0);
-        vector<bool>isConnected(n, false);
         
         for(int i = 0; i < n; i++)
             parent[i] = i;
         
-        int extraWires = 0, maxRankElem = 0, maxRank = 0, count = 0;
+        if(connections.size() < n - 1)
+            return -1;
         
-        for(vector<int>&con : connections){            
-            int u_parent = find(con[0]);
-            int v_parent = find(con[1]);
-            
-            if(u_parent == v_parent){
-                ++extraWires;
-            }
-            else{
+        int components = n;
+        
+        for(auto& con : connections){
+            if(find(con[0]) != find(con[1])){
                 Union(con[0], con[1]);
-                isConnected[con[0]] = true;
-                isConnected[con[1]] = true;
+                --components;
             }
         }
         
-        // Count disconnected components         
-        for(int i = 0; i < n; i++){
-            if(parent[i] == i){
-                count++;
-            }
-        }
-        
-        // To connect n nodes we need atleast n - 1 edges 
-        int minWiresRequired = count - 1; 
-        
-        if(extraWires >= minWiresRequired)
-            return minWiresRequired;
-        
-        return -1;
-
-        }
+        return components - 1;
+    }
 };
