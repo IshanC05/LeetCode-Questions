@@ -1,7 +1,7 @@
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
-        
+        // Same as Detect cycle in LinkedList - II         
         int slow = nums[0];
         int fast = nums[0];
         
