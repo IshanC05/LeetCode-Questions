@@ -1,22 +1,20 @@
-class Solution
-{
-    public:
-        int findDuplicate(vector<int> &nums)
-        {
-            int duplicate = -1;
-            for (int i = 0; i < nums.size(); i++)
-            {
-                int cur = abs(nums[i]);
-                if (nums[cur] < 0)
-                {
-                    duplicate = cur;
-                    break;
-                }
-                else
-                {
-                    nums[cur] = nums[cur] *(-1);
-                }
-            }
-            return duplicate;
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        
+        int n = nums.size();
+        for(int i = 0; i < n; i++){
+            
+            int idx = abs(nums[i]);
+            
+            int elemAtIdx = nums[idx];
+            
+            if(elemAtIdx < 0)   return idx;
+            
+            nums[idx] = -nums[idx];
         }
+        
+        return -1;
+        
+    }
 };
