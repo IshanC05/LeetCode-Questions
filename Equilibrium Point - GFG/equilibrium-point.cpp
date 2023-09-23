@@ -12,7 +12,7 @@ class Solution{
     int equilibriumPoint(long long a[], int n) {
     
         // Your code here
-        if(n == 1)  return 1;
+        if(n == 1)  return n;
         
         int idx = -1;
         
