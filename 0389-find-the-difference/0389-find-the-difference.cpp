@@ -1,22 +1,16 @@
 class Solution {
 public:
     char findTheDifference(string s, string t) {
-        vector<int>freq(26, 0);
         
-        for(int i = 0; i < t.size(); i++){
-            ++freq[t[i] - 'a'];
-        }
+        int sumS = 0, sumT = 0;
         
-        for(int i = 0; i < s.size(); i++){
-            --freq[s[i] - 'a'];
-        }
+        for(int i = 0; i < s.size(); i++)
+            sumS += s[i];
         
-        for(int i = 0; i < 26; i++){
-            if(freq[i] == 1){
-                return (char)(i + 'a');
-            }
-        }
+        for(int i = 0; i < t.size(); i++)
+            sumT += t[i];
         
-        return ' ';        
+        return (char)(sumT - sumS);
+        
     }
 };
