@@ -2,15 +2,15 @@ class Solution {
 public:
     char findTheDifference(string s, string t) {
         
-        int sumS = 0, sumT = 0;
+        int xorVal = 0;
         
         for(int i = 0; i < s.size(); i++)
-            sumS += s[i];
+            xorVal = (xorVal ^ s[i]);
         
         for(int i = 0; i < t.size(); i++)
-            sumT += t[i];
+            xorVal = (xorVal ^ t[i]);
         
-        return (char)(sumT - sumS);
+        return (char)(xorVal);
         
     }
 };
