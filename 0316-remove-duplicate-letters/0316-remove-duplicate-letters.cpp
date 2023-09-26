@@ -10,38 +10,26 @@ public:
         }
         
         vector<bool>seen(26, false);
-        stack<char>st;
+        string ans = "";
         
-        char start = s[0];
         seen[s[0] - 'a'] = true;
-        st.push(s[0]);
+        ans.push_back(s[0]);
         
         for(int i = 1; i < n; i++){
             
             if(seen[s[i] - 'a'])    continue;
             
-            while(!st.empty() && st.top() > s[i] && mp[st.top()] > i){
-                seen[st.top() - 'a'] = false;
-                st.pop();
+            while(!ans.empty() && ans.back() > s[i] && mp[ans.back()] > i){
+                seen[ans.back() - 'a'] = false;
+                ans.pop_back();
             }
             
             if(!seen[s[i] - 'a']){
                 seen[s[i] - 'a'] = true;
-                st.push(s[i]);
+                ans.push_back(s[i]);
             }
             
         }
-        
-        string ans = "";
-        
-        if(st.empty())  return ans;
-        
-        while(!st.empty()){
-            ans.push_back(st.top());
-            st.pop();
-        }
-        
-        reverse(ans.begin(), ans.end());
         
         return ans;        
     }
