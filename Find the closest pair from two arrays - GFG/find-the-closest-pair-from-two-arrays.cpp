@@ -9,26 +9,28 @@ using namespace std;
 class Solution{
   public:
     vector<int> printClosest(int arr[], int brr[], int n, int m, int x) {
-        //code here
         int i = 0, j = m - 1;
-        int minDiff = INT_MAX;
-        vector<int>ans({-1,-1});
-        
-        while(i < n and j >= 0){
-            long long currSum = arr[i] + brr[j];
-            long long currDiff = abs(currSum - x);
-            if(currDiff < minDiff){
-                minDiff = currDiff;
-                ans[0] = arr[i];
-                ans[1] = brr[j];
+        int a = arr[0], b = brr[m - 1];
+        int dist = INT_MAX;
+    
+        while (i < n && j >= 0) {
+            int sum = arr[i] + brr[j];
+            int currDist = abs(x - sum);
+    
+            if (currDist < dist) {
+                dist = currDist;
+                a = arr[i];
+                b = brr[j];
             }
-            if(currSum > x){
-                --j;
-            }else{
-                ++i;
+    
+            if (sum > x) {
+                j--;
+            } else {
+                i++;
             }
         }
-        return ans;
+    
+        return {a, b};
     }
 };
 
