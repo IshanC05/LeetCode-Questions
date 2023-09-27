@@ -23,11 +23,9 @@ class Solution{
                 b = brr[j];
             }
     
-            if (sum > x) {
-                j--;
-            } else {
-                i++;
-            }
+            if (sum > x)    j--;
+            
+            else  i++;
         }
     
         return {a, b};
