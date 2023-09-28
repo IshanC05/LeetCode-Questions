@@ -20,7 +20,7 @@ public:
             
             else if(nums[i] % 2 == 0)  ++i;
             
-            else if(nums[j] % 2 != 0)   --j;
+            else    --j;
             
         }
         
