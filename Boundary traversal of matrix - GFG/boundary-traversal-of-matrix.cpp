@@ -11,44 +11,34 @@ class Solution
     //traversal of the matrix in a clockwise manner.
     vector<int> boundaryTraversal(vector<vector<int> > matrix, int n, int m) 
     {
-        int right = 0;      // Starting column
-        int down = 0;       // Starting row
-        int left = m - 1;   // Ending column
-        int top = n - 1;    // Ending row
-    
-        vector<int> ans;
-    
-
-            // Traverse right
-            for (int j = right; j <= left; j++) {
-                ans.push_back(matrix[down][j]);
+        // code here
+        int right = 0;      // traverse cols -> start row
+        int down = m - 1;   // traverse rows -> start col
+        int left = n - 1;   // traverse cols -> end row 
+        int top = 0;        // traverse rows -> end col
+        
+        vector<int>ans;
+        
+        for(int j = 0; j < m; j++){
+            ans.push_back(matrix[right][j]);
+        }
+        
+        for(int i = right + 1; i < n; i++){
+            ans.push_back(matrix[i][down]);
+        }
+        
+        if(left != right){
+            for(int j = down - 1; j >= 0; j--){
+                ans.push_back(matrix[left][j]);
             }
-            down++; // Move down one row
-    
-            // Traverse down
-            for (int i = down; i <= top; i++) {
-                ans.push_back(matrix[i][left]);
+        }
+        
+        if(top != down){
+            for(int i = left - 1; i > right; i--){
+                ans.push_back(matrix[i][0]);
             }
-            left--; // Move left one column
-    
-            // Check if there are more rows to traverse
-            if (down <= top) {
-                // Traverse left
-                for (int j = left; j >= right; j--) {
-                    ans.push_back(matrix[top][j]);
-                }
-                top--; // Move up one row
-            }
-    
-            // Check if there are more columns to traverse
-            if (right <= left) {
-                // Traverse up
-                for (int i = top; i >= down; i--) {
-                    ans.push_back(matrix[i][right]);
-                }
-                right++; // Move right one column
-            }
-    
+        }
+        
         return ans;
     }
 };
