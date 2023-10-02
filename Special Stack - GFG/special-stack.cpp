@@ -52,18 +52,10 @@ int pop(stack<int>& s){
 
 int getMin(stack<int>& s){
 	// Your code goes here
-	vector<int>temp(s.size());
-	int i = 0, minE = 1e5;
+	int minE = 1e5;
 	while(!s.empty()){
-	    temp[i] = s.top();
-	    minE = min(minE, temp[i++]);
+	    minE = min(minE, s.top());
 	    s.pop();
 	}
-	
-	i = 0;
-	while(i < temp.size()){
-	    s.push(temp[i++]);
-	}
-	
 	return minE;
 }
