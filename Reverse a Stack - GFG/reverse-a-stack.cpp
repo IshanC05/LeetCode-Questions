@@ -10,28 +10,34 @@ using namespace std;
 
 class Solution{
 public:
-    
-    queue<int>q;
+
+    void insertAtBottom(stack<int> &st, int x){
+        
+        if(st.empty()){
+            st.push(x);
+            return;
+        }
+        
+        int top = st.top();
+        st.pop();
+        
+        insertAtBottom(st, x);
+        st.push(top);
+        
+        return;
+    }
+
     void Reverse(stack<int> &St){
         
         if(St.empty())  return;
         
-        q.push(St.top());
-        
+        int top = St.top();
         St.pop();
         
         Reverse(St);
-        
-        if(!q.empty()){
-            
-            St.push(q.front());
-            
-            q.pop();
-            
-        }
+        insertAtBottom(St, top);
         
         return;
-        
     }
 };
 
