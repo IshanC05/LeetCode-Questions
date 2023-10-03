@@ -2,19 +2,22 @@ class Solution {
 public:
     int numIdenticalPairs(vector<int>& nums) {
         
-        int count = 0, n = nums.size();
+        unordered_map<int,int>mp;
         
-        for(int i = 0; i < n - 1; i++){
+        for(int i : nums)
+            ++mp[i];
+        
+        int count = 0;
+        
+        for(int i : nums){
             
-            for(int j = i + 1; j < n; j++){
-                
-                if(nums[i] == nums[j])      ++count;
-                
-            }
+            if(mp[i] > 1)   count += mp[i] - 1;
             
+            --mp[i];
+            
+            if(mp[i] == 0)  mp.erase(i);
         }
         
         return count;
-        
     }
 };
