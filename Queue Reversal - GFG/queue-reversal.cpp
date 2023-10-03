@@ -11,28 +11,21 @@ using namespace std;
 class Solution
 {
     public:
+    void helper(queue<int> &q){
+        if(q.size() == 1)
+            return;
+            
+        int front = q.front();
+        q.pop();
+        
+        helper(q);
+        q.push(front);
+    }
+    
     queue<int> rev(queue<int> q)
     {
         // add code here.
-        
-        stack<int>st;
-        
-        while(!q.empty()){
-            
-            st.push(q.front());
-            
-            q.pop();
-            
-        }
-        
-        while(!st.empty()){
-            
-            q.push(st.top());
-            
-            st.pop();
-            
-        }
-        
+        helper(q);
         return q;
     }
 };
