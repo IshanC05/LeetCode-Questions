@@ -1,49 +1,51 @@
 class Solution {
 public:
-    int lastIdx(vector<int>nums, int target){
-        int l = 0, h = nums.size() - 1, ans = -1;
-        while(l <= h){
-            int mid = l + (h - l) / 2;
-            if(nums[mid] > target){
-                h = mid - 1;
-            }else if(nums[mid] < target){
-                l = mid + 1;
-            }else{
-                if(mid == nums.size() - 1 || nums[mid] != nums[mid + 1]){
-                    return mid;
-                }else{
-                    l = mid + 1;
+    vector<int> helper(vector<int>& nums, int target, bool pos) {
+        int l = 0, h = nums.size() - 1;
+        int ans = -1;
+
+        while (l <= h) {
+            int m = l + (h - l) / 2;
+
+            if (nums[m] == target) {
+                ans = m;
+
+                if (pos) {
+                    if (m > 0 && nums[m - 1] == target) {
+                        h = m - 1;
+                    } else {
+                        break;
+                    }
+                } else {
+                    if (m < nums.size() - 1 && nums[m + 1] == target) {
+                        l = m + 1;
+                    } else {
+                        break;
+                    }
                 }
+            } else if (nums[m] < target) {
+                l = m + 1;
+            } else {
+                h = m - 1;
             }
         }
-        return ans;
+
+        return {ans, ans};
     }
-    int firstIdx(vector<int>nums, int target){
-        int l = 0, h = nums.size() - 1, ans = -1;
-        while(l <= h){
-            int mid = l + (h-l)/2;
-            if(nums[mid] < target){
-                l = mid + 1;
-            }else if(nums[mid] > target){
-                h = mid - 1;
-            }else{
-                if(mid == 0 || nums[mid] != nums[mid -1]){
-                    return mid;
-                }else{
-                    h = mid - 1;
-                }
-            }
-        }
-        return ans;
-    }
+
     vector<int> searchRange(vector<int>& nums, int target) {
-        vector<int>ans({-1, -1});
-        ans[0] = firstIdx(nums, target);
-        if(ans[0] == -1){
-            ans[1] = -1;
-        }else{
-            ans[1] = lastIdx(nums, target);
+        if (nums.empty()) {
+            return {-1, -1};
         }
-        return ans;
+
+        vector<int> result(2, -1);
+
+        vector<int> first = helper(nums, target, true);
+        vector<int> last = helper(nums, target, false);
+
+        result[0] = first[0];
+        result[1] = last[1];
+
+        return result;
     }
 };
