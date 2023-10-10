@@ -9,17 +9,9 @@ public:
         
         for(int i = 0; i < p.size(); i++){
             
-            int minTimeI = INT_MIN;
+            minTime = max(minTime, p[i] + t[j]);
             
-            for(int k = 0; k < 4; k++){
-                
-                minTimeI = max(minTimeI, p[i] + t[j]);
-                
-                ++j;
-                
-            }
-            
-            minTime = max(minTime, minTimeI);
+            j += 4;
         }
         
         return minTime;        
