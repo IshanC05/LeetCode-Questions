@@ -1,57 +1,93 @@
-class Solution
-{
-    public:
-        int findInMountainArray(int target, MountainArray &mountainArr)
-        {
-            int l = 0, r = mountainArr.length() - 1;
+/**
+ * // This is the MountainArray's API interface.
+ * // You should not implement it, or speculate about its implementation
+ * class MountainArray {
+ *   public:
+ *     int get(int index);
+ *     int length();
+ * };
+ */
 
-            while (l < r)
-            {
-                int mid = l + (r - l) / 2;
-                if (mountainArr.get(mid) < mountainArr.get(mid + 1))
-                {
-                    l = mid + 1;
+class Solution {
+public:
+    int findPeak(MountainArray &a, int l, int h){
+        
+        int peak = -1;
+        
+        while(l <= h){
+            
+            int m = l + (h - l) / 2;
+            
+            int mv = a.get(m);
+            
+            if(mv > a.get(m + 1)){
+                
+                if(mv > a.get(m - 1)){
+                    
+                    return m;
                 }
-                else
-                {
-                    r = mid;
-                }
+                
+                else    h = m - 1;
             }
-
-            int peak = l;
-
-
-            l = 0;
-            r = peak;
-            while (l < r)
-            {
-                int mid = l + (r - l) / 2;
-                if (mountainArr.get(mid) < target)
-                {
-                    l = mid + 1;
-                }
-                else
-                {
-                    r = mid;
-                }
-            }
-            if (mountainArr.get(l) == target) return l;
-
-
-            l = peak;
-            r = mountainArr.length() - 1;
-            while (l < r)
-            {
-                int mid = l + (r - l) / 2 + 1;
-                if (mountainArr.get(mid) < target)
-                {
-                    r = mid - 1;
-                }
-                else
-                {
-                    l = mid;
-                }
-            }
-            return mountainArr.get(l) == target ? l : -1;
+            
+            else    l = m + 1;
+            
         }
+        
+        return peak;
+    }
+    
+    int bSearch(MountainArray &a, int l, int h, int target){
+        
+        while(l <= h){
+            
+            int m = l + (h - l) / 2;
+            
+            int mv = a.get(m);
+            
+            if(mv == target)    return m;
+            
+            else if(mv > target)    h = m - 1;
+            
+            else    l = m + 1;            
+        }
+        
+        return -1;        
+    }
+    
+    int bSearchReverse(MountainArray &a, int l, int h, int target){
+        
+        while(l <= h){
+            
+            int m = l + (h - l) / 2;
+            
+            int mv = a.get(m);
+            
+            if(mv == target)    return m;
+            
+            else if(mv > target)    l = m + 1;
+            
+            else    h = m - 1;            
+        }
+        
+        return -1;        
+    }
+    
+    int findInMountainArray(int target, MountainArray &a) {
+        
+        int l = 0, h = a.length() - 1, peak;
+        
+        // find peak Index
+        peak = findPeak(a, l, h);
+        
+        if(peak == -1)  return peak;
+        
+        // cout << peak << endl;
+        
+        int left = bSearch(a, l, peak, target);
+        
+        if(left != -1)  return left;
+        
+        return bSearchReverse(a, peak + 1, h, target);
+    }
 };
