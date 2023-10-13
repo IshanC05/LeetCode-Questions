@@ -4,15 +4,17 @@ public:
         
         int n = cost.size();
         
-        vector<int>dp(n);
+        vector<int>dp(3);
         
         dp[0] = cost[0];
         dp[1] = cost[1];
         
         for(int i = 2; i < n; i++){
-            dp[i] = min(dp[i - 1], dp[i - 2]) + cost[i];
+            dp[2] = min(dp[1], dp[0]) + cost[i];
+            dp[0] = dp[1];
+            dp[1] = dp[2];
         }
         
-        return min(dp[n - 1], dp[n - 2]);
+        return min(dp[0], dp[1]);
     }
 };
