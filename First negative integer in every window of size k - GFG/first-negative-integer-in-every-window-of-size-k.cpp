@@ -29,31 +29,35 @@ int main() {
 // } Driver Code Ends
 
 
-vector<long long> printFirstNegativeInteger(long long int A[],long long int N, long long int K) {
+vector<long long> printFirstNegativeInteger(long long int A[],
+                                             long long int N, long long int K) {
     
-    deque<long long> dq;
+    
     vector<long long> ans;
-
-    for (int i = 0; i < K - 1; i++) {
-        if (A[i] < 0) {
-            dq.push_back(A[i]);
-        }
+    deque<int>dq;
+    
+    for(int i = 0; i < K; i++){
+        if(A[i] < 0)    dq.push_back(i);
     }
-
-    for (int i = K - 1; i < N; i++) {
-        if (A[i] < 0) {
-            dq.push_back(A[i]);
-        }
-        if (!dq.empty()) {
-            ans.push_back(dq.front());
-            if (dq.front() == A[i - K + 1]) {
-                dq.pop_front();
-            }
-        } else {
+    
+    for(int i = K; i < N; i++){
+        
+        if(!dq.empty())
+            ans.push_back(A[dq.front()]);
+        else
             ans.push_back(0);
-        }
+        
+        while(!dq.empty() && dq.front() <= i - K)
+            dq.pop_front();
+            
+        if(A[i] < 0)    dq.push_back(i);
+        
     }
-
+    
+    if(!dq.empty())
+        ans.push_back(A[dq.front()]);
+    else
+        ans.push_back(0);
+        
     return ans;
-                                                 
  }
