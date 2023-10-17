@@ -6,17 +6,18 @@ public:
         
         vector<int>ans(n);
         
-        for(auto &it : nums)
-            it = (it * it);
-        
         int i = 0, j = nums.size() - 1, k = j;
         
         while(i <= j){
             
-            if(nums[i] > nums[j])
-                ans[k--] = nums[i++];
-            
-            else    ans[k--] = nums[j--];
+            if(abs(nums[i]) > abs(nums[j])){
+                ans[k--] = (nums[i] * nums[i]);
+                ++i;
+            }
+            else {   
+                ans[k--] = (nums[j] * nums[j]);
+                --j;
+            }
             
         }
         
