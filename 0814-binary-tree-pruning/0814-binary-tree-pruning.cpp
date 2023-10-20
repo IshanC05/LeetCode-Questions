@@ -17,7 +17,13 @@ public:
         
         if(root->val == 1)      return true;
         
-        return (contains1(root->left) || contains1(root->right));
+        bool checkLeft = contains1(root->left);
+        
+        bool checkRight = contains1(root->right);
+        
+        if(root->val == 0 && !checkLeft && !checkRight)     return false;
+        
+        return (checkLeft || checkRight);
     }
     
     TreeNode* pruneTree(TreeNode* root) {
