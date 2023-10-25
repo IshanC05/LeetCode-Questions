@@ -29,6 +29,7 @@ public:
         
         maxSum = max(maxSum, max(smallAns1, max(smallAns2, smallAns3)));
         
+        // Option1 is not choosen because a path is already completed
         return max(smallAns2, smallAns3);
         
     }
