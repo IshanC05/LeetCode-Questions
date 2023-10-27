@@ -1,13 +1,15 @@
 class Solution {
 public:
-    
+    int t[1001][1001];
     bool isPalindrome(string &s, int i, int j){
         
         if(i >= j)      return true;
         
-        if(s[i] != s[j])    return false;
+        if(t[i][j] != -1)   return t[i][j];
         
-        return isPalindrome(s, i + 1, j - 1);
+        if(s[i] != s[j])    return t[i][j] = false;
+        
+        return t[i][j] = isPalindrome(s, i + 1, j - 1);
     }
     
     string longestPalindrome(string s) {
@@ -17,6 +19,8 @@ public:
         int start = -1;
         
         int n = s.size();
+        
+        memset(t, -1, sizeof(t));
         
         for(int i = 0; i < n; i++){
             
