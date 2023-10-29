@@ -17,10 +17,12 @@ class Solution
     {
         // Your code here
         // It can be a one liner logic!! Think of it!!
+        
         int mask = 1;
+        
         mask = (mask << k);
         
-        return (n & mask);
+        return (mask & n);
     }
 };
 
