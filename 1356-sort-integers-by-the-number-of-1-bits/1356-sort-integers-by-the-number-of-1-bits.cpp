@@ -1,43 +1,46 @@
 class Solution {
 public:
-    
-    int get1s(int n){
-        
-        if(n == 0 || n == 1)  return n;
-        
-        int count = 0, mask = 1;
+    int helper(int n){
+       int res = 0;
         
         while(n){
-            
-            count = (mask & n) ? ++count : count;
-            
+            if(n & 1)   ++res;
             n = (n >> 1);
-            
         }
         
-        return count;
+        return res;      
+    }
+    
+    static bool cmp(pair<int,int>&a, pair<int,int>&b){
+        
+        if(a.second != b.second)    return a.second < b.second;
+        
+        return a.first < b.first;
         
     }
     
     vector<int> sortByBits(vector<int>& arr) {
-        
-        vector<pair<int,int>>temp;
+        vector<pair<int,int>>v;
         
         for(int i : arr){
             
-            int count = get1s(i);
+            int count1s = helper(i);
             
-            temp.push_back(make_pair(count, i));
-            
+            v.push_back({i, count1s});            
         }
         
-        sort(temp.begin(), temp.end());
+        sort(v.begin(), v.end(), cmp);
         
         vector<int>ans;
         
-        for(int i = 0; i < temp.size(); i++)    ans.push_back(temp[i].second);
+        int k = 0;
         
-        return ans;
+        for(auto it : v){
+            
+            arr[k++] = it.first;
+            
+        }
         
+        return arr;
     }
 };
