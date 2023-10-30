@@ -11,29 +11,23 @@
  */
 class Solution {
 public:
-    TreeNode* insertANode(TreeNode* root, int key){
-     
-        if(!root)   return new TreeNode(key);
+    TreeNode* helper(vector<int>& arr, int &i, int n, int bound){
         
-        if(root->val > key){
-            root->left = insertANode(root->left, key);
-        }
+        if(i >= n || arr[i] > bound)  return NULL;
         
-        else    root->right = insertANode(root->right, key);
+        TreeNode* root = new TreeNode(arr[i++]);
+        
+        root->left = helper(arr, i, n, root->val);
+        
+        root->right = helper(arr, i, n, bound);
         
         return root;
         
     }
     TreeNode* bstFromPreorder(vector<int>& preorder) {
         
-        TreeNode* root = new TreeNode(preorder[0]);
+        int i = 0, n = preorder.size();
         
-        for(int i = 1; i < preorder.size(); i++){
-            
-            root = insertANode(root, preorder[i]);
-            
-        }
-        
-        return root;        
+        return helper(preorder, i, n, INT_MAX);        
     }
 };
