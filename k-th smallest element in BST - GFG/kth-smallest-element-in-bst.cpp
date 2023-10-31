@@ -94,38 +94,29 @@ struct Node {
 class Solution {
   public:
     // Return the Kth smallest element in the given BST
-    priority_queue<int, vector<int>, greater<int>>pq;
-    
-    void getAllNodes(Node* root){
+    void helper(Node* root, int &ans, int &k){
         
         if(!root)   return;
         
-        pq.push(root->data);
+        helper(root->left, ans, k);
         
-        getAllNodes(root->left);
+        --k;
         
-        getAllNodes(root->right);
-        
-    }
-    
-    int KthSmallestElement(Node *root, int K) {
-        
-        getAllNodes(root);
-        
-        if(pq.size() < K)   return -1;
-        
-        int ans;
-        
-        while(K--){
-            
-            ans = pq.top();
-            
-            pq.pop();
-            
+        if(k == 0){
+            ans = root->data;
+            return;
         }
         
-        return ans;
+        helper(root->right, ans, k);
         
+    }
+    int KthSmallestElement(Node *root, int K) {
+        // add code here.
+        int ans = -1;
+        
+        helper(root, ans, K);
+        
+        return ans;
     }
 };
 
