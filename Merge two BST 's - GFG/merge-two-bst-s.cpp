@@ -117,13 +117,26 @@ class Solution
     vector<int> merge(Node *root1, Node *root2)
     {
        //Your code here
+       vector<int>res1, res2;
+       
+       inorder(root1, res1);
+       
+       inorder(root2, res2);
+       
+       int i = 0, j = 0, N1 = res1.size(), N2 = res2.size();
+       
        vector<int>res;
        
-       inorder(root1, res);
+       while(i < N1 && j < N2){
+           
+           if(res1[i] < res2[j])    res.push_back(res1[i++]);
+               
+           else     res.push_back(res2[j++]);
+       }
        
-       inorder(root2, res);
+       while(i < N1)    res.push_back(res1[i++]);
        
-       sort(res.begin(), res.end());
+       while(j < N2)    res.push_back(res2[j++]);
        
        return res;
     }
