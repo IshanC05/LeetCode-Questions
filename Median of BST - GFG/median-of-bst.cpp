@@ -122,29 +122,57 @@ struct Node {
 */
 // your task is to complete the Function
 // Function should return median of the BST
-void inorder(Node* root, vector<int>&arr){
+void countNodes(Node* root, int &n){
     
     if(!root)   return;
     
-    inorder(root->left, arr);
+    ++n;
     
-    arr.push_back(root->data);
+    countNodes(root->left, n);
     
-    inorder(root->right, arr);
+    countNodes(root->right, n);
+    
+}
+
+void getKthNode(Node* root, int &k, int& ans){
+    
+    if(!root || k < 0 || ans != -1)     return;
+    
+    getKthNode(root->left, k, ans);
+    
+    --k;
+    
+    if(k == 0){
+        ans = root->data;
+        return;
+    }
+    
+    getKthNode(root->right, k, ans);
+    
 }
 float findMedian(struct Node *root)
 {
       //Code here
-    vector<int>arr;
+    int n = 0;
     
-    inorder(root, arr);
+    countNodes(root, n);
     
-    if(arr.size() & 1){
+    if(n % 2 != 0){
         
-        return arr[arr.size() / 2];
+        int ans = -1, k = (n + 1) / 2;
         
+        getKthNode(root, k, ans);
+        
+        return ans;
+      
     }
     
-    return (arr[arr.size() / 2] + arr[(arr.size() / 2) - 1]) / 2.0;
+    int ans1 = -1, ans2 = -1, k1 = n / 2, k2 = k1 + 1;
+    
+    getKthNode(root, k1, ans1);
+    
+    getKthNode(root, k2, ans2);
+    
+    return ((ans1 + ans2) / 2.0);
 }
 
