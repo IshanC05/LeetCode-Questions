@@ -20,14 +20,12 @@ public:
         
         if(n == 1)  return nums[0];
         
-        int start1 = 0, end1 = n - 1;
-        int start2 = 1, end2 = n;
         
         memset(dp, -1, sizeof(dp));
-        int includeFirst = helper(nums, start1, end1);
+        int includeFirst = helper(nums, 0, n - 1);
         
         memset(dp, -1, sizeof(dp));
-        int excludeFirst = helper(nums, start2, end2);
+        int excludeFirst = helper(nums, 1, n);
         
         return max(includeFirst, excludeFirst);        
     }
