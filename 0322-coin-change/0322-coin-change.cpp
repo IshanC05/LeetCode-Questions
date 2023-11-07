@@ -1,28 +1,38 @@
 class Solution {
 public:
-    int coinChange(vector<int>& coins, int n) {
+    int dp[10005];
+    int helper(vector<int>& coins, int sum, int n){
         
-        int *dp = new int[n + 1];
+        if(sum == 0)    return 0;
         
-        dp[0] = 0;
+        if(dp[sum] != 0)    return dp[sum];
+        
+        int res = INT_MAX;
+        
+        for(int i = 0; i < n; i++){
+            
+            if(sum - coins[i] >= 0){
+                
+                int curr = helper(coins, sum - coins[i], n);
+
+                if(curr != -1)  res = min(res, 1 + curr);   
+                
+            }
+            
+            else   break;
+        }
+              
+        return dp[sum] = res == INT_MAX ? -1 : res;
+    }
+    
+    int coinChange(vector<int>& coins, int amount) {
         
         sort(coins.begin(), coins.end());
         
-        for(int i = 1; i <= n; i++){
-            
-            dp[i] = INT_MAX;
-            
-            for(int c : coins){
-                
-                if(i - c < 0)   
-                    break;
-                
-                if(dp[i - c] != INT_MAX)
-                    dp[i] = min(dp[i], 1 + dp[i - c]);                
-            }
-            
-        }
+        memset(dp, 0, sizeof(dp));
         
-        return dp[n] == INT_MAX ? -1 : dp[n];
+        int n = coins.size();
+        
+        return helper(coins, amount, n);
     }
 };
