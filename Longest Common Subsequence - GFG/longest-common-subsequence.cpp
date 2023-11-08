@@ -28,10 +28,8 @@ class Solution
     
     int lcs(int m, int n, string s1, string s2)
     {
-        // Initialize the dp table with -1
         memset(dp, -1, sizeof(dp));
         
-        // Call the helper function with the correct arguments
         return helper(s1, s2, m, n);
     }
 };
