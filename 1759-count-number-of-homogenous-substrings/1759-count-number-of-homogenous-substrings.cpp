@@ -6,19 +6,15 @@ public:
         
         int n = s.size();
         
-        int i = 0, j = 0, mod = 1e9+7;
+        int mod = 1e9+7, curr = 0;
         
-        while(i < n){
+        for(int i = 0; i < n; i++){
             
-            j = i;
+            if(i == 0 || s[i] == s[i - 1])    ++curr;
             
-            while(j < n && s[j] == s[i]){
-                res += (j - i + 1);
-                res = res % mod;
-                ++j;
-            }
+            else    curr = 1;
             
-            i = j;
+            res = (res + curr) % mod;
             
         }
         
