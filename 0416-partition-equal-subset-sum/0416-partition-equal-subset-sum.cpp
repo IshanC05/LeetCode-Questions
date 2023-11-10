@@ -1,21 +1,30 @@
 class Solution {
 public:
-    int t[201][20001];
-    bool helper(vector<int>& nums, int sum, int n){
+    bool helper(vector<int>& arr, int sum){
        
-        if(n == 0)   return sum == 0;
+        int n = arr.size();
+        int t[n + 1][sum + 1];
         
-        if(t[n][sum] != -1)     return t[n][sum];
-        
-        bool take = false, skip = false;
-        
-        if(nums[n - 1] <= sum){
-            take = helper(nums, sum - nums[n - 1], n - 1);
+        for(int i = 0; i <= n; i++)
+            t[i][0] = 1;
+            
+        for(int j = 1; j <= sum; j++)
+            t[0][j] = 0;
+            
+        for(int i = 1; i <= n; i++){
+            for(int j = 1; j <= sum; j++){
+                
+                t[i][j] = t[i - 1][j];
+                
+                if(arr[i - 1] <= j){
+                    
+                    t[i][j] = max(t[i - 1][j - arr[i - 1]], t[i][j]);
+                    
+                }
+            }
         }
         
-        skip = helper(nums, sum, n - 1);
-        
-        return t[n][sum] = (take || skip);
+        return t[n][sum];
     }
     
     bool canPartition(vector<int>& nums) {
@@ -28,8 +37,6 @@ public:
         
         if(sum & 1)     return false;
         
-        memset(t, -1, sizeof(t));
-        
-        return helper(nums, sum / 2, n);        
+        return helper(nums, sum / 2);        
     }
 };
