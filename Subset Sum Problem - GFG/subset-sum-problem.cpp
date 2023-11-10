@@ -9,30 +9,31 @@ using namespace std;
 
 class Solution{   
 public:
-    int t[101][10001];
-    bool helper(vector<int>&arr, int sum, int n){
+    bool isSubsetSum(vector<int>arr, int sum){
+        // code here
+        int n = arr.size();
+        int t[n + 1][sum + 1];
         
-        if(n == 0 && sum == 0)  return true;
-        
-        if(n == 0 && sum > 0)   return false;
-        
-        if(t[n][sum] != -1)     return t[n][sum];
-        
-        bool take = false, skip = false;
-        
-        if(arr[n - 1] <= sum){
-            take = helper(arr, sum - arr[n - 1], n - 1);
+        for(int i = 0; i <= n; i++)
+            t[i][0] = 1;
+            
+        for(int j = 1; j <= sum; j++)
+            t[0][j] = 0;
+            
+        for(int i = 1; i <= n; i++){
+            for(int j = 1; j <= sum; j++){
+                
+                t[i][j] = t[i - 1][j];
+                
+                if(arr[i - 1] <= j){
+                    
+                    t[i][j] = max(t[i - 1][j - arr[i - 1]], t[i][j]);
+                    
+                }
+            }
         }
         
-        skip = helper(arr, sum, n - 1);
-        
-        return t[n][sum] = (take || skip);
-    }
-    bool isSubsetSum(vector<int>arr, int sum){
-        // code here 
-        int n = arr.size();
-        memset(t, -1, sizeof(t));
-        return helper(arr, sum, n);
+        return t[n][sum];
     }
 };
 
