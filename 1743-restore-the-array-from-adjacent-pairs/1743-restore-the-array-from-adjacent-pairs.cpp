@@ -41,7 +41,7 @@ public:
             
             int u = it.first;
             
-            if(it.second.size() == 1 && vis.find(u) == vis.end()){
+            if(it.second.size() == 1){
                 
                 dfs(graph, u, vis, ans);
                 
