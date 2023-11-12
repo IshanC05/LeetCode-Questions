@@ -1,23 +1,29 @@
 class Solution {
 public:
-    int helper(vector<int>& arr, int sum, int n){
-        
-        if(n == 0)  return (sum == 0 ? 1 : 0);
-        
-        int res = 0;
-        
-        res += helper(arr, sum + arr[n - 1], n - 1);
-        
-        res += helper(arr, sum - arr[n - 1], n - 1);
-        
-        return res;
-        
+    int total;
+
+    int findTargetSumWays(vector<int>& nums, int S) {
+        total = accumulate(nums.begin(), nums.end(), 0);
+
+        vector<vector<int>> memo(nums.size(), vector<int>(2 * total + 1, INT_MIN));
+        return calculate(nums, 0, 0, S, memo);
     }
-    
-    int findTargetSumWays(vector<int>& nums, int target) {
-        
-        int n = nums.size();
-        
-        return helper(nums, target, n);        
+
+    int calculate(vector<int>& nums, int i, int sum, int S, vector<vector<int>>& memo) {
+        if (i == nums.size()) {
+            if (sum == S) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } else {
+            if (memo[i][sum + total] != INT_MIN) {
+                return memo[i][sum + total];
+            }
+            int add = calculate(nums, i + 1, sum + nums[i], S, memo);
+            int subtract = calculate(nums, i + 1, sum - nums[i], S, memo);
+            memo[i][sum + total] = add + subtract;
+            return memo[i][sum + total];
+        }
     }
 };
