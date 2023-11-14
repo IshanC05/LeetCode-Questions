@@ -22,7 +22,7 @@ public:
                 
             }
             
-            if(start != -1)     
+            if(start != -1 && start != end)     
                 indexes[t] = {start, end};
             
         }
