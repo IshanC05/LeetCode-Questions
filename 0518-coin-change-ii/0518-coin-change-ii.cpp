@@ -1,34 +1,36 @@
 class Solution {
 public:
-    int t[301][5001];
-    int helper(vector<int>& coins, int amount, int n){
-    
-        if(n == 0)  return amount == 0 ? 1 : 0;
-        
-        if(t[n][amount] != -1)  return t[n][amount];
-        
-        int res = 0;
-        
-        if(coins[n - 1] <= amount){
-            
-            res = helper(coins, amount - coins[n - 1], n) + helper(coins, amount, n - 1);
-            
-        }else{
-            
-            res = helper(coins, amount, n - 1);
-            
-        }
-        
-        return t[n][amount] = res;
-        
-    }
-    
     int change(int amount, vector<int>& coins) {
-       
+        
         int n = coins.size();
         
-        memset(t, -1, sizeof(t));
+        vector<vector<int>>t(n + 1, vector<int>(amount + 1));
         
-        return helper(coins, amount, n);        
+        for(int i = 0; i <= n; i++){
+            t[i][0] = 1;
+        }
+        
+        for(int j = 1; j <= amount; j++){
+            t[0][j] = 0;
+        }
+        
+        for(int i = 1; i <= n; i++){
+            for(int j = 1; j <= amount; j++){
+                
+                if(coins[i - 1] <= j){
+                    
+                    t[i][j] = t[i][j - coins[i - 1]] + t[i - 1][j];
+                    
+                }else{
+                    
+                    t[i][j] = t[i - 1][j];
+                    
+                }
+                
+            }
+        }
+        
+        return t[n][amount];
+        
     }
 };
