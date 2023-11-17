@@ -10,27 +10,28 @@ class Solution
 {
     public:
     //Function to find the length of longest common subsequence in two strings.
-    int dp[1001][1001];
-    
-    int helper(string &s, string &t, int m, int n){
-        if(dp[m][n] != -1)  return dp[m][n];
-        
-        if(m == 0 || n == 0)    return dp[m][n] = 0;
-        
-        if(s[m - 1] == t[n - 1])
-            return dp[m][n] = 1 + helper(s, t, m - 1, n - 1);
-        
-        int ans1 = helper(s, t, m - 1, n);
-        int ans2 = helper(s, t, m, n - 1);
-               
-        return dp[m][n] = max(ans1, ans2);
-    }
-    
     int lcs(int m, int n, string s1, string s2)
     {
-        memset(dp, -1, sizeof(dp));
+        // your code here
+        vector<vector<int>>t(m + 1, vector<int>(n + 1, 0));
         
-        return helper(s1, s2, m, n);
+        for(int i = 1; i <= m; i++){
+            for(int j = 1; j <= n; j++){
+                
+                if(s1[i - 1] == s2[j - 1]){
+                    
+                    t[i][j] = 1 + t[i - 1][j - 1];
+                    
+                }else{
+                    
+                    t[i][j] = max(t[i - 1][j], t[i][j - 1]);
+                    
+                }
+                
+            }
+        }
+            
+        return t[m][n];
     }
 };
 
