@@ -31,12 +31,7 @@ public:
     }
     
     int longestPalindromeSubseq(string s) {
-        string t = "";
-        
-        for(char i : s)     
-            t.push_back(i);
-        
-        reverse(t.begin(), t.end());
+        string t(s.rbegin(), s.rend());
         
         int n = s.size();
         
