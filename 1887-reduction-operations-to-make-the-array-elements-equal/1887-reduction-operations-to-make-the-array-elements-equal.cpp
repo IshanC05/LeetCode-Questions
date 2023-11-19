@@ -6,25 +6,17 @@ public:
         
         int n = nums.size();
         
-        int count = 0, i = n - 2, j;
+        int res = 0;
         
-        while(i >= 0){
+        for(int i = n - 1; i > 0; i--){
             
-            while(i >= 0 && nums[i] == nums[i + 1]) 
-                --i;
+            if(nums[i] == nums[i - 1])  continue;
             
-            if(i < 0)   
-                break;
-            
-            j = i + 1;
-            
-            nums[j] = nums[i];
-            
-            count += n - j;
+            res += (n - i);
             
         }
         
-        return count;
+        return res;
         
     }
 };
