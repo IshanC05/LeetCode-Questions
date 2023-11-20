@@ -2,8 +2,6 @@ class Solution {
 public:
     int garbageCollection(vector<string>& garbage, vector<int>& travel) {
         
-        unordered_map<char, int>mp;
-        
         int P = 0, G = 0, M = 0;
         
         int res = 0, gsz = garbage.size();
