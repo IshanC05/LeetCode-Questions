@@ -6,14 +6,6 @@ public:
         
         for(int i = lastIdx; i >= 0; i--){
             
-            int prevAns = ans;
-            
-            for(char j : garbage[i]){
-                
-                if(j == gtype)  ++ans;
-                
-            }
-            
             if(k >= 0)   ans += travel[k--];
             
         }
@@ -26,7 +18,7 @@ public:
         
         unordered_map<char, int>mp;
         
-        int res = 0, gsz = garbage.size(), tsz = gsz - 1;
+        int res = 0, gsz = garbage.size();
         
         mp.insert({'P', 0});
         
@@ -41,6 +33,8 @@ public:
                 mp[j] = i;
                 
             }
+            
+            res += garbage[i].size();
             
         }
         
