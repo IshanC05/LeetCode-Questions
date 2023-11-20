@@ -1,30 +1,10 @@
 class Solution {
-public:
-    int helper(vector<string>& garbage, vector<int>& travel, char gtype, int lastIdx){
-        
-        int ans = 0, k = lastIdx - 1;
-        
-        for(int i = lastIdx; i >= 0; i--){
-            
-            if(k >= 0)   ans += travel[k--];
-            
-        }
-        
-        return ans;
-        
-    }
-    
+public:    
     int garbageCollection(vector<string>& garbage, vector<int>& travel) {
         
         unordered_map<char, int>mp;
         
         int res = 0, gsz = garbage.size();
-        
-        mp.insert({'P', 0});
-        
-        mp.insert({'G', 0});
-        
-        mp.insert({'M', 0});
         
         for(int i = 0; i < gsz; i++){
             
@@ -32,20 +12,35 @@ public:
                 
                 mp[j] = i;
                 
+                ++res;
+                
             }
             
-            res += garbage[i].size();
+        }
+        
+        vector<int>pref(travel);
+        
+        pref[0] = travel[0];
+        
+        for(int i = 1; i < travel.size(); i++){         
+            
+            pref[i] = travel[i] + pref[i - 1];
             
         }
         
         for(auto it : mp){
             
-            int smallAns = helper(garbage, travel, it.first, it.second);
+            int lastIdx = it.second - 1;
             
-            res += smallAns;
+            if(lastIdx >= 0){
+                
+                res += pref[lastIdx];
+                
+            }
             
         }
         
+           
         return res;
         
     }
