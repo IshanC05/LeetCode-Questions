@@ -1,5 +1,5 @@
 class Solution {
-public:    
+public:
     int garbageCollection(vector<string>& garbage, vector<int>& travel) {
         
         unordered_map<char, int>mp;
@@ -18,30 +18,19 @@ public:
             
         }
         
-        vector<int>pref(travel);
-        
-        pref[0] = travel[0];
-        
         for(int i = 1; i < travel.size(); i++){         
             
-            pref[i] = travel[i] + pref[i - 1];
+            travel[i] = travel[i] + travel[i - 1];
             
         }
         
         for(auto it : mp){
-            
-            int lastIdx = it.second - 1;
-            
-            if(lastIdx >= 0){
                 
-                res += pref[lastIdx];
-                
-            }
+            res += it.second - 1 >= 0 ? travel[it.second - 1] : 0;
             
         }
         
            
         return res;
-        
     }
 };
