@@ -24,6 +24,8 @@ public:
         
         unordered_map<int, int>revCount;
         
+        long long res = 0;
+        
         for(int i = 0; i < n; i++){
             
             int num = nums[i];
@@ -32,21 +34,9 @@ public:
             
             int diff = num - revNum;
             
+            res = (res + revCount[diff]) % mod;
+            
             ++revCount[diff];
-            
-        }
-        
-        long long res = 0;
-        
-        for(auto it : revCount){
-            
-            // cout << it.first << " " << it.second << "\n";
-            
-            long long count = it.second - 1;
-            
-            long long pairs = (count * (count + 1)) / 2;
-            
-            res = (res + pairs) % mod;
             
         }
         
