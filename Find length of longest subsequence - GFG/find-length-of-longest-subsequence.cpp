@@ -21,24 +21,31 @@ int main()
 }
 // } Driver Code Ends
 
-
-int maxSubsequenceSubstring(string x,string y,int n,int m)
-{
-    vector<vector<int>>dp(MAX,vector<int>(MAX,0));
- 
-    // Calculating value for each element.
-    for (int i = 1; i <= m; i++) {
-        for (int j = 1; j <= n; j++) {
-            if (x[j - 1] == y[i - 1])
-                dp[i][j] = 1 + dp[i - 1][j - 1];
-            else
-                dp[i][j] = dp[i][j - 1];
-        }
+int t[1001][1001];
+int helper(string &x, string &y, int n, int m){
+    
+    if(n == 0 || m == 0)    return 0;
+    
+    if(t[n][m] != -1)   return t[n][m];
+    
+    if(x[n - 1] == y[m - 1])
+        return  t[n][m] = 1 + helper(x, y, n - 1, m - 1);
+        
+    return t[n][m] = helper(x, y, n - 1, m);
+    
+}
+int maxSubsequenceSubstring(string X, string Y, int N, int M){
+    //code
+    memset(t, -1, sizeof(t));
+    
+    int maxL = 0;
+    
+    for(int i = 0; i <= M; i++){
+    
+        int smallAns = helper(X, Y, N, i);
+    
+        maxL = max(maxL, smallAns);
     }
-
-    int ans = 0;
-    for (int i = 1; i <= m; i++)
-        ans = max(ans, dp[i][n]);
- 
-    return ans;
+    
+    return maxL;
 }
