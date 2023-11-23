@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool helper(vector<int>arr){
+    bool helper(vector<int>&arr){
         
         int n = arr.size(), minE = INT_MAX, maxE = INT_MIN;
         
