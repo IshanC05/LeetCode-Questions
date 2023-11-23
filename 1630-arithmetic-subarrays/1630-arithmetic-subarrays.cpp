@@ -2,15 +2,30 @@ class Solution {
 public:
     bool helper(vector<int>arr){
         
-        int n = arr.size();
+        int n = arr.size(), minE = INT_MAX, maxE = INT_MIN;
         
-        sort(arr.begin(), arr.end());
-        
-        int diff = arr[1] - arr[0];
-        
-        for(int i = 2; i < n; i++){
+        unordered_set<int>st;
+                
+        for(auto i : arr){
             
-            if(arr[i] - arr[i - 1] != diff)     return false;
+            minE = min(minE, i);
+            
+            maxE = max(maxE, i);
+                
+            st.insert(i);
+        }
+        
+        if((maxE - minE) % (n - 1) != 0)    return false;
+        
+        int diff = (maxE - minE) / (n - 1);
+        
+        int curr = minE + diff;
+        
+        while(curr < maxE){
+            
+            if(st.find(curr) == st.end())     return false;
+            
+            curr = curr + diff;
             
         }
         
