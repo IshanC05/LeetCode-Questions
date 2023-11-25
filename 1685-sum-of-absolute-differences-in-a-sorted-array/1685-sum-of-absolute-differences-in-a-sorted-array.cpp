@@ -22,9 +22,9 @@ public:
         
         vector<int>res(n);
         
-        for(int i = 1; i < n - 1; i++){
+        for(int i = 0; i < n; i++){
             
-            int leftSum = abs(lsum[i] - (nums[i] * (i)));
+            int leftSum = abs(lsum[i] - (nums[i] * i));
             
             int rightSum = abs(rsum[i] - (nums[i] * (n - 1 - i)));
             
@@ -33,12 +33,6 @@ public:
             totalSum += nums[i];
             
         }
-        
-        totalSum += nums[n - 1];
-        
-        res[0] = abs(totalSum - (nums[0] * n));
-        
-        res[n - 1] = abs(totalSum - (nums[n - 1] * n));
         
         return res;
         
