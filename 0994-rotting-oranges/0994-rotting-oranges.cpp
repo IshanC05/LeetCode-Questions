@@ -70,6 +70,7 @@ public:
         
         bool isOrange = false;
         
+        // if no orange is Present
         for(int i = 0; i < r; i++){
             for(int j = 0; j < c; j++){
                 if(grid[i][j] != 0){
@@ -81,17 +82,14 @@ public:
         
         if(!isOrange)   return 0;
         
+        // start points for bfs        
         vector<pair<int,int>>start;
         
         for(int i = 0; i < r; i++){
             for(int j = 0; j < c; j++){
-                
                 if(grid[i][j] == 2){
-                    
                     start.push_back({i, j});
-        
                 }
-                
             }
         }
         
