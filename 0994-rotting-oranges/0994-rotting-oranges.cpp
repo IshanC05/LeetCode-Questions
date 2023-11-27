@@ -9,7 +9,7 @@ public:
         return true;        
     }
     
-    int bfs(vector<vector<int>> grid, vector<pair<int,int>>&start, int r, int c){
+    int bfs(vector<vector<int>> &grid, vector<pair<int,int>>&start, int r, int c){
         
         queue<pair<int,pair<int, int>>>q;
         
@@ -92,10 +92,6 @@ public:
                 }
             }
         }
-        
-//         int res = bfs(grid, start, r, c);
-        
-//         return (res == INT_MAX) ? -1 : res;
         
         return bfs(grid, start, r, c);
         
