@@ -93,9 +93,11 @@ public:
             }
         }
         
-        int res = bfs(grid, start, r, c);
+//         int res = bfs(grid, start, r, c);
         
-        return (res == INT_MAX) ? -1 : res;
+//         return (res == INT_MAX) ? -1 : res;
+        
+        return bfs(grid, start, r, c);
         
     }
 };
