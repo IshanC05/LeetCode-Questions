@@ -28,7 +28,7 @@ class Solution {
             
             while(main[i]-- != 0){
                 
-                String ch = String.valueOf((char) (i + 'a'));
+                String ch = Character.toString((char) (i + 'a'));
                 
                 res.add(ch);
                 
