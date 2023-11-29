@@ -6,12 +6,10 @@ class Solution {
         for(int i = 0; i < s.length(); i++)
             ++freq[s.charAt(i) - 'a'];
         
-        int i = 0;
+        for(int i = 0; i < s.length(); i++)
+            if(freq[s.charAt(i) - 'a'] == 1)   return i;
         
-        for(; i < s.length(); i++)
-            if(freq[s.charAt(i) - 'a'] == 1)   break;
-        
-        return (i == s.length()) ? -1 : i;
+        return -1;
         
     }
 }
