@@ -26,13 +26,11 @@ class Solution {
         
         for(int i = 0; i < 26; i++){
             
-            while(main[i] != 0){
+            while(main[i]-- != 0){
                 
                 String ch = String.valueOf((char) (i + 'a'));
                 
                 res.add(ch);
-                
-                --main[i];
                 
             }
             
