@@ -1,39 +1,33 @@
 class Solution {
 public:
-    int helper(vector<int>& coins, int n, int sum, vector<vector<int>>&t){
-        
-	    if(sum == 0)    return 0;
-	    
-	    if(n == 0)  return INT_MAX - 1;
-        
-        if(t[n][sum] != -1)     return t[n][sum];
-	    
-	    if(coins[n - 1] <= sum){
-            
-            int take = 1 + helper(coins, n, sum - coins[n - 1], t);
-            
-            int skip = helper(coins, n - 1, sum, t);
-            
-            return t[n][sum] = min(take, skip);            
-        }
-	        
-	    return t[n][sum] = helper(coins, n - 1, sum, t);
-	    
-	}
-    
     int numSquares(int n) {
         
-        vector<int>squares;
+        vector<int> squares;
         
-        for(int i = 1; i*i <= n; i++){
-            squares.push_back(i*i);
+        for (int i = 1; i * i <= n; i++) {
+            squares.push_back(i * i);
         }
-        
+
         int N = squares.size();
-        
-        vector<vector<int>>t(N + 1, vector<int>(n + 1, -1));
-        
-        return helper(squares, N, n, t);
-        
+
+        vector<vector<int>> dp(N + 1, vector<int>(n + 1, INT_MAX));
+
+        for (int i = 0; i <= N; i++) {
+            dp[i][0] = 0;
+        }
+
+        for (int i = 1; i <= N; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (squares[i - 1] <= j) {
+ 
+                    dp[i][j] = min(dp[i - 1][j], 1 + dp[i][j - squares[i - 1]]);
+                } else {
+                    
+                    dp[i][j] = dp[i - 1][j];
+                }
+            }
+        }
+
+        return dp[N][n];
     }
 };
