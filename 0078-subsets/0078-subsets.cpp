@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void helper(vector<int>& nums, vector<int>input, int n, vector<vector<int>>&res, int prev){
+    void helper(vector<int>& nums, vector<int>&input, int n, vector<vector<int>>&res, int prev){
         
         if(n == 0){
             res.push_back(input);
