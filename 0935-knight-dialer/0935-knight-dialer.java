@@ -1,43 +1,40 @@
-public class Solution {
-
-    private static final int[][] ways = {{4, 6}, {6, 8}, {7, 9}, {4, 8}, {0, 3, 9}, {}, {0, 1, 7}, {2, 6}, {1, 3}, {2, 4}};
-    private static final int MOD = 1000000007;
-    private static long[][] memo;
-
+class Solution {
     public int knightDialer(int n) {
-        memo = new long[n + 1][10];
-        initializeMemo();
-
-        long result = 0;
-
-        for (int i = 0; i < 10; i++) {
-            result = (result + helper(n - 1, i)) % MOD;
+        int[][] jumps = {
+            {4, 6},
+            {6, 8},
+            {7, 9},
+            {4, 8},
+            {3, 9, 0},
+            {},
+            {1, 7, 0},
+            {2, 6},
+            {1, 3},
+            {2, 4}
+        };
+        
+        int MOD = (int) 1e9 + 7;
+        int[][] dp = new int[n][10];
+        for (int square = 0; square < 10; square++) {
+            dp[0][square] = 1;
         }
+        
+        for (int remain = 1; remain < n; remain++) {
+            for (int square = 0; square < 10; square++) {
+                int ans = 0;
+                for (int nextSquare : jumps[square]) {
+                    ans = (ans + dp[remain - 1][nextSquare]) % MOD;
+                }
 
-        return (int) result;
-    }
-
-    private void initializeMemo() {
-        for (long[] row : memo) {
-            Arrays.fill(row, -1);
+                dp[remain][square] = ans;
+            }
         }
-    }
-
-    private long helper(int remainingSteps, int currentDigit) {
-        if (remainingSteps == 0) {
-            return 1;
+        
+        int ans = 0;
+        for (int square = 0; square < 10; square++) {
+            ans = (ans + dp[n - 1][square]) % MOD;
         }
-
-        if (memo[remainingSteps][currentDigit] != -1) {
-            return memo[remainingSteps][currentDigit];
-        }
-
-        long waysCount = 0;
-
-        for (int nextDigit : ways[currentDigit]) {
-            waysCount = (waysCount + helper(remainingSteps - 1, nextDigit)) % MOD;
-        }
-
-        return memo[remainingSteps][currentDigit] = waysCount;
+        
+        return ans;
     }
 }
