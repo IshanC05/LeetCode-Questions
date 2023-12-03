@@ -1,80 +1,76 @@
 class Solution {
 public:
-    
-    unordered_map<char,string>mp;
-    
-    vector<string>ans;
-    
-    string getChar(char a){
+    string getStringByDigit(char c){
         
-        if(mp.empty()){
-            
-            mp.insert(make_pair('2', "abc"));
-            mp.insert(make_pair('3', "def"));
-            mp.insert(make_pair('4', "ghi"));
-            mp.insert(make_pair('5', "jkl"));
-            mp.insert(make_pair('6', "mno"));
-            mp.insert(make_pair('7', "pqrs"));
-            mp.insert(make_pair('8', "tuv"));
-            mp.insert(make_pair('9', "wxyz"));    
+        switch(c){
+            case '2' : return "abc";
+            case '3' : return "def";
+            case '4' : return "ghi";
+            case '5' : return "jkl";
+            case '6' : return "mno";
+            case '7' : return "pqrs";
+            case '8' : return "tuv";
+            case '9' : return "wxyz";
         }
         
-        return mp[a];
-        
+        return "";
     }
     
-    void helper(string input){
+    void helper(string input, int n, vector<string>&res){
         
         if(input.size() == 0){
-            
-            ans.push_back("");
-            
+            res.push_back("");
             return;
+        }
+        
+        char firstDigit = input[0];
+        
+        helper(input.substr(1), n, res);
+        
+        int K = res.size();
+        
+        string toBeAdded = getStringByDigit(firstDigit);
+        
+        int copies = toBeAdded.size() - 1;
+        
+        for(int i = 0; i < copies; i++){
+            
+            for(int j = 0; j < K; j++)  res.push_back(res[j]);
             
         }
         
-        char curr = input[0];
+        int newSize = res.size(), l = 0;
         
-        helper(input.substr(1));
-        
-        int smallSize = ans.size();
-        
-        string options = getChar(curr);
-        
-        for(int i = 0; i < options.size() - 1; i++){
+        for(int i = 0; i < toBeAdded.size(); i++){
             
-            for(int j = 0; j < smallSize; j++){
+            string newS(1, toBeAdded[i]);
+            
+            for(int j = 0; j < K; j++){
                 
-                ans.push_back(ans[j]);
+                res[l] = newS + res[l];
+                
+                ++l;
                 
             }
-        
-        }
-        
-        int k = 0;
-        
-        for(int i = 0; i < options.size(); i++){
-            
-            for(int j = 0; j < smallSize; j++){
-                
-                ans[k] = options[i] + ans[k];
-                
-                ++k;
-            }
             
         }
         
-           
-        return;        
+        return;
+        
     }
     
     vector<string> letterCombinations(string digits) {
         
-        helper(digits);
+        string output = "";
         
-        if(ans.size() < 3)     ans.clear();
+        int n = digits.size();
         
-        return ans;
+        vector<string>res;
         
+        helper(digits, n, res);
+        
+        if(res.size() == 1)     res.clear();
+        
+        return res;
     }
 };
