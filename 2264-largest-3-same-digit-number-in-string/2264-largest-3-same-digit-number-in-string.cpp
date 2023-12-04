@@ -1,34 +1,23 @@
 class Solution {
-public:   
+public:
     string largestGoodInteger(string num) {
-        
-        string res = "";
         
         int n = num.size();
         
-        for(int i = 1; i < n - 1; i++){
+        char maxChar = ' ';
+        
+        for(int i = 1; i < n; i++){
             
-            char a = num[i - 1], b = num[i], c = num[i + 1];
-            
-            if(a == b && b == c){
+            if(num[i] == num[i - 1] && num[i] == num[i + 1]){
                 
-                if(res.size() == 0)     res = {a, b, c};
-                
-                else{
-                    
-                    int prev = stoi(res);
-                    
-                    int cur = (a - '0') * 100 + (b - '0') * 10 + (c - '0');
-                    
-                    if(prev < cur)  res = {a, b, c};
-                    
-                }
+                maxChar = max(maxChar, num[i]);
                 
             }
             
         }
         
-        return res;
+        if(maxChar == ' ')  return "";
         
+        return string(3, maxChar);        
     }
 };
