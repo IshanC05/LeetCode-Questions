@@ -1,30 +1,26 @@
 class Solution {
-public:
-    bool isValid(string s){
-        return (s[0] == s[1] && s[1] == s[2]);
-    }
-    
+public:   
     string largestGoodInteger(string num) {
         
         string res = "";
         
         int n = num.size();
         
-        for(int i = 0; i <= n - 3; i++){
+        for(int i = 1; i < n - 1; i++){
             
-            string s = num.substr(i, 3);
+            char a = num[i - 1], b = num[i], c = num[i + 1];
             
-            if(isValid(s)){
+            if(a == b && b == c){
                 
-                if(res.size() == 0)     res = s;
+                if(res.size() == 0)     res = {a, b, c};
                 
                 else{
                     
                     int prev = stoi(res);
                     
-                    int curr = stoi(s);
+                    int cur = (a - '0') * 100 + (b - '0') * 10 + (c - '0');
                     
-                    if(prev < curr)     res = to_string(curr);
+                    if(prev < cur)  res = {a, b, c};
                     
                 }
                 
