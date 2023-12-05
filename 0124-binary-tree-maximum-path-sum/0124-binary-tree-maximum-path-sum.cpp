@@ -11,34 +11,27 @@
  */
 class Solution {
 public:
-    int helper(TreeNode* root, int&maxSum){
-        
+    int helper(TreeNode* root, int &res){
+    
         if(!root)   return 0;
         
-        int l = helper(root->left, maxSum);
-        int r = helper(root->right, maxSum);
+        int l = helper(root->left, res);
+        int r = helper(root->right, res);
         
-        // Option1
-        int smallAns1 = l + r + root->val;
+        int temp = max(max(l, r) + root->val, root->val);
+        int ans = max(temp, l + r + root->val);
+        res = max(res, ans);
         
-        // Option2
-        int smallAns2 = max(l, r) + root->val;
-        
-        // Option3
-        int smallAns3 = root->val;
-        
-        maxSum = max(maxSum, max(smallAns1, max(smallAns2, smallAns3)));
-        
-        // Option1 is not choosen because a path is already completed
-        return max(smallAns2, smallAns3);
-        
+        return temp;        
     }
+    
     int maxPathSum(TreeNode* root) {
         
-        int maxSum = INT_MIN;
+        int res = INT_MIN;
         
-        helper(root, maxSum);
+        helper(root, res);
         
-        return maxSum;        
+        return res;
+        
     }
 };
