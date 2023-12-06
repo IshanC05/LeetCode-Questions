@@ -19,7 +19,7 @@ class Solution {
             
             st.add(s.charAt(j));
             
-            res = Math.max(res, st.size());
+            res = Math.max(res, j - i + 1);
             
             ++j;
             
