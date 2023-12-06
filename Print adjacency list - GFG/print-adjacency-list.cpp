@@ -8,29 +8,19 @@ class Solution {
     // Function to return the adjacency list for each vertex.
     vector<vector<int>> printGraph(int V, vector<pair<int,int>>edges) {
         // Code here
+        vector<vector<int>>adj(V);
         
-        vector<vector<int>>ans(V);
-        
-        unordered_map<int, vector<int>>mp;
-        
-        for(auto p : edges){
+        for(auto &p : edges){
             
             int u = p.first;
             int v = p.second;
             
-            mp[u].push_back(v);
-            mp[v].push_back(u);
+            adj[u].push_back(v);
+            adj[v].push_back(u);
             
         }
         
-        for(auto it : mp){
-            
-            ans[it.first] = it.second;
-            
-        }
-        
-        return ans;
-        
+        return adj;
     }
 };
 
