@@ -6,13 +6,11 @@ public:
     
     string largestOddNumber(string num) {
         
-        string res = "";
-        
         int i = num.size() - 1;
         
         while(i >= 0 && !check(num[i] - '0'))   --i;
         
-        if(i < 0)   return res;
+        if(i < 0)   return "";
         
         return num.substr(0, i + 1);
         
