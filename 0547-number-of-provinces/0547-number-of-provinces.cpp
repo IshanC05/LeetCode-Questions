@@ -1,12 +1,12 @@
 class Solution {
 public:
-    void dfs(unordered_map<int, vector<int>>&adj, vector<bool>&vis, int s){
+    void dfs(vector<vector<int>>&adj, vector<bool>&vis, int s, int n){
         
         vis[s] = true;
         
-        for(int &v : adj[s]){
+        for(int i = 0; i < n; i++){
             
-            if(!vis[v])     dfs(adj, vis, v);
+            if(adj[s][i] == 1 && !vis[i])   dfs(adj, vis, i, n);
             
         }
         
@@ -15,26 +15,7 @@ public:
     }
     int findCircleNum(vector<vector<int>>& mat) {
         
-        // form graph
-        unordered_map<int, vector<int>>adj;
-        
         int n = mat.size();
-        
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < n; j++){
-                
-                if(mat[i][j] == 1){
-                    
-                    int u = i;
-                    int v = j;
-                    
-                    adj[u].push_back(v);
-                    adj[v].push_back(u);
-                    
-                }
-                
-            }
-        }
         
         vector<bool>vis(n, false);
         
@@ -46,7 +27,7 @@ public:
                 
                 ++count;
                 
-                dfs(adj, vis, i);
+                dfs(mat, vis, i, n);
             }
             
         }
