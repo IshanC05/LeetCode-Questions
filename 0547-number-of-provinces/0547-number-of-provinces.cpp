@@ -1,52 +1,57 @@
 class Solution {
 public:
-    int n;
-//     void dfs(vector<vector<int>>& isConnected, int u, vector<bool>&visited){
+    void dfs(unordered_map<int, vector<int>>&adj, vector<bool>&vis, int s){
         
-//         visited[u] = true;
+        vis[s] = true;
         
-//         for(int v = 0; v < n; v++){
-//             if(!visited[v] && isConnected[u][v] == 1){
-//                 dfs(isConnected, v, visited);
-//             }
-//         }
-//     }
-    void bfs(vector<vector<int>>& isConnected, int s, vector<bool>&visited){
-        
-        queue<int>q;
-        q.push(s);
-        visited[s] = true;
-        
-        while(!q.empty()){
+        for(int &v : adj[s]){
             
-            int u = q.front();
-            q.pop();
+            if(!vis[v])     dfs(adj, vis, v);
             
-            for(int v = 0; v < n; v++){
-                if(!visited[v] && isConnected[u][v] == 1){
-                    visited[v] = true;
-                    q.push(v);
-                }
-            }
-            
-        }       
+        }
+        
+        return;
+        
     }
-    
-    int findCircleNum(vector<vector<int>>& isConnected) {
-        n = isConnected.size();
+    int findCircleNum(vector<vector<int>>& mat) {
         
-        // Count Provinces through BFS
-        int count = 0;
-        vector<bool>visited(n, false);
+        // form graph
+        unordered_map<int, vector<int>>adj;
+        
+        int n = mat.size();
         
         for(int i = 0; i < n; i++){
-            if(!visited[i]){
-                // dfs(isConnected, i, visited);
-                bfs(isConnected, i, visited);
-                ++count;
+            for(int j = 0; j < n; j++){
+                
+                if(mat[i][j] == 1){
+                    
+                    int u = i;
+                    int v = j;
+                    
+                    adj[u].push_back(v);
+                    adj[v].push_back(u);
+                    
+                }
+                
             }
         }
         
+        vector<bool>vis(n, false);
+        
+        int count = 0;
+        
+        for(int i = 0; i < n; i++){
+            
+            if(!vis[i]){
+                
+                ++count;
+                
+                dfs(adj, vis, i);
+            }
+            
+        }
+        
         return count;
+        
     }
 };
