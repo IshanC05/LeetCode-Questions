@@ -32,7 +32,7 @@ class Solution {
                 
             }
             
-            curr = st.poll();
+            curr = st.pop();
             
             res.add(curr.val);
             
