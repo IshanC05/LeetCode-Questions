@@ -11,24 +11,35 @@
  */
 class Solution {
 public:
-    void inorderHelper(TreeNode* root, vector<int>&res){
-        
-        if(!root)   return;
-        
-        inorderHelper(root->left, res);
-        
-        res.push_back(root->val);
-        
-        inorderHelper(root->right, res);
-        
-    }
-    
     vector<int> inorderTraversal(TreeNode* root) {
         
         vector<int>res;
         
-        inorderHelper(root, res);
+        stack<TreeNode*> st;
+        
+        TreeNode* curr = root;
+        
+        while(curr || !st.empty()){
+            
+            while(curr){
+                
+                st.push(curr);
+                
+                curr = curr->left;
+                
+            }
+            
+            curr = st.top();
+            
+            st.pop();
+            
+            res.push_back(curr->val);
+            
+            curr = curr->right;
+            
+        }
         
         return res;
+        
     }
 };
