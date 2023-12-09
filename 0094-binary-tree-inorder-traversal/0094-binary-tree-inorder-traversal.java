@@ -18,7 +18,7 @@ class Solution {
         
         List<Integer> res = new ArrayList<>();
         
-        Deque<TreeNode>st = new ArrayDeque<>();
+        Stack<TreeNode>st = new Stack<>();
         
         TreeNode curr = root;
         
