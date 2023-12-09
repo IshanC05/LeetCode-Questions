@@ -1,22 +1,20 @@
 class Solution {
-public:
-    bool check(char a, char b){
-        return abs(a - b) <= 1;
-    }
-    
+public:    
     int removeAlmostEqualCharacters(string word) {
         
         int res = 0, n = word.size(), i = 1;
         
         while(i < n){
             
-            if(check(word[i], word[i - 1])){
+            if(abs(word[i] - word[i - 1]) <= 1){
                 
                 ++res;
                 
                 i += 2;
                 
-            }else   ++i;
+            }
+            
+            else   ++i;
             
         }
         
