@@ -2,23 +2,17 @@ class Solution {
 public:
     vector<vector<int>> transpose(vector<vector<int>>& matrix) {
         
-        int m = matrix.size(), n = matrix[0].size();
+        int r = matrix.size(), c = matrix[0].size();
         
-        vector<vector<int>>res(n, vector<int>(m));
+        vector<vector<int>>res(c, vector<int>(r));
         
-        int I = 0, J = 0;
-        
-        for(int i = 0; i < m; i++){
+        for(int i = 0; i < r; i++){
             
-            for(int j = 0; j < n; j++){
+            for(int j = 0; j < c; j++){
                 
-                res[I++][J] = matrix[i][j];
+                res[j][i] = matrix[i][j];
                 
             }
-            
-            ++J;
-            
-            I = 0;
             
         }
         
