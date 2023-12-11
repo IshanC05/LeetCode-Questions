@@ -6,8 +6,6 @@ public:
         
         int n = arr.size();
         
-        int th = n / 4;
-        
         int i = 0;
         
         while(i < n){
@@ -16,7 +14,7 @@ public:
             
             while(j < n && arr[j] == arr[i])    ++j;
             
-            if((j - i) > th)    cand = arr[i];
+            if((j - i) > n / 4)    cand = arr[i];
             
             i = j;
             
