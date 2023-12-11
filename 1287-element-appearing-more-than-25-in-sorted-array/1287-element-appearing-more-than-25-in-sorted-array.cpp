@@ -2,7 +2,7 @@ class Solution {
 public:
     int findSpecialInteger(vector<int>& arr) {
         
-        int count = 0, cand = -1;
+        int cand = -1;
         
         int n = arr.size();
         
@@ -14,17 +14,9 @@ public:
             
             int j = i;
             
-            while(j < n && arr[j] == arr[i]){
-                
-                ++count; 
-                
-                ++j;
-                
-            }
+            while(j < n && arr[j] == arr[i])    ++j;
             
-            if(count > th)  cand = arr[i];
-            
-            count = 0;
+            if((j - i) > th)    cand = arr[i];
             
             i = j;
             
