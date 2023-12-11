@@ -13,7 +13,7 @@ class Solution {
             
             while(j < n && arr[j] == arr[i])    ++j;
             
-            if((j - i) > n / 4)    cand = arr[i];
+            if((j - i) > n / 4)    return arr[i];
             
             i = j;
             
