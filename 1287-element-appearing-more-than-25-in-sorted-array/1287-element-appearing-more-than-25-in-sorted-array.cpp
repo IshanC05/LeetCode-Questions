@@ -6,7 +6,7 @@ public:
         
         int n = arr.size();
         
-        double th = 0.25 * n;
+        int th = n / 4;
         
         int i = 0;
         
