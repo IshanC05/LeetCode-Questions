@@ -9,31 +9,34 @@ using namespace std;
 
 class Solution{
 public:
-    int M = 1e9+7;
-    
-    int t[1001][801];
-    
-    int helper(int n, int r){
-        
-        if(n < r)   return 0;
-        
-        if(n == r || r == 0)    return 1;
-        
-        if(t[n][r] != -1)   return t[n][r];
-        
-        int a = helper(n - 1, r - 1);
-        
-        int b = helper(n - 1, r);
-        
-        return t[n][r] = (a + b) % M;
-        
-    }
-    
     int nCr(int n, int r){
         // code here
-        memset(t, -1, sizeof(t));
+        if(n < r)   return 0;
+       
+        int M = 1e9+7;
         
-        return helper(n, r);
+        vector<vector<int>>t(n + 1, vector<int>(r + 1));
+        
+        for(int i = 0; i <= n; i++){
+            t[i][0] = 1;
+        }
+        
+        for(int j = 1; j <= r; j++){
+            t[0][j] = 0;
+        }
+        
+        for(int i = 1; i <= n; i++){
+            for(int j = 1; j <= r; j++){
+                
+                if(j > i)   t[i][j] = 0;
+                
+                else if(i == j)     t[i][j] = 1;
+                
+                else    t[i][j] = (t[i - 1][j - 1] + t[i - 1][j]) % M;
+            }
+        }
+        
+        return t[n][r];
     }
 };
 
