@@ -3,9 +3,9 @@ class Solution {
         
         int m = mat.length, n = mat[0].length, res = 0;
         
-        List<Integer> rowCount = new ArrayList<>(Collections.nCopies(m, 0));
+        int rowCount[] = new int[m];
         
-        List<Integer> colCount = new ArrayList<>(Collections.nCopies(n, 0));
+        int colCount[] = new int[n];
         
         for(int i = 0; i < m; i++){
             
@@ -13,9 +13,9 @@ class Solution {
                 
                 if(mat[i][j] == 1){
                     
-                    rowCount.set(i, rowCount.get(i) + 1);
+                    ++rowCount[i];
                     
-                    colCount.set(j, colCount.get(j) + 1);
+                    ++colCount[j];
                     
                 }
                 
@@ -27,7 +27,7 @@ class Solution {
             
             for(int j = 0; j < n; j++){
                 
-                if(mat[i][j] == 1 && rowCount.get(i) == 1 && colCount.get(j) == 1)  ++res;
+                if(mat[i][j] == 1 && rowCount[i] == 1 && colCount[j] == 1)  ++res;
                 
             }
             
