@@ -4,33 +4,22 @@ public:
         
         int m = mat.size(), n = mat[0].size(), res = 0;
         
-        vector<int>rowCount(m), colCount(n);
+        vector<int>rowCount(m, 0), colCount(n, 0);
         
         for(int i = 0; i < m; i++){
             
-            int count = 0;
-            
             for(int j = 0; j < n; j++){
                 
-                if(mat[i][j] == 1)  ++count;
+                if(mat[i][j] == 1){
+                    
+                    ++rowCount[i];
+                    
+                    ++colCount[j];
+                    
+                }
                 
             }
             
-            rowCount[i] = count;
-            
-        }
-        
-        for(int j = 0; j < n; j++){
-            
-            int count = 0;
-            
-            for(int i = 0; i < m; i++){
-                
-                if(mat[i][j] == 1)  ++count;
-                
-            }
-            
-            colCount[j] = count;
         }
         
         for(int i = 0; i < m; i++){
