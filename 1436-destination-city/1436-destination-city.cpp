@@ -13,13 +13,8 @@ public:
         
         for(vector<string>path : paths){
             
-            string u = path[0];
-            string v = path[1];
-            
-            if(sources.find(u) == sources.end())    return u;
-            
+            string v = path[1];            
             if(sources.find(v) == sources.end())    return v;
-            
         }
         
         return "";
