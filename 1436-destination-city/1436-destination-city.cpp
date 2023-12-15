@@ -2,14 +2,13 @@ class Solution {
 public:
     string destCity(vector<vector<string>>& paths) {
         
-        unordered_map<string, vector<string>>adj;
+        unordered_set<string>sources;
         
         for(vector<string> path : paths){
             
-            string u = path[0];
-            string v = path[1];
+            string u = path[0];            
+            sources.insert(u);
             
-            adj[u].push_back(v);
         }
         
         for(vector<string>path : paths){
@@ -17,9 +16,9 @@ public:
             string u = path[0];
             string v = path[1];
             
-            if(adj.find(u) == adj.end())    return u;
+            if(sources.find(u) == sources.end())    return u;
             
-            if(adj.find(v) == adj.end())    return v;
+            if(sources.find(v) == sources.end())    return v;
             
         }
         
