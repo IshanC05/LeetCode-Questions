@@ -5,19 +5,17 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    long long numberOfWays(long long n) {
+    int M = 1e9+7;
+    long long t[100005];
+    long long helper(long long n){
+        if(n <= 2)  return n;
+        if(t[n] != -1)  return t[n];
+        return t[n] = (helper(n - 1) + helper(n - 2)) % M;
+    }
+    long long numberOfWays(long long N) {
         //code here
-        long long mod = 1e9 + 7;
-        long long dp[3] = {1,2,0};
-        if(n < 3){
-            return dp[n-1];
-        }
-        for(long long i=3;i<=n;i++){
-            dp[2] = ((dp[0] % mod) + (dp[1] % mod)) % mod;
-            dp[0] = (dp[1] % mod);
-            dp[1] = (dp[2] % mod);
-        }
-        return (dp[2] % mod);
+        memset(t, -1, sizeof(t));
+        return helper(N);
     }
 };
 
