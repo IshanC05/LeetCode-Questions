@@ -7,9 +7,6 @@ public:
             return;
         }
         
-        // while(n > 0 && nums[n - 1] == prev)     
-        //     --n;
-        
         if(n == 0)  return;
         
         input.push_back(nums[n - 1]);
