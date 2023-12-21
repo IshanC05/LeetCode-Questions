@@ -1,6 +1,6 @@
 class Solution {
     public int maxWidthOfVerticalArea(int[][] points) {
-        Arrays.sort(points, (int[] a, int[] b) -> Integer.compare(a[0], b[0]));
+        Arrays.sort(points, (a, b) -> Integer.compare(a[0], b[0]));
 
         int res = 0, n = points.length;
 
