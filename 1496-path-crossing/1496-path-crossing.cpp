@@ -3,8 +3,8 @@ public:
     bool isPathCrossing(string path) {
         int cx = 0, cy = 0;
         
-        set<pair<int, int>>seen;
-        seen.insert({cx, cy});
+        unordered_set<string>seen;
+        seen.insert("0,0");
         
         for(char dir : path){
             
@@ -16,9 +16,11 @@ public:
             
             else    --cx;
             
-            if(seen.find({cx, cy}) != seen.end())   return true;
+            string res = to_string(cx) + "," + to_string(cy);
             
-            seen.insert({cx, cy});
+            if(seen.find(res) != seen.end())   return true;
+            
+            seen.insert(res);
             
         }
         
