@@ -1,22 +1,22 @@
 class Solution {
 public:
     bool isPathCrossing(string path) {
-        int cx = 0, cy = 0;
+        int x = 0, y = 0;
         
         unordered_set<string>seen;
         seen.insert("0,0");
         
         for(char dir : path){
             
-            if(dir == 'N')  ++cy;
+            if(dir == 'N')  ++y;
             
-            else if(dir == 'S')     --cy;
+            else if(dir == 'S')     --y;
             
-            else if(dir == 'E')     ++cx;
+            else if(dir == 'E')     ++x;
             
-            else    --cx;
+            else    --x;
             
-            string res = to_string(cx) + "," + to_string(cy);
+            string res = to_string(x) + "," + to_string(y);
             
             if(seen.find(res) != seen.end())   return true;
             
