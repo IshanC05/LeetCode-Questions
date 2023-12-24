@@ -1,29 +1,16 @@
 class Solution {
 public:
-    int steps(string s, int n, int digit){
+    int minOperations(string s) {
+        int start1 = 0;
         
-        int ans = 0;
-        
-        for(char x : s){
+        for(int i = 0; i < s.size(); i++){
             
-            if((x - '0') != digit)  ++ans;
+            if(i % 2 == 0 && s[i] == '0')   ++start1;
             
-            digit = 1 - digit;
+            else if(i % 2 != 0 && s[i] == '1')  ++start1;
             
         }
         
-        return ans;
-        
-    }
-    int minOperations(string s) {
-        
-        int n = s.size(), res = INT_MAX;
-        
-        res = min(res, steps(s, n, 0));
-        
-        res = min(res, steps(s, n, 1));
-        
-        return res;
-        
+        return min(start1, (int)s.size() - start1);
     }
 };
