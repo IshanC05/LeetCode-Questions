@@ -5,7 +5,7 @@ public:
     int t[31][1001];
     
     int helper(int n, int target, int k){
-        if(n <= 0 || target < 1)  return 0;
+        if(target < 1)  return 0;
         
         if(n == 1)  return (target <= k) ? 1 : 0;
         
