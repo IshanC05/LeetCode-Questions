@@ -4,7 +4,7 @@ public:
         int M = 1e9 + 7;
         vector<vector<int>> t(n + 1, vector<int>(target + 1, 0));
 
-        for (int j = 1; j <= k && j <= target; j++) {
+        for (int j = 1; j <= min(k, target); j++) {
             t[1][j] = 1;
         }
 
