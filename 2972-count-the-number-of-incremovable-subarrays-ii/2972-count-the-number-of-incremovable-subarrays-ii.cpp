@@ -16,10 +16,12 @@ public:
         if(leftIdx == n - 1)    return (n * (n + 1)) / 2;
         
         ll res = (n - rightIdx + 1);
+        ll r = rightIdx;
         
-        for(ll i = 0; i <= leftIdx; i++){
-            ll ubIdx = upper_bound(nums.begin() + rightIdx, nums.end(), nums[i]) - nums.begin();
-            res += (n - ubIdx + 1);
+        for(ll l = 0; l <= leftIdx; l++){
+            while(r < n && nums[l] >= nums[r])
+                ++r;
+            res += (n - r + 1);
         }
         
         return res;
