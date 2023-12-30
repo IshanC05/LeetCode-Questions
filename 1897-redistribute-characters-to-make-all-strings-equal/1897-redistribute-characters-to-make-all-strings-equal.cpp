@@ -3,8 +3,6 @@ public:
     bool makeEqual(vector<string>& words) {
         int n = words.size();
         
-        if(n == 1)  return true;
-        
         vector<int>freq(26, 0);
         
         for(string word : words){
