@@ -1,27 +1,28 @@
 class Solution {
 public:
-    vector<vector<int>> findMatrix(vector<int>& nums) {
+    vector<vector<int>> findMatrix(vector<int>& nums) {        
         vector<int>freq(201, 0);
-        for(int i = 0; i < nums.size(); i++){
-            ++freq[nums[i]];
-        }
-        vector<vector<int>>ans;
-        bool hasElems = true;
         
-        while(hasElems){
-            hasElems = false;
-            vector<int>temp;
-            for(int i = 0; i < 201; i++){
+        for(int i : nums)   
+            ++freq[i];
+        
+        vector<vector<int>>res;
+        
+        while(true){
+            vector<int>temp;            
+            
+            for(int i = 1; i <= 200; i++){
                 if(freq[i] != 0){
-                    hasElems = true;
                     temp.push_back(i);
                     --freq[i];
                 }
             }
-            if(hasElems == true){
-                ans.push_back(temp);    
-            }
+            
+            if(temp.size() == 0)    break;
+            
+            res.push_back(temp);            
         }
-        return ans;
+        
+        return res;
     }
 };
