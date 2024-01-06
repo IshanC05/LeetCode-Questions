@@ -1,47 +1,40 @@
 class Solution {
 public:
-    
-    bool dfs(unordered_map<int,vector<int>>&adj, int u, vector<bool>&visited, vector<bool>&inRec){
+    bool canFinish(int n, vector<vector<int>>& pre) {
+        // form graph
+        unordered_map<int, vector<int>>adj;
+        vector<int>inDegree(n, 0);
         
-        visited[u] = true;
-        inRec[u] = true;
-        
-        for(int &v : adj[u]){
-            if(!visited[v]){
-                if(dfs(adj, v, visited, inRec) == true)     return true;
-            }else if(inRec[v] == true)    return true;
-        }
-        
-        inRec[u] = false;
-        return false;        
-    }
-    
-    bool detectCycleDFS(int numCourses, vector<vector<int>>& prerequisites){
-        int n = numCourses;
-//          form graph
-        unordered_map<int,vector<int>>adj;
-        for(vector<int> &course : prerequisites){
-            
-            int u = course[1];
-            int v = course[0];
-            
+        for(auto it : pre){
+            int u = it[0];
+            int v = it[1];
             adj[u].push_back(v);
+            ++inDegree[v];
         }
         
-        vector<bool>visited(n, false);
-        vector<bool>inRec(n, false);
+        queue<int>q;
         
         for(int i = 0; i < n; i++){
-            if(!visited[i]){
-                if(dfs(adj, i, visited, inRec) == true)     return true;
+            if(inDegree[i] == 0)    q.push(i);
+        }
+        
+        int nodeCount = 0;
+        
+        while(!q.empty()){
+            
+            int u = q.front();
+            q.pop();
+            
+            ++nodeCount;
+            
+            for(int &v : adj[u]){
+                --inDegree[v];
+                
+                if(inDegree[v] == 0)
+                    q.push(v);
             }
         }
         
-        return false;    
-    }
-    
-    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        bool cycle = detectCycleDFS(numCourses, prerequisites);
-        return !cycle;
+        return nodeCount == n;
     }
 };
