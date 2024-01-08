@@ -1,31 +1,25 @@
 class Solution {
 public:
-    int kadane(vector<int>arr, int n)
-    {
-        int curAns = arr[0], res = arr[0];
-        for (int i = 1; i < n; i++)
-        {
-            curAns = max(arr[i], curAns + arr[i]);
-            res = max(res, curAns);
-        }
-        return res;
-    }
     int maxSubarraySumCircular(vector<int>& nums) {
         int n = nums.size();
-        int maxSubarraySum = kadane(nums, n);
-        // if all numbers in array < 0 -> return maximum subarray
-        if (maxSubarraySum < 0)
-        {
-            return maxSubarraySum;
+        int maxs = nums[0], cmax = nums[0];
+        int mins = nums[0], cmin = nums[0];
+        int totalSum = nums[0];
+        
+        for(int i = 1; i < n; i++){
+            cmax = max(cmax + nums[i], nums[i]);
+            maxs = max(maxs, cmax);
+            
+            cmin = min(cmin + nums[i], nums[i]);
+            mins = min(mins, cmin);
+            
+            totalSum += nums[i];
         }
-        int totalarraySum = 0;
-        for (int i = 0; i < n; i++)
-        {
-            totalarraySum = totalarraySum + nums[i];
-            nums[i] = nums[i] * (-1);
-        }
-        int minSubarraySum = kadane(nums, n) * (-1);
-        int circularSubarraySum = totalarraySum - minSubarraySum;
-        return max(maxSubarraySum, circularSubarraySum);
+        
+        int circularSum = totalSum - mins;
+        
+        if(maxs > 0)    return max(maxs, circularSum);
+        
+        return maxs;
     }
 };
