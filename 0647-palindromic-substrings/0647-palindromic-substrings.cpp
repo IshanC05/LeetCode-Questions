@@ -1,38 +1,26 @@
 class Solution {
 public:
-    int dp[1001][1001];
+    int t[1001][1001];
+    bool check(string &s, int l, int r){
+        if(l >= r)   return true;
+        if(s[l] != s[r])    return false;
+        
+        if(t[l][r] != -1)   return t[l][r];
+        
+        return t[l][r] = check(s, l + 1, r - 1);
+    }
     int countSubstrings(string s) {
-        int n = s.size(), res = 0;
-
-        // Initialize the dp array to all zeros
-        memset(dp, 0, sizeof(dp));
-
-        // Length 1
-        for (int i = 0; i < n; i++) {
-            dp[i][i] = 1;
-            ++res;
-        }
-
-        // Length 2
-        for (int i = 0; i < n - 1; i++) {
-            if (s[i] == s[i + 1]) {
-                dp[i][i + 1] = 1;
-                ++res;
+        int n = s.size();
+        int res = 0;
+        
+        memset(t, -1, sizeof(t));
+        
+        for(int i = 0; i < n; i++){
+            for(int j = i; j < n; j++){
+                if(check(s, i, j))    ++res;
             }
         }
-
-        // Length >= 3
-        for (int length = 3; length <= n; length++) {
-            for (int i = 0; i < n - length + 1; i++) {
-                int j = i + length - 1;
-                if (s[i] == s[j] && dp[i + 1][j - 1] == 1) {
-                    dp[i][j] = 1;
-                    ++res;
-                }
-            }
-        }
-
+        
         return res;
     }
-
 };
