@@ -1,23 +1,24 @@
 class Solution {
 public:
-    int t[1001][1001];
-    bool check(string &s, int l, int r){
-        if(l >= r)   return true;
-        if(s[l] != s[r])    return false;
-        
-        if(t[l][r] != -1)   return t[l][r];
-        
-        return t[l][r] = check(s, l + 1, r - 1);
-    }
     int countSubstrings(string s) {
         int n = s.size();
         int res = 0;
         
-        memset(t, -1, sizeof(t));
+        vector<vector<bool>>t(n + 1, vector<bool>(n + 1, false));
         
-        for(int i = 0; i < n; i++){
-            for(int j = i; j < n; j++){
-                if(check(s, i, j))    ++res;
+        for(int gap = 0; gap < n; gap++){
+            for(int l = 0, r = gap; r < n; l++, r++){
+                
+                if(gap == 0){
+                    t[l][r] = true;
+                }else if(gap == 1){
+                    t[l][r] = s[l] == s[r];
+                }else{
+                    t[l][r] = (t[l + 1][r - 1] == true && s[l] == s[r]);
+                }
+                
+                if(t[l][r])     ++res;
+                
             }
         }
         
