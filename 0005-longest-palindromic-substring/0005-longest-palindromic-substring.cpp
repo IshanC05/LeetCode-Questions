@@ -1,46 +1,32 @@
 class Solution {
 public:
+    int t[1001][1001];
+    bool check(string &s, int i, int j){
+        if(i >= j)  return true;
+        if(s[i] != s[j])    return false;
+        
+        if(t[i][j] != -1)   return t[i][j];
+        
+        return t[i][j] = check(s, i + 1, j - 1) == true ? 1 : 0;
+    }
     string longestPalindrome(string s) {
-        int n = s.size(), maxL = 0;
+        int n = s.length(), maxL = 0;
+        
+        memset(t, -1, sizeof(t));
+        
         string res;
-
-        vector<vector<int>> dp(n, vector<int>(n, 0));
-
-        for (int i = 0; i < n; i++) {
-            dp[i][i] = 1;
-            int sz = 1;
-            if (maxL < sz) {
-                maxL = sz;
-                res = s[i];
-            }
-        }
-
-        for (int i = 0; i < n - 1; i++) {
-            if (s[i] == s[i + 1]) {
-                dp[i][i + 1] = 1;
-                int sz = 2;
-                if (maxL < sz) {
-                    maxL = sz;
-                    res = s.substr(i, 2);
+        
+        for(int i = 0; i < n; i++){
+            for(int j = i; j < n; j++){
+                
+                if(check(s, i, j) && maxL < (j - i + 1)){
+                    maxL = j - i + 1;
+                    res = s.substr(i, maxL);
                 }
+                
             }
         }
-
-        for (int length = 3; length <= n; length++) {
-            for (int i = 0; i < n - length + 1; i++) {
-                int j = i + length - 1;
-                if (s[i] == s[j] && dp[i + 1][j - 1] == 1) {
-                    dp[i][j] = 1;
-                    int currL = j - i + 1;
-                    if (maxL < currL) {
-                        maxL = currL;
-                        res = s.substr(i, currL);
-                    }
-                }
-            }
-        }
-
+        
         return res;
     }
-
 };
