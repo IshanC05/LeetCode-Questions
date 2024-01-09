@@ -11,23 +11,28 @@
  */
 class Solution {
 public:
-    void getLeafs(TreeNode* root, vector<int>&leafCount){
-        if(!root){
+    void getLeafs(TreeNode* root, vector<int>&list){
+        if(!root)   return;
+        
+        if(!root->left && !root->right){
+            list.push_back(root->val);
             return;
         }
-        if(!root->left and !root->right){
-            leafCount.push_back(root->val);
-        }
-        getLeafs(root->left, leafCount);
-        getLeafs(root->right, leafCount);
+        
+        getLeafs(root->left, list);
+        getLeafs(root->right, list);
     }
-    
     bool leafSimilar(TreeNode* root1, TreeNode* root2) {
-        vector<int>leaf1;
-        vector<int>leaf2;
-        getLeafs(root1, leaf1);
-        getLeafs(root2, leaf2);
-
-        return leaf1 == leaf2;
+        vector<int>seq1, seq2;
+        
+        getLeafs(root1, seq1);
+        getLeafs(root2, seq2);
+        
+        if(seq1.size() != seq2.size())  return false;
+        
+        for(int i = 0; i < seq1.size(); i++)
+            if(seq1[i] != seq2[i])  return false;
+        
+        return true;
     }
 };
