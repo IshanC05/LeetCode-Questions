@@ -18,7 +18,7 @@ public:
             auto curr = pq.top();
             pq.pop();
             
-            int dist = curr.first;
+            int diff = curr.first;
             int i = curr.second.first;
             int j = curr.second.second;
             
@@ -29,9 +29,16 @@ public:
                 int x = i + dx[k];
                 int y = j + dy[k];
                 
-                if(x >= 0 && x < r && y >= 0 && y < c && result[x][y] > max(result[i][j], abs(heights[i][j] - heights[x][y]))){
-                    result[x][y] = max(result[i][j], abs(heights[i][j] - heights[x][y]));
-                    pq.push({result[x][y], {x, y}});
+                if(x >= 0 && x < r && y >= 0 && y < c){
+                    
+                    int absDiff = abs(heights[i][j] - heights[x][y]);
+                    int maxDiff = max(diff, absDiff);
+                    
+                    if(result[x][y] > maxDiff){
+                        result[x][y] = maxDiff;
+                        pq.push({maxDiff, {x, y}});
+                    }
+                    
                 }    
             }
         }
