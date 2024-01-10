@@ -1,5 +1,7 @@
 class Solution {
 public:
+    typedef pair<int, pair<int, int>> P;
+    
     int dx[8] = {-1, -1, 0, +1, +1, +1, 0, -1};
     int dy[8] = {0, -1, -1, -1, 0, +1, +1, +1};
     
@@ -8,7 +10,7 @@ public:
         
         if(n == 0 || grid[0][0] != 0)   return -1;
         
-        priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<pair<int, pair<int, int>>>>pq;
+        queue<P>pq;
         vector<vector<int>>result(n, vector<int>(n, INT_MAX));
         
         result[0][0] = 0;
@@ -16,7 +18,7 @@ public:
         
         while(!pq.empty()){
                 
-            auto curr = pq.top();
+            auto curr = pq.front();
             pq.pop();
             
             int dist = curr.first;
