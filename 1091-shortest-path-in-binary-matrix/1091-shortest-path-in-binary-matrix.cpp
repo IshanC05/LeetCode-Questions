@@ -4,45 +4,40 @@ public:
     int dy[8] = {0, -1, -1, -1, 0, +1, +1, +1};
     
     int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
-        int n = grid.size(), level = 0;
+        int n = grid.size();
         
         if(n == 0 || grid[0][0] != 0)   return -1;
         
-        queue<pair<int, int>>q;
-        grid[0][0] = 1;
-        q.push({0, 0});
+        priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<pair<int, pair<int, int>>>>pq;
+        vector<vector<int>>result(n, vector<int>(n, INT_MAX));
         
-        while(!q.empty()){
-            
-            int N = q.size();
-            
-            while(N--){
+        result[0][0] = 0;
+        pq.push({0, {0, 0}});
+        
+        while(!pq.empty()){
                 
-                auto curr = q.front();
-                q.pop();
-                
-                int X = curr.first;
-                int Y = curr.second;
+            auto curr = pq.top();
+            pq.pop();
+            
+            int dist = curr.first;
+            int X = curr.second.first;
+            int Y = curr.second.second;
 
-                if(X == n - 1 && Y == n - 1)    
-                    return level + 1;
+            for(int k = 0; k < 8; k++){
 
-                for(int k = 0; k < 8; k++){
+                int x = X + dx[k];
+                int y = Y + dy[k];
 
-                    int x = X + dx[k];
-                    int y = Y + dy[k];
-
-                    if(x >= 0 && x < n && y >= 0 && y < n && grid[x][y] == 0){
-                        grid[x][y] = 1;
-                        q.push({x, y});                    
-                    }
+                if(x >= 0 && x < n && y >= 0 && y < n && grid[x][y] == 0 && result[x][y] > dist + 1 ){
+                    result[x][y] = dist + 1;
+                    pq.push({result[x][y], {x, y}});
                 }
-            
             }
-            
-            ++level;
         }
         
-        return -1;
+        if(result[n - 1][n - 1] == INT_MAX) 
+            return -1;
+        
+        return result[n - 1][n - 1] + 1;
     }
 };
