@@ -10,7 +10,7 @@ public:
         for(int i = 0; i < n; i++){
             if(isVowel(s[i])){
                 
-                if(i <= (s.length() / 2) - 1)     ++a;
+                if(i < n / 2)     ++a;
                 
                 else    ++b;
             }
