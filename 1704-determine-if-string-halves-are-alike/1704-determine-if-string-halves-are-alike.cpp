@@ -15,8 +15,6 @@ public:
             }
         }
         
-        cout << a << " " << b;
-        
         return a == b;
     }
 };
