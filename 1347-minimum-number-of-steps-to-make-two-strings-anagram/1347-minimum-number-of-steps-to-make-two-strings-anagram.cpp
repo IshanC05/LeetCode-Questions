@@ -1,20 +1,18 @@
 class Solution {
 public:
     int minSteps(string s, string t) {
-        vector<int>freqS(26, 0), freqT(26, 0);
+        vector<int>freq(26, 0);
         
-        for(char i : s)
-            ++freqS[i - 'a'];
-        
-        for(char i : t)
-            ++freqT[i - 'a'];
+        for(int i = 0; i < s.length(); i++){
+            ++freq[t[i] - 'a'];
+            --freq[s[i] - 'a'];
+        }
         
         int res = 0;
         
-        for(int i = 0; i < 26; i++){
-            res += abs(freqS[i] - freqT[i]);
-        }
+        for(int i : freq)
+            res += max(0, i);
         
-        return res / 2;            
+        return res;
     }
 };
