@@ -1,32 +1,30 @@
 class Solution {
 public:
     bool closeStrings(string word1, string word2) {
+        if(word1.length() != word2.length())    return false;
         
-        if(word1.size() != word2.size())    return false;
+        vector<int>s(26, 0), t(26, 0);
+        unordered_map<int, int>mp;
         
-        vector<int>freq1(26, 0), freq2(26, 0);
+        for(char i : word1)
+            ++s[i - 'a'];
         
-        for(char i : word1)     ++freq1[i - 'a'];
-        
-        for(char i : word2)     ++freq2[i - 'a'];
-        
-        for(int i = 0; i < 26; i++){
-            
-            if((freq1[i] && !freq2[i]) || (!freq1[i] && freq2[i]))    return false;
-            
+        for(char j : word2){
+            ++t[j - 'a'];
         }
         
-        sort(freq1.begin(), freq1.end());
-        
-        sort(freq2.begin(), freq2.end());
-        
         for(int i = 0; i < 26; i++){
-            
-            if(freq1[i] != freq2[i])    return false;
-            
+            if((s[i] && !t[i]) || (!s[i] && t[i]))  return false;
+            if(s[i] != 0)   ++mp[s[i]];
         }
         
-        return true;
+        for(int i = 0; i < 26; i++){
+            if(t[i] != 0 && mp.find(t[i]) != mp.end()){
+                --mp[t[i]];
+                if(mp[t[i]] == 0)    mp.erase(t[i]);
+            }
+        }
         
+        return mp.size() == 0;
     }
 };
