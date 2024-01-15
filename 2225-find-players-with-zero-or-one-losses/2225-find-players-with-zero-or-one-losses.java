@@ -1,6 +1,6 @@
 class Solution {
     public List<List<Integer>> findWinners(int[][] matches) {
-        Map<Integer, Integer> players = new HashMap<>();
+        Map<Integer, Integer> players = new TreeMap<>();
 
         for (int[] match : matches) {
             players.put(match[1], players.getOrDefault(match[1], 0) + 1);
@@ -24,9 +24,6 @@ class Solution {
                 lose.add(entry.getKey());
             }
         }
-
-        win.sort(null);
-        lose.sort(null);
 
         List<List<Integer>> result = new ArrayList<>();
         result.add(win);
