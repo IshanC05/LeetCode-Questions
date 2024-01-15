@@ -25,6 +25,9 @@ class Solution {
             }
         }
 
+        win.sort(null);
+        lose.sort(null);
+
         List<List<Integer>> result = new ArrayList<>();
         result.add(win);
         result.add(lose);
