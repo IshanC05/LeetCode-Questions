@@ -1,22 +1,22 @@
 class RandomizedSet {
-    Set<Integer>st;
+    Set<Integer>set;
     public RandomizedSet() {
-        st = new HashSet<>();
+        set = new HashSet<>();
     }
     
     public boolean insert(int val) {
-        return st.add(val);
+        return set.add(val);
     }
     
     public boolean remove(int val) {
-        return st.remove(val);
+        return set.remove(val);
     }
     
     public int getRandom() {
-        int sz = st.size();        
+        int sz = set.size();        
         int idx = new Random().nextInt(sz);
         
-        Iterator<Integer>it = st.iterator();
+        Iterator<Integer>it = set.iterator();
         
         for(int i = 0; i < idx; i++){
             it.next();
