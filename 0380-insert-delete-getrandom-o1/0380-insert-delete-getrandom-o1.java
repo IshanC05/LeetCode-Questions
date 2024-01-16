@@ -13,11 +13,8 @@ class RandomizedSet {
     }
     
     public int getRandom() {
-        int sz = st.size();
-        
-        Random rand = new Random();
-        
-        int idx = rand.nextInt(sz);
+        int sz = st.size();        
+        int idx = new Random().nextInt(sz);
         
         Iterator<Integer>it = st.iterator();
         
