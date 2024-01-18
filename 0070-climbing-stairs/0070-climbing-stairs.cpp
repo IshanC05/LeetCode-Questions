@@ -1,15 +1,17 @@
 class Solution {
 public:
     int climbStairs(int n) {
-        vector<int>t(46, 0);
+        int a = 1, b = 2, c = 0;
         
-        t[1] = 1;
-        t[2] = 2;
+        if(n == 1)  return a;
+        if(n == 2)  return b;
         
         for(int i = 3; i <= n; i++){
-            t[i] = (t[i - 1] + t[i - 2]);
+            c = a + b;
+            a = b;
+            b = c; 
         }
         
-        return t[n];
+        return c;
     }
 };
