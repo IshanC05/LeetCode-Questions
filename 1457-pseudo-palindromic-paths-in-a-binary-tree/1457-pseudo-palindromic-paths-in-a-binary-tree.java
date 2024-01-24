@@ -15,8 +15,8 @@
  */
 class Solution {
     private int res;
-    private int[] freq;
-    public void helper(TreeNode root, int[] freq){
+    private int[] freq = new int[10];
+    public void helper(TreeNode root){
         if(root == null)   return;
         
         ++freq[root.val];
@@ -31,16 +31,16 @@ class Solution {
             if(oddCount <= 1)    ++res;
         }
         
-        helper(root.left, freq);
-        helper(root.right, freq);
+        helper(root.left);
+        helper(root.right);
         
         --freq[root.val];
     }
 
     public int pseudoPalindromicPaths (TreeNode root) {
-        freq = new int[10];
+        Arrays.fill(freq, 0);
         res = 0;
-        helper(root, freq);
+        helper(root);
         return res;
     }
 }
