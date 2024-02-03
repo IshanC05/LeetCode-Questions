@@ -1,10 +1,10 @@
 class Solution {
 public:
-    int t[501][501];
+    int t[501];
     int helper(vector<int>& arr, int k, int idx, int n) {
         if (idx >= n) return 0;
 
-        if (t[idx][k] != -1) return t[idx][k];
+        if (t[idx] != -1) return t[idx];
 
         int maxE = arr[idx], res = 0;
 
@@ -13,7 +13,7 @@ public:
             res = max(res, (maxE * len) + helper(arr, k, idx + len, n));
         }
 
-        return t[idx][k] = res;
+        return t[idx] = res;
     }
     int maxSumAfterPartitioning(vector<int>& arr, int k) {
         memset(t, -1, sizeof(t));
