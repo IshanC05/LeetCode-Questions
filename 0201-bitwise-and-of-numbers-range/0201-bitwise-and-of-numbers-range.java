@@ -8,10 +8,6 @@ class Solution {
             ++shiftCount;
         }
         
-        while(shiftCount-- > 0){
-            left = (left << 1);
-        }
-        
-        return left;
+        return (left << shiftCount);
     }
 }
