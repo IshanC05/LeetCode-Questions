@@ -1,21 +1,17 @@
 class Solution {
     public int rangeBitwiseAnd(int left, int right) {
-        if(left == right)   return left;
+        int shiftCount = 0;
         
-        long powerOf2 = 1;
-        
-        while(powerOf2 <= right){
-            long prev = powerOf2 - 1;
-            if(prev >= left && powerOf2 >= left)    return 0;
-            powerOf2 = (powerOf2 << 1);
+        while(left != right){
+            left = (left >> 1);
+            right = (right >> 1);
+            ++shiftCount;
         }
         
-        long res = left;
-        
-        for(long i = left + 1; i <= right; i++){
-            res = (res & i);
+        while(shiftCount-- > 0){
+            left = (left << 1);
         }
         
-        return (int)res;
+        return left;
     }
 }
