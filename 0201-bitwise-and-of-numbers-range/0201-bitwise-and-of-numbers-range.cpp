@@ -9,10 +9,6 @@ public:
             ++shiftCount;
         }
         
-        while(shiftCount--){
-            left = (left << 1);
-        }
-        
-        return left;
+        return (left << shiftCount);
     }
 };
