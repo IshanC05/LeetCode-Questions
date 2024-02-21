@@ -5,7 +5,7 @@ public:
         
         long powerOf2 = 1;
         
-        while(powerOf2 <= right && powerOf2 <= INT_MAX){
+        while(powerOf2 <= right){
             long prev = powerOf2 - 1;
             if(prev >= left && powerOf2 >= left)    return 0;
             powerOf2 = (powerOf2 << 1);
