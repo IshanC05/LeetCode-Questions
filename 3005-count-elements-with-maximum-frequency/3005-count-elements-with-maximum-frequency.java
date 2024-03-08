@@ -13,9 +13,9 @@ class Solution {
         int res = 0;
         
         for(int i : freq){
-            if(i == maxF)   res += maxF;
+            if(i == maxF)   ++res;
         }
         
-        return res;
+        return res * maxF;
     }
 }
