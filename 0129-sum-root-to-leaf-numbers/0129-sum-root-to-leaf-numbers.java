@@ -24,9 +24,9 @@ class Solution {
         
         if(root.left == null && root.right == null){
             int tempAns = 0;
-            for(Integer i : arr){
-                tempAns = tempAns*10 + i;
-            }
+            
+            for(Integer i : arr)    tempAns = tempAns * 10 + i;
+                
             res += tempAns;
         }
         
