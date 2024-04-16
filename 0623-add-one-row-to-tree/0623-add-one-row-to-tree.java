@@ -22,14 +22,14 @@ class Solution {
         }
         
         int currDepth = 1;
+        boolean flag = false;
         
         Queue<TreeNode> q = new ArrayDeque<>();
         q.add(root);
         
-        while(!q.isEmpty()){
+        while(!q.isEmpty() && !flag){
             
             int qSize = q.size();
-            boolean flag = false;
             
             for(int i = 0; i < qSize; i++){
                 
@@ -38,19 +38,19 @@ class Solution {
                 if(currDepth == depth - 1){
                     flag = true;
                     
-                    TreeNode oldLeftNode = null, oldRightNode = null;
+                    TreeNode oldLeftSubTree = null, oldRightSubTree = null;
                     
                     TreeNode newLeftNode = new TreeNode(val);
                     TreeNode newRightNode = new TreeNode(val);
                     
-                    if(front.left != null)  oldLeftNode = front.left;
-                    if(front.right != null)     oldRightNode = front.right;
+                    if(front.left != null)  oldLeftSubTree = front.left;
+                    if(front.right != null)     oldRightSubTree = front.right;
                     
                     front.left = newLeftNode;
                     front.right = newRightNode;
                     
-                    newLeftNode.left = oldLeftNode;
-                    newRightNode.right = oldRightNode;
+                    newLeftNode.left = oldLeftSubTree;
+                    newRightNode.right = oldRightSubTree;
                     
                 }else{
                     
@@ -59,11 +59,8 @@ class Solution {
                 }
                 
             }
-            
-            if(flag)    break;
-            
+        
             ++currDepth;
-            
         }
         
         return root;
