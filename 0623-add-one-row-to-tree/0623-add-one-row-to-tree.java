@@ -15,53 +15,30 @@
  */
 class Solution {
     public TreeNode addOneRow(TreeNode root, int val, int depth) {
+        if(root == null)    return root;
+    
         if(depth == 1){
             TreeNode newRoot = new TreeNode(val);
             newRoot.left = root;
             return newRoot;
         }
         
-        int currDepth = 1;
-        boolean flag = false;
-        
-        Queue<TreeNode> q = new ArrayDeque<>();
-        q.add(root);
-        
-        while(!q.isEmpty() && !flag){
+        if(depth == 2){
             
-            int qSize = q.size();
-            
-            for(int i = 0; i < qSize; i++){
-                
-                TreeNode front = q.poll();
-             
-                if(currDepth == depth - 1){
-                    flag = true;
-                    
-                    TreeNode oldLeftSubTree = null, oldRightSubTree = null;
-                    
-                    TreeNode newLeftNode = new TreeNode(val);
-                    TreeNode newRightNode = new TreeNode(val);
-                    
-                    if(front.left != null)  oldLeftSubTree = front.left;
-                    if(front.right != null)     oldRightSubTree = front.right;
-                    
-                    front.left = newLeftNode;
-                    front.right = newRightNode;
-                    
-                    newLeftNode.left = oldLeftSubTree;
-                    newRightNode.right = oldRightSubTree;
-                    
-                }else{
-                    
-                    if(front.left != null)  q.add(front.left);
-                    if(front.right != null)     q.add(front.right);
-                }
-                
-            }
+            TreeNode newLeftNode = new TreeNode(val);
+            TreeNode newRightNode = new TreeNode(val);
         
-            ++currDepth;
+            newLeftNode.left = root.left;
+            newRightNode.right = root.right;
+            
+            root.left = newLeftNode;
+            root.right = newRightNode;
+            
+            return root;
         }
+        
+        root.left = addOneRow(root.left, val, depth - 1);
+        root.right = addOneRow(root.right, val, depth - 1);
         
         return root;
     }
