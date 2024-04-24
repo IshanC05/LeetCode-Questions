@@ -3,11 +3,8 @@ class Solution {
         int t0 = 0, t1 = 1, t2 = 1;
         int res = 0;
         
-        if(n == 0)  
-            return 0;
-        
         if(n < 3)
-            return 1;
+            return (n == 0 ? 0 : 1);
         
         for(int i = 3; i <= n; i++){
             res = t0 + t1 + t2;
