@@ -1,5 +1,4 @@
 class Solution {
-public:
 private:
     int t[100005][27];
     
