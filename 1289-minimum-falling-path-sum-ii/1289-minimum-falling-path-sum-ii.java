@@ -1,38 +1,39 @@
 class Solution {
     int n;
     int[][] t;
-
-    public int solve(int row, int col, int[][] grid) {
-        if (row == n - 1) {
-            return grid[row][col];
+    
+    public int helper(int[][] grid, int i, int j) {
+        if (i == n - 1) {
+            return grid[i][j];
         }
+        
+        if(t[i][j] != -1)
+            return t[i][j];
 
-        if (t[row][col] != -1) {
-            return t[row][col];
-        }
+        int smallRes = Integer.MAX_VALUE;
 
-        int ans = Integer.MAX_VALUE;
-        for (int nextCol = 0; nextCol < n; nextCol++) {
-            if (nextCol != col) {
-                ans = Math.min(ans, solve(row + 1, nextCol, grid));
+        for (int y = 0; y < n; y++) {
+            if (y != j) {
+                smallRes = Math.min(smallRes, helper(grid, i + 1, y));
             }
         }
 
-        return t[row][col] = grid[row][col] + ans;
+        return t[i][j] = smallRes + grid[i][j];
     }
-
+    
     public int minFallingPathSum(int[][] grid) {
         n = grid.length;
-        t = new int[n][n];
-        for (int[] row : t) {
-            Arrays.fill(row, -1);
+        int res = Integer.MAX_VALUE;
+        
+        t = new int[n + 1][n + 1];
+        
+        for(int i = 0; i < n; i++)
+            Arrays.fill(t[i], -1);
+        
+        for(int j = 0; j < n; j++){
+            res = Math.min(res, helper(grid, 0, j));
         }
-
-        int result = Integer.MAX_VALUE;
-        for (int col = 0; col < n; col++) {
-            result = Math.min(result, solve(0, col, grid));
-        }
-
-        return result;
+        
+        return res;
     }
 }
