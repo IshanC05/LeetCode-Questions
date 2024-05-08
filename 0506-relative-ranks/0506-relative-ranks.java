@@ -13,17 +13,19 @@ class Solution {
         while(!pq.isEmpty()){
             Pair<Integer, Integer> pair = pq.poll();
             
+            int idx = pair.getValue();
+            
             if(i == 1)
-                res[pair.getValue()] = "Gold Medal";
+                res[idx] = "Gold Medal";
             
             else if(i == 2)
-                res[pair.getValue()] = "Silver Medal";
+                res[idx] = "Silver Medal";
             
             else if(i == 3)
-                res[pair.getValue()] = "Bronze Medal";
+                res[idx] = "Bronze Medal";
             
             else
-                res[pair.getValue()] = String.valueOf(i);
+                res[idx] = String.valueOf(i);
             
             ++i;
         }
