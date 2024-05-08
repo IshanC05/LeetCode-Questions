@@ -1,11 +1,9 @@
 class Solution {
     public String[] findRelativeRanks(int[] score) {
-        Comparator<Pair> pairComparator = Comparator.comparingInt(pair -> pair.first);
-
-        PriorityQueue<Pair> pq = new PriorityQueue<>(pairComparator.reversed());
+        PriorityQueue<Pair<Integer, Integer>> pq = new PriorityQueue<>((a, b) -> b.getKey() - a.getKey());
         
         for(int i = 0; i < score.length; i++){
-            pq.offer(new Pair(score[i], i));
+            pq.offer(new Pair<>(score[i], i));
         }
         
         String[] res = new String[score.length];
@@ -13,33 +11,23 @@ class Solution {
         int i = 1;
         
         while(!pq.isEmpty()){
-            Pair pair = pq.poll();
+            Pair<Integer, Integer> pair = pq.poll();
             
             if(i == 1)
-                res[pair.second] = "Gold Medal";
+                res[pair.getValue()] = "Gold Medal";
             
             else if(i == 2)
-                res[pair.second] = "Silver Medal";
+                res[pair.getValue()] = "Silver Medal";
             
             else if(i == 3)
-                res[pair.second] = "Bronze Medal";
+                res[pair.getValue()] = "Bronze Medal";
             
             else
-                res[pair.second] = String.valueOf(i);
+                res[pair.getValue()] = String.valueOf(i);
             
             ++i;
         }
         
         return res;
-    }
-}
-
-class Pair{
-    int first;
-    int second;
-    
-    public Pair(int first, int second) {
-        this.first = first;
-        this.second = second;
     }
 }
