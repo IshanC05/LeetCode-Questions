@@ -30,16 +30,10 @@ class Solution {
         
         int sum = 0;
         
-        for(int i = 0; i < m; i++){ 
-            int smallRes = 0;
-            
+        for(int i = 0; i < m; i++){            
             for(int j = n - 1; j >= 0; j--){
-                int a = 2;
-                int b = n - 1 - j;
-                smallRes += (Math.pow(a, b) * grid[i][j]);
+                sum = sum + (grid[i][j] << (n - 1 - j));
             }
-            
-            sum += smallRes;
         }
         
         return sum;
