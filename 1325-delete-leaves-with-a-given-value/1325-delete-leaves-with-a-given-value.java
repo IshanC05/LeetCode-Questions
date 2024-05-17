@@ -21,9 +21,6 @@ class Solution {
         if(root.right != null)
             root.right = removeLeafNodes(root.right, target);
         
-        if(root.left == null && root.right == null && root.val == target)
-            return null;
-        
-        return root;
+        return root.left == null && root.right == null && root.val == target ? null : root;
     }
 }
