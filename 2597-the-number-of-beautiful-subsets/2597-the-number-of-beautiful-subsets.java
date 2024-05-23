@@ -3,7 +3,7 @@ class Solution {
     
     private void helper(int[] nums, int i, int k, Set<Integer> set){
         if(i == nums.length){
-            if(set.size() > 0)     ++res;
+            if(!set.isEmpty())     ++res;
             return;
         }
         
